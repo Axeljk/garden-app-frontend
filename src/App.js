@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
+import LandingPage from './pages/LandingPage'
+import NavBar from './components/NavBar'
+import AboutUs from './components/AboutUs'
+import ImageCard from './components/ImageCard'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// const classes = {
+//   root: {
+//       minHeight: '100vh',
+//       backgroundImage: 'none',
+//       backgroundRepeate: 'no-repeat',
+//       backgroundSize: 'cover'
+//   }
+// }
+
+const App = () => (
+  <Router>
+      <NavBar />
+      <AboutUs />
+      <Routes>
+        <Route path='/' element={<LandingPage/>}/>
+        {/* <Route path='/layouts' element={<Layouts/>}/> */}
+        {/* <Route path='/calendar' element={<Calendar/>}/> */}
+        {/* <Route path='/settings' element={<Settings/>}/> */}
+        {/* <Route path='/searchmyplants' element:{<SearchMyPlants/>}/> */}
+        {/* <Route path='/search' element={<SearchAll/>}/> */}
+      </Routes>
+    {/* </NavBar> */}
+  </Router>
+  
+)
 
 export default App;
