@@ -1,10 +1,15 @@
+
+
+
+
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
 import AboutUs from './components/AboutUs'
-import ImageCard from './components/ImageCard'
+//import ImageCard from './components/ImageCard'
+import Layout from "./pages/Layout";
 
 // const classes = {
 //   root: {
@@ -21,6 +26,7 @@ const App = () => (
       <AboutUs />
       <Routes>
         <Route path='/' element={<LandingPage/>}/>
+        <Route path='/layout' element={<Layout/>}/>
         {/* <Route path='/layouts' element={<Layouts/>}/> */}
         {/* <Route path='/calendar' element={<Calendar/>}/> */}
         {/* <Route path='/settings' element={<Settings/>}/> */}
@@ -31,5 +37,6 @@ const App = () => (
   </Router>
   
 )
+
 
 export default App;
