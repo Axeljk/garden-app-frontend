@@ -1,0 +1,21 @@
+.appbar {
+    background: transparent;
+}
+
+.appbarTitle {
+    color: white;
+    font-size: 3rem;
+    flex-grow: 1;
+    font-family: 'Satisfy', cursive;
+}
+
+.icon {
+    color: white;
+    font-size: 3rem;
+}
+
+.welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
