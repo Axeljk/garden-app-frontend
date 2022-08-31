@@ -1,0 +1,28 @@
+
+body{
+  background-color: rgb(38, 66, 73);
+}
+
+.garden{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top:20px;
+}
+.garden h2 {
+  margin-top:0;
+}
+.grden span{
+  color:white;
+  font-size:2rem;
+}
+input{
+  width: 300px;
+  height:40px;
+  border-radius: 10px;
+  padding-left:10px;
+  font-size:1.1rem;
+  border:none;
+  outline: none;
+}
