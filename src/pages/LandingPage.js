@@ -1,7 +1,7 @@
 import React from 'react'
 import './LandingPage.css';
 import background from '../assets/pexels-gary-barnes-6231990.jpg'
-import Ticker from 'react-ticker'
+// import Ticker from 'react-ticker'
 
 function LandingPage() {
   return (
@@ -15,11 +15,10 @@ function LandingPage() {
             width: '100w',
             height: '100vh'
         }}>
-        {/* <Ticker>
+        {/* <Ticker offset='run-in' speed={10} mode='smooth'>
             {({ index }) => (
             <>
                 <h3>This is the ticker for element #{index}!</h3>
-                <img src='src\assets\pexels-huy-phan-2987081.jpg' />
             </>
             )}
         </Ticker> */}
