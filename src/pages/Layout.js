@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import '../components/style/layout.css'
+import '../components/style/Layout.css'
 
 
 const Layout = () => {
@@ -58,7 +58,7 @@ const Layout = () => {
         <input type="number" placeholder='Enter the Dimension' onChange={(e)=>setDimensiony(e.target.value)} />
       </div>
 
-      <section style={gardenLayout}>
+      <section style={gardenLayout} >
         {garden}
       </section>
 
