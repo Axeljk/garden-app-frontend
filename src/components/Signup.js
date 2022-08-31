@@ -9,13 +9,15 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 
-export default function Login(props) {
+export default function Signup(props) {
 	return (
 		<div className="heroContainer" sx={{}}>
 			<Card variant="outlined" sx={{width:350, boxShadow: 8}}>
 				<CardContent>
-					<Typography align="center" variant="h4" sx={{mb: 1}}>Log in</Typography>
+					<Typography align="center" variant="h4" sx={{mb: 1}}>Sign up</Typography>
+					<Typography align="center" variant="subtitle1" sx={{mb: 1}}>Sign up to begin planning your garden.</Typography>
 					<form onSubmit={props.handleSignup} autoComplete="on">
+						<TextField required id="outlined-required" label="Username" fullWidth margin="dense" size="small" name="username" />
 						<TextField required id="outlined-required" label="Email" fullWidth margin="dense" size="small" name="email" />
 						<TextField required id="outlined-required" type="password" fullWidth label="Password" margin="dense" size="small" sx={{mb:2}} name="password" />
 						<div className="cardAction">
@@ -27,8 +29,8 @@ export default function Login(props) {
 			</Card>
 			<Card variant="outlined" sx={{width:350, boxShadow: 8}}>
 				<CardActions className="signupContainer">
-					<Typography>Don't have an account?&nbsp;</Typography>
-					<Link href="/signup" key="signup" underline="hover" sx={{fontWeight: "bold"}}>Sign up</Link>
+					<Typography>Already have an account?&nbsp;</Typography>
+					<Link href="/login" key="login" underline="hover" sx={{fontWeight: "bold"}}>Log in</Link>
 				</CardActions>
 			</Card>
 		</div>

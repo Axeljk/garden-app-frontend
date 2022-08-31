@@ -8,6 +8,7 @@ import Settings from './pages/Settings'
 import About from './pages/About'
 // import ImageCard from './components/ImageCard'
 import Login from './components/Login'
+import Signup from "./components/Signup";
 import API from './utils/API';
 
 function App() {
@@ -91,6 +92,7 @@ function App() {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login userId={user.id} handleLogin={submitLoginHandle} handleSignup={submitSignupHandle} />} />
+			<Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
             {/* <Route path='/layouts' element={<Layouts/>}/> */}
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/settings' element={<Settings/>}/>
