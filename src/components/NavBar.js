@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link,useNavigate } from 'react-router-dom'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -17,10 +18,16 @@ import Typography from '@mui/material/Typography'
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
 import './NavBar.css'
 
-const pages = ['Login', 'About'];
-const settings = ['Layouts', 'Calendar', 'Account Settings']
+const pages = ['Login/Signup', 'About'];
 
-const NavBar = () => {
+export default function NavBar(props) {
+
+    const navigate = useNavigate();
+    const logMeOut = () => {
+        props.logout();
+        navigate('/')
+    }
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -83,15 +90,20 @@ const NavBar = () => {
                     </Box>
                     {/* Login & About buttons */}
                     <Box sx={{ width: '50%', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
+                        <Link to='/login'><Button
+                                key='login'
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))}
+                        >
+                        Login/Signup
+                        </Button></Link>
+                        <Link to='/about'><Button
+                        key='about'
+                        onClick={handleCloseNavMenu}
+                        sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                        About
+                        </Button></Link>
                     </Box>
                     {/* Logo Header */}
                     <Typography
@@ -102,6 +114,7 @@ const NavBar = () => {
                         sx={{
                             mr: 2,
                             display: { xs: 'flex', md: 'flex' },
+                            overflow: 'visible',
                             fontFamily: 'Satisfy',
                             fontWeight: 700,
                             fontSize: { xs: '2rem', md: '3rem'},
@@ -114,11 +127,13 @@ const NavBar = () => {
                     {/* Avatar & Account dropdown */}
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Tool Shed">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg">
-                                    <HomeRepairServiceIcon/>
-                                </Avatar>
-                            </IconButton>
+                            {/* <Link to={`/users/$props.userId}`}> */}
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                    <Avatar alt="user" src="/static/images/avatar/2.jpg">
+                                        <HomeRepairServiceIcon/>
+                                    </Avatar>
+                                </IconButton>
+                            {/* </Link> */}
                         </Tooltip>
                         <Menu
                             sx={{ mt: '45px' }}
@@ -136,11 +151,16 @@ const NavBar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleCloseUserMenu}></MenuItem>
+                            <MenuItem component={Link} to='/layouts'>Layouts</MenuItem>
+                            <MenuItem component={Link} to='/calendar'>Calendar</MenuItem>
+                            <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
+
+                            {/* {settings.map((setting) => (
+                                
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
-                            ))}
+                            ))} */}
                         </Menu>
                     </Box>
 
@@ -150,4 +170,3 @@ const NavBar = () => {
     )
 }
 
-export default NavBar;
