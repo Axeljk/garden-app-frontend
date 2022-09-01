@@ -1,7 +1,3 @@
-
-
-
-
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
@@ -27,6 +23,7 @@ const App = () => (
       <Routes>
         <Route path='/' element={<LandingPage/>}/>
         <Route path='/layout' element={<Layout/>}/>
+      
         {/* <Route path='/layouts' element={<Layouts/>}/> */}
         {/* <Route path='/calendar' element={<Calendar/>}/> */}
         {/* <Route path='/settings' element={<Settings/>}/> */}
