@@ -34,6 +34,19 @@ const API = {
                 'Content-Type':'application/json'
             }
         })
+    },
+    saveNewLayout:(token,name,garden) => {
+        return fetch(`${URL_PREFIX}/layout/`,{
+            method: 'POST',
+            body:JSON.stringify({
+                // name,
+                garden
+            }),
+            headers: {
+                'Content-Type':'application/json',
+                Authorization:`Bearer ${token}`
+            }
+        })
     }
 }
 

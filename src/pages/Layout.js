@@ -4,11 +4,12 @@ import './Layout.css'
 import { Grid } from '@mui/material';
 import veggie from '../assets/Plants/Tomato_je.jpg'
 import soil1 from '../assets/Plants/soil1.jpg'
-
+import Button from '@mui/material/Button'
+import API from '../utils/API'
 
 
 //Layout defiing the dimensions ganden landscape with display properties
-const Layout = () => {
+const Layout = (props) => {
   const [dimensionx, setDimensionx] = useState(0);
   const [dimensiony, setDimensiony] = useState(0);
   const [garden, setGarden] = useState([]);
@@ -35,6 +36,12 @@ const Layout = () => {
     boxShadow:`0px 10px 10px rgba(0,0,0,0.1)`
   }
 
+  const saveLayout = e => {
+    e.preventDefault();
+    API.saveNewLayout(props.token,garden).then(res=>res.json()).then(data=>{
+      console.log(data);
+    })
+  }
 
   //Creating the actual layout with the user inputs
   const makeGardenLayout = ()=>{
@@ -90,6 +97,10 @@ const Layout = () => {
   return (
 <Grid container spacing={3}>
 {/* Section of plant images to initiate drag-and-drop */}
+  <form>
+    <input placeholder='name your garden layout'></input>
+    <Button variant="contained">Save Layout</Button>
+  </form>
 <Grid item xs={6}>
     <>Images section
     <img 
