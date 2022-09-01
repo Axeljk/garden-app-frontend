@@ -152,7 +152,7 @@ export default function NavBar(props) {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem onClick={handleCloseUserMenu}></MenuItem>
-                            <MenuItem component={Link} to='/layouts'>Layouts</MenuItem>
+                            <MenuItem component={Link} to='/layout'>Layouts</MenuItem>
                             <MenuItem component={Link} to='/calendar'>Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
 
