@@ -3,7 +3,7 @@ import ImageCard from './ImageCard'
 import cardInfo from '../static/cardInfo'
 import useWindowPosition from '../hook/useWindowPosition'
 import Box from '@mui/material/Box'
-import './style/CardSpace.css'
+import '../pages/CardSpace.css'
 
 export default function CardSpace() {
     const checked = useWindowPosition('header');

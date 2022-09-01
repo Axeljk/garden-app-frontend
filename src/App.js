@@ -3,12 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
-import AboutUs from './components/AboutUs'
+import About from './pages/About'
 import Layout from "./pages/Layout";
 import Gardenlanding from "./pages/Gardenlanding";
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
-import About from './pages/About'
 // import ImageCard from './components/ImageCard'
 import Login from './components/Login'
 import Signup from "./components/Signup";
@@ -101,7 +100,7 @@ useEffect(() => {
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
 			<Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
-            {/* <Route path='/layouts' element={<Layouts/>}/> */}
+            <Route path='/layouts' element={<Layout/>}/>
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/settings' element={<Settings/>}/>
             {/* <Route path='/searchmyplants' element:{<SearchMyPlants/>}/> */}
