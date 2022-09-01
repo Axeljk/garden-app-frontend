@@ -11,13 +11,14 @@ import "./login.css";
 export default function Signup(props) {
 	const [error, setError] = React.useState("");
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault();
-		const response = props.handleSignup(event.target[0].value, event.target[2].value, event.target[4].value);
-		console.log(response);
+		const results = await props.handleSignup(event.target[0].value, event.target[2].value, event.target[4].value);
 
-		if (response?.message)
-			setError(response.message);
+		if (results.profile)
+			window.location.replace("/");
+		else
+			setError(results.message);
 	}
 
 	return (
