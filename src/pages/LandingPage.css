@@ -1,3 +1,27 @@
-/* .background {
-    background-image: url("../assets/pexels-gary-barnes-6231990.jpg")
-} */
+:root {
+    --accentPurple: #8533ff;
+    --accentBlue: #33b3ff;
+}
+
+.container {
+    text-align: center;
+}
+
+.pageTitle {
+    font-family: 'Satisfy', cursive;
+    text-align: center;
+    font-size: 5rem;
+    padding-top: 10%;
+    color: var(--accentBlue);
+    text-shadow: 2px 2px black;
+}
+
+.downArrow {
+    justify-content:center;
+    color: var(--accentBlue);
+    text-shadow: 2px 2px black;
+}
+
+.imageCard {
+    box-shadow: 2px 2px var(--accentBlue);
+}

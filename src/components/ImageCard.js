@@ -5,11 +5,13 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import Collapse from '@mui/material/Collapse'
 
 const classes = {
     root: {
         maxWidth: 650,
-        background: 'rgba(0,0,0,0.5)'
+        background: 'rgba(0,0,0,0.7)',
+        color: 'white',
     },
     media: {
         height: 450
@@ -19,34 +21,45 @@ const classes = {
         fontSize: '2rem',
         fontWeight: 'bold'
     },
-    description: {
+    desc: {
         fontFamily: 'Halant',
-        fontSize: '1rem'
+        fontSize: '1rem',
+        color: 'white'
     }
 }
 
-export default function ImageCard({ about,usage }) {
+export default function ImageCard({ info,checked }) {
     return (
-        <Card style={classes.root}>
-            <CardMedia
-                component="img"
-                height="140"
-                image={about.imageUrl}
-                alt="green iguana"
-                style={classes.media}
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div" style={classes.title}>
-                    {about.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" style={classes.description}>
-                    {about.desc} 
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-            </CardActions>
-        </Card>
+        <Collapse in={checked} {...(checked ? {timeout:1000} : {})}>
+            <Card sx={{
+                maxWidth: '650px',
+                background: 'rgba(0,0,0,0.7)',
+                color: 'white',
+                border: 2,
+                borderColor: '#33b3ff',
+                boxShadow: 2,
+            }}>
+                <CardMedia
+                    component="img"
+                    height="140"
+                    image={info.imageUrl}
+                    alt="green iguana"
+                    style={classes.media}
+                    elevation={1}
+                    />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div" style={classes.title}>
+                        {info.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" style={classes.desc}>
+                        {info.description} 
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button size="small">{info.link1}</Button>
+                    <Button size="small">{info.link2}</Button>
+                </CardActions>
+            </Card>
+        </Collapse>
     )
 }
