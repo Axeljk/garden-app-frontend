@@ -5,17 +5,17 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
-import Menu from '@mui/material/Menu';
-import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu'
+import InputBase from '@mui/material/InputBase'
+import MenuIcon from '@mui/icons-material/Menu'
+import SearchIcon from '@mui/icons-material/Search'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
-import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
+import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService'
 import './NavBar.css'
 
 const pages = ['Login/Signup', 'About'];
@@ -26,7 +26,7 @@ export default function NavBar(props) {
     const logMeOut = () => {
         props.logout();
         navigate('/')
-    }
+    };
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -48,7 +48,7 @@ export default function NavBar(props) {
     };
 
     return (
-        <AppBar position='static' style={{ backgroundColor: '#8533ff' }} elevation={1}>
+        <AppBar position='static' style={{ backgroundColor: '#8533ff' }} elevation={1} id='header'>
             <Container maxWidth='x1'>
                 <Toolbar disableGutters>
                     {/* Collapses size on mobile to side-nav */}
@@ -90,14 +90,14 @@ export default function NavBar(props) {
                     </Box>
                     {/* Login & About buttons */}
                     <Box sx={{ width: '50%', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        <Link to='/login'><Button
+                        <Link to='/login' style={{textDecoration:'none'}}><Button
                                 key='login'
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                         Login/Signup
                         </Button></Link>
-                        <Link to='/about'><Button
+                        <Link to='/about' style={{textDecoration:'none'}}><Button
                         key='about'
                         onClick={handleCloseNavMenu}
                         sx={{ my: 2, color: 'white', display: 'block' }}
@@ -122,7 +122,7 @@ export default function NavBar(props) {
                             textDecoration: 'none'
                         }}
                     >
-                        My Garden Planner
+                        Peas By Spring
                     </Typography>
                     {/* Avatar & Account dropdown */}
                     <Box sx={{ flexGrow: 0 }}>
