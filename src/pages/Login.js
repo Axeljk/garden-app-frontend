@@ -1,5 +1,3 @@
-import AuthForm from './AuthForm'
-import { useNavigate } from 'react-router-dom'
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,7 +6,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import { Navigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login(props) {
