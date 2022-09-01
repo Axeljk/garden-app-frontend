@@ -6,6 +6,7 @@ import NavBar from './components/NavBar'
 import AboutUs from './components/AboutUs'
 //import ImageCard from './components/ImageCard'
 import Layout from "./pages/Layout";
+import Gardenlanding from "./pages/Gardenlanding";
 
 // const classes = {
 //   root: {
@@ -23,8 +24,7 @@ const App = () => (
       <Routes>
         <Route path='/' element={<LandingPage/>}/>
         <Route path='/layout' element={<Layout/>}/>
-      
-        {/* <Route path='/layouts' element={<Layouts/>}/> */}
+        <Route path='/Gardenlanding' element={<Gardenlanding/>}/> 
         {/* <Route path='/calendar' element={<Calendar/>}/> */}
         {/* <Route path='/settings' element={<Settings/>}/> */}
         {/* <Route path='/searchmyplants' element:{<SearchMyPlants/>}/> */}

@@ -2,13 +2,9 @@ import React, {useState, useEffect} from 'react'
 //CSS for Garden Layout
 import './Layout.css'
 import { Grid } from '@mui/material';
-import reactRuler from 'react-ruler'
 import veggie from '../assets/Plants/Tomato_je.jpg'
 import soil1 from '../assets/Plants/soil1.jpg'
-import soil2 from '../assets/Plants/soil2.jpg'
 
-//Ruler for the garden landscape
-const Ruler = reactRuler(React)
 
 
 //Layout defiing the dimensions ganden landscape with display properties
@@ -16,6 +12,10 @@ const Layout = () => {
   const [dimensionx, setDimensionx] = useState(0);
   const [dimensiony, setDimensiony] = useState(0);
   const [garden, setGarden] = useState([]);
+
+  const[squareBeingDragged,setSquareBeingDragged] = useState(null);
+  const[squareBeingReplaced,setSquareBeingReplaced] = useState(null);
+  const[soilImg,setSoilImg] = useState(soil1);
 
   const box1 = {
     width:"100px",
@@ -44,9 +44,21 @@ const Layout = () => {
       let temp = [];
       for (let j=0;j<dimensiony;j++){
         if ((i+j)%2)
-          temp.push(<img style={box1} key={i} src={soil1}></img>);
+          temp.push(<img style={box1} key={i+j} src={soilImg}  data-id={i+j} draggable={true}
+            onDragStart={dragStart}
+            onDragOver={(e)=> e.preventDefault()}
+            onDragEnter={(e)=> e.preventDefault()}
+            onDragLeave={(e)=> e.preventDefault()}
+            onDrop={dragDrop}
+            onDragEnd={dragEnd}></img>);
         else  
-          temp.push(<img style={box2} key={i} src={soil1}></img>)
+          temp.push(<img style={box2} key={i+j} src={soilImg} data-id={i+j}  draggable={true}
+            onDragStart={dragStart}
+            onDragOver={(e)=> e.preventDefault()}
+            onDragEnter={(e)=> e.preventDefault()}
+            onDragLeave={(e)=> e.preventDefault()}
+            onDrop={dragDrop}
+            onDragEnd={dragEnd}></img>)
       }
       arr.push(temp);
     }
@@ -59,40 +71,30 @@ const Layout = () => {
     makeGardenLayout();
   },[dimensionx,dimensiony])
 
-  const dragStart = () =>{
+  const dragStart = (e) =>{
     console.log("drag Start ");
+    console.log(e.target);
+    setSquareBeingDragged(e.target)
   }
 
-  const dragDrop = () =>{
+  const dragDrop = (e) =>{
     console.log("drag Drop");
+    setSquareBeingReplaced(e.target)
   }
   
-  const dragEnd = () =>{
+  const dragEnd = (e) =>{
     console.log("drag End ");
+    const squareBeingDraggedId = parseInt(squareBeingDragged.getAttribute('data-id'))
+    const squareBeingReplacedId = parseInt(squareBeingReplaced.getAttribute('data-id'))
+
+    setSoilImg(squareBeingDragged.src);
+    console.log("square being dragged", squareBeingDraggedId)
+    console.log("square being replaced", squareBeingReplacedId)
   }
 
   return (
 <Grid container spacing={3}>
-  <Grid item xs="auto" className='garden-layout'>
-    <>
-        <div className='app'>
-          <div className='board'>
-          <span>N x N Garden Layout</span>
-        <input type="number" placeholder='Enter the Dimension' onChange={(e)=> setDimensionx(e.target.value<20 ? e.target.value : 20)} />
-        <input type="number" placeholder='Enter the Dimension' onChange={(e)=>setDimensiony(e.target.value)} />
-          <section style={gardenLayout} >
-        {garden}
-        <Ruler orientation="horizontal" segments={20} segmentLength={50} />
-      <Ruler orientation="vertical" segments={20} segmentLength={50}   />
-      </section>
-
-          </div>
-
-        </div>
-        
-        </>
-  </Grid>
-  <Grid item xs={6}>
+<Grid item xs={6}>
     <>Images section
     <img 
     key='1'
@@ -105,6 +107,24 @@ const Layout = () => {
     onDrop={dragDrop}
     onDragEnd={dragEnd}
     /></>
+  </Grid>
+  
+  <Grid item xs="auto" className='garden-layout'>
+    <>
+        <div className='app'>
+          <div className='board'>
+          <span>N x N Garden Layout</span>
+        <input type="number" placeholder='Enter the Dimension' onChange={(e)=> setDimensionx(e.target.value<20 ? e.target.value : 20)} />
+        <input type="number" placeholder='Enter the Dimension' onChange={(e)=>setDimensiony(e.target.value)} />
+          <section style={gardenLayout} >
+        {garden}
+      </section>
+
+          </div>
+
+        </div>
+        
+        </>
   </Grid>
   
 </Grid>
