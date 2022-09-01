@@ -9,8 +9,8 @@ import Gardenlanding from "./pages/Gardenlanding";
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
 // import ImageCard from './components/ImageCard'
-import Login from './components/Login'
-import Signup from "./components/Signup";
+import Login from './pages/Login'
+import Signup from "./pages/Signup";
 import API from './utils/API';
 
 function App() {
