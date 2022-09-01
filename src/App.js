@@ -5,7 +5,7 @@ import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
 //import AboutUs from './components/AboutUs'
 //import ImageCard from './components/ImageCard'
-import Layout from "./pages/Layout";
+import Layoutak from "./pages/Layoutak";
 import Gardenlanding from "./pages/Gardenlanding";
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
@@ -102,9 +102,10 @@ useEffect(() => {
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
 			<Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
-            {/* <Route path='/layouts' element={<Layouts/>}/> */}
+            <Route path='/layout' element={<Layoutak/>}/> 
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/settings' element={<Settings/>}/>
+            <Route path='/Gardenlanding' element={<Gardenlanding/>}/>
             {/* <Route path='/searchmyplants' element:{<SearchMyPlants/>}/> */}
             {/* <Route path='/search' element={<SearchAll/>}/> */}
             <Route path='/about' element={<About/>}/>

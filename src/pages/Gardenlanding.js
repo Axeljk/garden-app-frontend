@@ -5,32 +5,36 @@ import { Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import { margin } from '@mui/system';
+
+import Button from '@mui/material/Button';
 import small from '../assets/Plants/small.png'
 import large from '../assets/Plants/large.png'
 import medium from '../assets/Plants/medium.png'
 import custom from '../assets/Plants/custom.png'
-
+import videobg from '../assets/Plants/videoplayback.mp4'
+import './Layout.css'
 
 
 
 
 export default function SimplePaper() {
   return (
+    
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Box sx={{ height: "100vh", margin: "30px" }}>
-          <div>
+      <div className='main'>
+        <video src={videobg} autoPlay loop muted />
+       
+       <div className='content'>
+          <div className='heading'>
             <h1>Create your first Garden Plan </h1>
-            <h3>
-              Plans can contain several beds, containers and other objects -
+            <h3 className='heading'>
+              Plants can contain several beds, containers and other objects -
               it's an area in the garden you are planning, like a piece of paper
               you are drawing on. You can resize it and create plans for other
               areas later if needed.
             </h3>
           </div>
-
           <Box
             sx={{
               display: "flex",
@@ -48,7 +52,10 @@ export default function SimplePaper() {
                   <h1>Small</h1>
                   <h4>12' x 12'</h4>
                   <h4>(3.6m x 3.6m)</h4>
-                  <img src={small} />
+                  <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
+      <Button>Continue</Button>
+    </Box>
+
                 </Stack>
               </Typography>
             </Paper>
@@ -83,8 +90,9 @@ export default function SimplePaper() {
               </Typography>
             </Paper>
             </Box>
-        </Box>
-      </Container>
+     
+    </div>
+    </div>
     </React.Fragment>
   );
 }
