@@ -1,18 +1,11 @@
-<<<<<<< HEAD
-import React from 'react'
-=======
 import React, { useEffect, useState } from 'react'
->>>>>>> dev
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
-<<<<<<< HEAD
 import AboutUs from './components/AboutUs'
-//import ImageCard from './components/ImageCard'
 import Layout from "./pages/Layout";
 import Gardenlanding from "./pages/Gardenlanding";
-=======
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
 import About from './pages/About'
@@ -20,7 +13,6 @@ import About from './pages/About'
 import Login from './components/Login'
 import Signup from "./components/Signup";
 import API from './utils/API';
->>>>>>> dev
 
 function App() {
   const [user, setUser] = useState({
@@ -28,23 +20,7 @@ function App() {
   email: ''
   })
 
-<<<<<<< HEAD
-const App = () => (
-  <Router>
-      <NavBar />
-      <AboutUs />
-      <Routes>
-        <Route path='/' element={<LandingPage/>}/>
-        <Route path='/layout' element={<Layout/>}/>
-        <Route path='/Gardenlanding' element={<Gardenlanding/>}/> 
-        {/* <Route path='/calendar' element={<Calendar/>}/> */}
-        {/* <Route path='/settings' element={<Settings/>}/> */}
-        {/* <Route path='/searchmyplants' element:{<SearchMyPlants/>}/> */}
-        {/* <Route path='/search' element={<SearchAll/>}/> */}
-      </Routes>
-    {/* </NavBar> */}
-=======
-  const [token, setToken] = useState('')
+const [token, setToken] = useState('')
 
 useEffect(() => {
 	const storedToken = localStorage.getItem("token");
@@ -133,7 +109,6 @@ useEffect(() => {
             <Route path='/about' element={<About/>}/>
             <Route path='*' element={<h1>404 page not found</h1>} />
           </Routes>
->>>>>>> dev
   </Router>
   );
 }
