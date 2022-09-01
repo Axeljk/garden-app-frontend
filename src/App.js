@@ -43,7 +43,7 @@ useEffect(() => {
 }, [])
 
   const submitLoginHandle = (username, email, password) => {
-    API.login(username, email, password).then(res => {
+    return API.login(username, email, password).then(res => {
       if (!res.ok) {
         setUser({ id: 0, username: "", email: "" });
         setToken("")
@@ -64,7 +64,7 @@ useEffect(() => {
   }
 
   const submitSignupHandle = (username, email, password) => {
-    API.signup(username, email, password).then(res => {
+    return API.signup(username, email, password).then(res => {
       if (!res.ok) {
         setUser({ id: 0, username: "", email: "" });
         setToken("")
