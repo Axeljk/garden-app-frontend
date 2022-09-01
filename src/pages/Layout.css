@@ -1,7 +1,5 @@
 
-body{
-  background-color: rgb(38, 66, 73);
-}
+
 
 .garden{
   display: flex;
@@ -16,6 +14,8 @@ body{
 .grden span{
   color:white;
   font-size:2rem;
+  overflow-y: scroll
+  
 }
 input{
   width: 300px;
@@ -25,4 +25,29 @@ input{
   font-size:1.1rem;
   border:none;
   outline: none;
+}
+
+Ruler{
+  margin: 200px;
+}
+
+.garden-layout{
+  margin: 300px;
+}
+
+.app{
+  display: flex;
+  padding: 30px;
+}
+
+.game{
+  width: 560px;
+  height: 560px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game img {
+  width:70px;
+  height: 70px;
 }

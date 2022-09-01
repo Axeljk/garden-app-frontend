@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
+import AboutUs from './components/AboutUs'
+import Layout from "./pages/Layout";
+import Gardenlanding from "./pages/Gardenlanding";
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
 import About from './pages/About'
@@ -17,7 +20,7 @@ function App() {
   email: ''
   })
 
-  const [token, setToken] = useState('')
+const [token, setToken] = useState('')
 
 useEffect(() => {
 	const storedToken = localStorage.getItem("token");
