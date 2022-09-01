@@ -23,11 +23,6 @@ const Layout = (props) => {
     height:"100px",
     
   }
-  const box2 = {
-    width:"100px",
-    height:"100px",
-   
-  }
   const gardenLayout = {
     width:100*dimensionx,
     display:'flex',
@@ -46,34 +41,25 @@ const Layout = (props) => {
   //Creating the actual layout with the user inputs
   const makeGardenLayout = ()=>{
     let arr = [];
-
+    let id=1;
     for (let i=0;i<dimensionx;i++){
       let temp = [];
       for (let j=0;j<dimensiony;j++){
-        if ((i+j)%2)
-          temp.push(<img style={box1} key={i+j} src={soilImg}  data-id={i+j} draggable={true}
+          temp.push(<img style={box1} key={id} src={soilImg}  data-id={id} draggable={true}
             onDragStart={dragStart}
             onDragOver={(e)=> e.preventDefault()}
             onDragEnter={(e)=> e.preventDefault()}
             onDragLeave={(e)=> e.preventDefault()}
             onDrop={dragDrop}
             onDragEnd={dragEnd}></img>);
-        else  
-          temp.push(<img style={box2} key={i+j} src={soilImg} data-id={i+j}  draggable={true}
-            onDragStart={dragStart}
-            onDragOver={(e)=> e.preventDefault()}
-            onDragEnter={(e)=> e.preventDefault()}
-            onDragLeave={(e)=> e.preventDefault()}
-            onDrop={dragDrop}
-            onDragEnd={dragEnd}></img>)
+            id++;
       }
       arr.push(temp);
     }
-
     setGarden(arr);
   }
 
-  
+
   useEffect(()=>{
     makeGardenLayout();
   },[dimensionx,dimensiony])
@@ -91,6 +77,7 @@ const Layout = (props) => {
   
   const dragEnd = (e) =>{
     console.log("drag End ");
+
     squareBeingReplaced.src = squareBeingDragged.src;
   }
 
@@ -104,8 +91,8 @@ const Layout = (props) => {
 <Grid item xs={6}>
     <>Images section
     <img 
-    key='1'
-    src= {veggie}  data-id='1'
+    key='19'
+    src= {veggie}  data-id='19'
     draggable={true}
     onDragStart={dragStart}
     onDragOver={(e)=> e.preventDefault()}
@@ -121,9 +108,14 @@ const Layout = (props) => {
         <div className='app'>
           <div className='board'>
           <span>N x N Garden Layout</span>
-        <input type="number" placeholder='Enter the Dimension' onChange={(e)=> setDimensionx(e.target.value<20 ? e.target.value : 20)} />
+        <input type="number" placeholder='Enter the Dimension' onChange={(e)=> setDimensionx(e.target.value)} />
         <input type="number" placeholder='Enter the Dimension' onChange={(e)=>setDimensiony(e.target.value)} />
-          <section style={gardenLayout} >
+          <section style={gardenLayout}  onDragStart={dragStart}
+    onDragOver={(e)=> e.preventDefault()}
+    onDragEnter={(e)=> e.preventDefault()}
+    onDragLeave={(e)=> e.preventDefault()}
+    onDrop={dragDrop}
+    onDragEnd={dragEnd}>
         {garden}
       </section>
 
