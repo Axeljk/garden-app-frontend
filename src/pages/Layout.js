@@ -84,16 +84,12 @@ const Layout = () => {
   
   const dragEnd = (e) =>{
     console.log("drag End ");
-    const squareBeingDraggedId = parseInt(squareBeingDragged.getAttribute('data-id'))
-    const squareBeingReplacedId = parseInt(squareBeingReplaced.getAttribute('data-id'))
-
-    setSoilImg(squareBeingDragged.src);
-    console.log("square being dragged", squareBeingDraggedId)
-    console.log("square being replaced", squareBeingReplacedId)
+    squareBeingReplaced.src = squareBeingDragged.src;
   }
 
   return (
 <Grid container spacing={3}>
+{/* Section of plant images to initiate drag-and-drop */}
 <Grid item xs={6}>
     <>Images section
     <img 
@@ -108,7 +104,7 @@ const Layout = () => {
     onDragEnd={dragEnd}
     /></>
   </Grid>
-  
+  {/* Grid for garden layout */}
   <Grid item xs="auto" className='garden-layout'>
     <>
         <div className='app'>

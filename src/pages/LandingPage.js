@@ -27,7 +27,7 @@ function LandingPage() {
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeate: 'no-repeat',
-            height: '100vh'
+            height: 'auto'
         }}>
       <Ticker offset='run-in' speed={10} mode='smooth'>
         {({ index }) => (
