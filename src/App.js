@@ -3,16 +3,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
-//import AboutUs from './components/AboutUs'
-//import ImageCard from './components/ImageCard'
-import Layoutak from "./pages/Layoutak";
+
+import About from './pages/About'
+import Layout from "./pages/Layout";
 import Gardenlanding from "./pages/Gardenlanding";
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
-import About from './pages/About'
 // import ImageCard from './components/ImageCard'
-import Login from './components/Login'
-import Signup from "./components/Signup";
+import Login from './pages/Login'
+import Signup from "./pages/Signup";
 import API from './utils/API';
 
 function App() {
@@ -21,7 +20,8 @@ function App() {
   email: ''
   })
 
-  const [token, setToken] = useState('')
+
+const [token, setToken] = useState('')
 
 useEffect(() => {
 	const storedToken = localStorage.getItem("token");
@@ -45,7 +45,7 @@ useEffect(() => {
 }, [])
 
   const submitLoginHandle = (username, email, password) => {
-    API.login(username, email, password).then(res => {
+    return API.login(username, email, password).then(res => {
       if (!res.ok) {
         setUser({ id: 0, username: "", email: "" });
         setToken("")
@@ -66,7 +66,7 @@ useEffect(() => {
   }
 
   const submitSignupHandle = (username, email, password) => {
-    API.signup(username, email, password).then(res => {
+    return API.signup(username, email, password).then(res => {
       if (!res.ok) {
         setUser({ id: 0, username: "", email: "" });
         setToken("")
@@ -101,8 +101,10 @@ useEffect(() => {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
-			<Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
-            <Route path='/layout' element={<Layoutak/>}/> 
+
+			      <Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
+            <Route path='/layout' element={<Layout/>}/>
+
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/settings' element={<Settings/>}/>
             <Route path='/Gardenlanding' element={<Gardenlanding/>}/>
@@ -111,7 +113,6 @@ useEffect(() => {
             <Route path='/about' element={<About/>}/>
             <Route path='*' element={<h1>404 page not found</h1>} />
           </Routes>
-
   </Router>
   );
 }

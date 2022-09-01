@@ -1,5 +1,3 @@
-import AuthForm from './AuthForm'
-import { useNavigate } from 'react-router-dom'
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -8,14 +6,19 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import { Navigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login(props) {
-	function handleSubmit(event) {
+	const [error, setError] = React.useState("");
+
+	async function handleSubmit(event) {
 		event.preventDefault();
-		props.handleLogin("You'll never see this.", event.target[0].value, event.target[2].value);
-		(<Navigate to="/" />)
+		const results = await props.handleLogin("You'll never see this.", event.target[0].value, event.target[2].value);
+
+		if (results.token)
+			window.location.replace("/");
+		else
+			setError(results.message);
 	}
 
 	return (
@@ -30,7 +33,7 @@ export default function Login(props) {
 							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
 						</div>
 					</form>
-					<Typography variant="body2" sx={{color: "error.dark", fontWeight: "bold"}}></Typography>
+					<Typography variant="body2" sx={{color: "error.dark", fontWeight: "bold"}}>{error}</Typography>
 				</CardContent>
 			</Card>
 			<Card variant="outlined" sx={{maxWidth:350, width: "100%", boxShadow: 8}}>
