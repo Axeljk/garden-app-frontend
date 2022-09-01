@@ -9,8 +9,8 @@ import Gardenlanding from "./pages/Gardenlanding";
 import Calendar from './pages/Calendar'
 import Settings from './pages/Settings'
 // import ImageCard from './components/ImageCard'
-import Login from './components/Login'
-import Signup from "./components/Signup";
+import Login from './pages/Login'
+import Signup from "./pages/Signup";
 import API from './utils/API';
 
 function App() {
@@ -43,7 +43,7 @@ useEffect(() => {
 }, [])
 
   const submitLoginHandle = (username, email, password) => {
-    API.login(username, email, password).then(res => {
+    return API.login(username, email, password).then(res => {
       if (!res.ok) {
         setUser({ id: 0, username: "", email: "" });
         setToken("")
@@ -64,7 +64,7 @@ useEffect(() => {
   }
 
   const submitSignupHandle = (username, email, password) => {
-    API.signup(username, email, password).then(res => {
+    return API.signup(username, email, password).then(res => {
       if (!res.ok) {
         setUser({ id: 0, username: "", email: "" });
         setToken("")
