@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
+
 import About from './pages/About'
 import Layout from "./pages/Layout";
 import Gardenlanding from "./pages/Gardenlanding";
@@ -18,6 +19,7 @@ function App() {
   id: 0,
   email: ''
   })
+
 
 const [token, setToken] = useState('')
 
@@ -99,10 +101,13 @@ useEffect(() => {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
+
 			      <Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
             <Route path='/layout' element={<Layout/>}/>
+
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/settings' element={<Settings/>}/>
+            <Route path='/Gardenlanding' element={<Gardenlanding/>}/>
             {/* <Route path='/searchmyplants' element:{<SearchMyPlants/>}/> */}
             {/* <Route path='/search' element={<SearchAll/>}/> */}
             <Route path='/about' element={<About/>}/>
