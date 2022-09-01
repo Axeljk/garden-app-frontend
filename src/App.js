@@ -8,6 +8,7 @@ import Settings from './pages/Settings'
 import About from './pages/About'
 // import ImageCard from './components/ImageCard'
 import Login from './components/Login'
+import Signup from "./components/Signup";
 import API from './utils/API';
 
 function App() {
@@ -18,61 +19,66 @@ function App() {
 
   const [token, setToken] = useState('')
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    API.checkToken(storedToken).then(res => {
-      if (!res.ok) {
-        console.log('invalid token')
-        localStorage.removeItem('token')
-      }
-      else {
-        console.log('valid token')
-        res.json().then(data => {
-          setToken(storedToken)
-          setUser({
-            id: data.id,
-            email: data.email
-          })
-        })
-      }
-    })
-  }, [])
+useEffect(() => {
+	const storedToken = localStorage.getItem("token");
 
-  const submitLoginHandle = (email, password) => {
-    API.login(email, password).then(res => {
+	if (storedToken) {
+		API.checkToken(storedToken).then(res => {
+			if (!res.ok) {
+				console.warn("Expired token.");
+				localStorage.removeItem("token");
+			} else {
+				res.json().then(data => {
+					setToken(storedToken);
+					setUser({
+						id: data.id,
+						email: data.email
+					});
+				});
+			}
+		});
+	}
+}, [])
+
+  const submitLoginHandle = (username, email, password) => {
+    API.login(username, email, password).then(res => {
       if (!res.ok) {
-        setUser({ userId: 0, email: '' });
-        setToken('')
-        return;
+        setUser({ id: 0, username: "", email: "" });
+        setToken("")
       }
       return res.json()
     }).then(data => {
-      console.log(data)
-      setUser({
-        id: data.user.id,
-        email: data.user.email
-      })
-      setToken(data.token)
-      localStorage.setItem('token', data.token)
+      if (data?.profile) {
+        setUser({
+          id: data.profile._id,
+          username: data.profile.username,
+          email: data.profile.email
+        })
+        setToken(data.token)
+        localStorage.setItem('token', data.token)
+      }
+      return data;
     })
   }
 
-  const submitSignupHandle = (email, password) => {
-    API.signup(email, password).then(res => {
+  const submitSignupHandle = (username, email, password) => {
+    API.signup(username, email, password).then(res => {
       if (!res.ok) {
-        setUser({ userId: 0, email: '' });
-        setToken('')
-        return;
+        setUser({ id: 0, username: "", email: "" });
+        setToken("")
       }
       return res.json()
     }).then(data => {
-      console.log(data)
-      setUser({
-        id: data.user.id,
-        email: data.user.email
-      })
-      setToken(data.token)
-      localStorage.setItem('token', data.token)
+      if (data?.profile) {
+        setUser({
+          id: data.profile._id,
+          username: data.profile.username,
+          email: data.profile.email
+        })
+        setToken(data.token)
+        localStorage.setItem('token', data.token)
+      }
+      return data;
     })
   }
 
@@ -90,7 +96,8 @@ function App() {
       <NavBar userId={user.id} logout={logoutClick} />
           <Routes>
             <Route path='/' element={<LandingPage />} />
-            <Route path='/login' element={<Login userId={user.id} handleLogin={submitLoginHandle} handleSignup={submitSignupHandle} />} />
+            <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
+			<Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
             {/* <Route path='/layouts' element={<Layouts/>}/> */}
             <Route path='/calendar' element={<Calendar/>}/>
             <Route path='/settings' element={<Settings/>}/>
