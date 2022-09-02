@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import LayoutMenu from "../components/LayoutMenu";
+import LayoutPicker from "../components/LayoutPicker";
 //CSS for Garden Layout
 import './Layout.css'
 import { Grid } from '@mui/material';
@@ -26,7 +28,7 @@ const Layout = (props) => {
   const box1 = {
     width:"100px",
     height:"100px",
-    
+
   }
   const gardenLayout = {
     width:100*dimensionx,
@@ -82,7 +84,7 @@ const Layout = (props) => {
     console.log("drag Drop");
     setSquareBeingReplaced(e.target)
   }
-  
+
   const dragEnd = (e) =>{
     console.log("drag End ");
 
@@ -100,7 +102,7 @@ const Layout = (props) => {
   </Grid> */}
 <Grid item xs={6}>
     <>Images section
-    <img 
+    <img
     key='19'
     src= {veggie}  data-id='19'
     draggable={true}
@@ -132,32 +134,33 @@ const Layout = (props) => {
           </div>
 
         </div>
-        
+
         </>
   </Grid>
-  
+  <LayoutPicker />
+  <LayoutMenu />
 </Grid>
 
 
 /*
     <Container maxWidth="200">
     <div className='garden'>
-      
+
       <div>
         <h2>
-          <span>N x N </span> 
+          <span>N x N </span>
           Garden Layout
         </h2>
         <input type="number" placeholder='Enter the Dimension' onChange={(e)=> setDimensionx(e.target.value<20 ? e.target.value : 20)} />
         <input type="number" placeholder='Enter the Dimension' onChange={(e)=>setDimensiony(e.target.value)} />
       </div>
-     
+
       <section style={gardenLayout} >
         {garden}
         <Ruler orientation="horizontal" segments={20} segmentLength={50} />
       <Ruler orientation="vertical" segments={20} segmentLength={50}   />
       </section>
-     
+
 
     </div>
     </Container>*/
