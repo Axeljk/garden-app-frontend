@@ -23,8 +23,13 @@ import './Layout.css'
 export default function SimplePaper() {
   
     const[usertext,setusertext]=useState();
-    const[layoutDim,setLayoutDim]=useState();
+    const [dimensionx, setDimensionx] = useState(0);
+    const [dimensiony, setDimensiony] = useState(0);
+  
+    const[inputLayoutDim,setInputLayoutDim]=useState();
+    const[buttonid,setButtonid]=useState();
 
+    
     const style = {
         position: 'absolute',
         top: '50%',
@@ -41,45 +46,91 @@ export default function SimplePaper() {
     console.log(e.target.outerText)
     if((e.target.outerText) === 'Select-Custom')
     {
-        setusertext("Custom Layout")
+        setusertext("Custom Layout. Please specify the dimensions(ft)")
         //setLayoutDim()
+        setButtonid(4);
+        let temp = [];
+        temp.push(<input type="number" key="1" placeholder='Enter the Dimension' min={3.3} onChange={(e)=> setDimensionx(e.target.value)} />)
+        temp.push(<input type="number" key="2" placeholder='Enter the Dimension' max={100} min={3.3} onChange={(e)=> setDimensiony(e.target.value)} /> ) 
+        
         console.log(usertext);
+        setInputLayoutDim(temp)
+
+
     } else
     if((e.target.outerText) === 'Select-Small')
     {
         setusertext("Small Layout")
         console.log(usertext);
-        setLayoutDim(4,4);
+       
+        setButtonid(1);
+        setInputLayoutDim(null)
  
     } else
     if((e.target.outerText) === 'Select-Medium')
     {
         setusertext("Medium Layout");
-        setLayoutDim(6,6)
+        
+        setButtonid(2);
+        setInputLayoutDim(null)
+ 
     } else
     if((e.target.outerText) === 'Select-Large')
     {
         setusertext("Large Layout")
-        setLayoutDim(8,8)
-    }
-
-
-
-
-    if((e.target.outerText) === 'Select-Custom')
+        
+        setButtonid(3);
+        setInputLayoutDim(null)
+ 
+    }else
     {
-        console.log("modal")
+        setInputLayoutDim(null)
+ 
     }
+
+
+
+
+  
     };
     const handleClose = () => setOpen(false);
 
 
-    /*const handleClick = (e) => {
-        console.info('You clicked the Chip. ', e.target);
-        
-        handleOpen(e.target);
+    const handleClick = (e) => {
+        console.info('You clicked the button. ', e);
+        console.log(e.target.id)
+        if((e.target.id)== 1)
+        {
+            setDimensionx(4);
+            setDimensiony(4);
+            console.log(dimensionx,dimensiony)
+            
+        }else
+        if((e.target.id)== 2)
+        {
+            setDimensionx(6)
+            setDimensiony(6)
+            console.log(dimensionx,dimensiony)
 
-    }*/
+        }else
+        if((e.target.id)== 3)
+        {
+            setDimensionx(8);
+            setDimensiony(8);
+            console.log(dimensionx,dimensiony)
+
+        }else
+        if((e.target.id)== 4)
+        {
+            console.log(dimensionx,dimensiony)
+
+            if(dimensionx === null || dimensiony===null)
+            {
+                console.log("err");
+            }
+        }
+     
+    }
   
     return (
     
@@ -111,7 +162,8 @@ export default function SimplePaper() {
            You selected {usertext}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <Button variant="text">Continue</Button>
+          <Button variant="text" onClick={handleClick} id={buttonid}>Continue</Button>
+          <div>{inputLayoutDim}</div>
           </Typography>
         </Box>
       </Modal>
@@ -149,7 +201,7 @@ export default function SimplePaper() {
                   <h4>24' x 24'</h4>
                   <h4>(7m x 7m)</h4>
                   <div className="centerimg"><img src={medium}  height="55px" width="55px"/></div>
-                  <Chip className="medium" label="Select-medium" variant="outlined" onClick={handleOpen} />
+                  <Chip className="medium" label="Select-Medium" variant="outlined" onClick={handleOpen} />
 
                 </Stack>
               </Typography>
