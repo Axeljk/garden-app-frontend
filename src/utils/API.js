@@ -26,9 +26,9 @@ const API = {
     return fetch(`${URL_PREFIX}/api/profiles`, {
       method: "POST",
       body: JSON.stringify({
-        username,
-        email,
-        password,
+        username: username,
+        email: email,
+        password: password,
       }),
       headers: {
         "Content-Type": "application/json",
