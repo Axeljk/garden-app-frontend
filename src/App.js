@@ -90,6 +90,7 @@ useEffect(() => {
     localStorage.removeItem('token');
     setUser({
       id: 0,
+	  username: "",
       email: ''
     })
     setToken('')
@@ -103,7 +104,7 @@ useEffect(() => {
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
 
 			      <Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
-           
+
             <Route path='/layout' element={<Layout/>}/>
 
             <Route path='/calendar' element={<Calendar/>}/>

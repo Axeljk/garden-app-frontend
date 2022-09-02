@@ -18,9 +18,10 @@ import Typography from '@mui/material/Typography'
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService'
 import './NavBar.css'
 
-const pages = ['Login', 'About'];
-
 export default function NavBar(props) {
+	const pages = ['About'];
+	if (!props.userId)
+		pages.push("Login");
 
     const navigate = useNavigate();
     const logMeOut = () => {
@@ -153,10 +154,11 @@ export default function NavBar(props) {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={handleCloseUserMenu}></MenuItem>
+                            <MenuItem component={Link} to="/">Home</MenuItem>
                             <MenuItem component={Link} to='/layout'>Layouts</MenuItem>
                             <MenuItem component={Link} to='/calendar'>Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
+							<MenuItem component={Button} onClick={logMeOut}>Logout</MenuItem>
 
                             {/* {settings.map((setting) => (
 
@@ -171,4 +173,3 @@ export default function NavBar(props) {
         </AppBar>
     )
 }
-
