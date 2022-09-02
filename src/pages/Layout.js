@@ -7,9 +7,11 @@
   import ImageList from '@mui/material/ImageList';
   import ImageListItem from '@mui/material/ImageListItem';
   import Stack from '@mui/material/Stack';
+  import LayoutMenu from "../components/LayoutMenu";
+  import LayoutPicker from "../components/LayoutPicker";
 
   function Layout() {
-    
+
     const itemData = [
       {
         img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
@@ -66,7 +68,7 @@
         title: 'Bike',
       },
     ];
-    
+
     const [dimensionx, setDimensionx] = useState(0);
     const [dimensiony, setDimensiony] = useState(0);
     const[soilImg,setSoilImg] = useState(soil1);
@@ -80,26 +82,26 @@
       console.log(e.target);
       setSquareBeingDragged(e.target)
     }
-    
+
     const dragDrop = (e) =>{
       console.log("drag Drop");
       setSquareBeingReplaced(e.target)
     }
-    
+
     const dragEnd = (e) =>{
       console.log("drag End ");
       squareBeingReplaced.src = squareBeingDragged.src;
     }
-    
+
     const box1 = {
       width:"100px",
       height:"100px",
-      
+
     }
     const box2 = {
       width:"100px",
       height:"100px",
-    
+
     }
     const gardenLayout = {
       width:100*dimensionx,
@@ -131,7 +133,7 @@
 
       setGarden(arr);
     }
-    
+
     useEffect(()=>{
       makeGardenLayout();
     },[dimensionx,dimensiony])
@@ -158,12 +160,12 @@
           </Stack>
             </div>
           <div className='images-div'><h1>Select the Plant</h1>
-        
+
 
   <ImageList sx={{ width: 400, height: "auto" }} cols={4} rowHeight={100}>
         {itemData.map((item) => (
           <ImageListItem key={item.img} className='imagesList'>
-            <img 
+            <img
               src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
               srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
               alt={item.title}
@@ -179,12 +181,14 @@
             />
           </ImageListItem>
         ))}
-      </ImageList> 
+      </ImageList>
       </div>
       </Grid>
       </Grid>
+	  <LayoutPicker />
+	  <LayoutMenu />
       </div>
-          
+
       );
     }
     export default Layout;
