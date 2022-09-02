@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import LayoutMenu from "../components/LayoutMenu"
+import LayoutMenu from "../components/LayoutMenu";
+import LayoutPicker from "../components/LayoutPicker";
 //CSS for Garden Layout
 import './Layout.css'
 import { Grid } from '@mui/material';
@@ -115,6 +116,7 @@ const Layout = () => {
 
         </>
   </Grid>
+  <LayoutPicker />
   <LayoutMenu />
 </Grid>
 
