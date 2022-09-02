@@ -1,10 +1,9 @@
 import React from 'react'
-import ImageCard from './ImageCard'
+import ImageCard from '../components/ImageCard'
 import cardInfo from '../static/cardInfo'
 import useWindowPosition from '../hook/useWindowPosition'
 import Box from '@mui/material/Box'
-import './CardSpace.css'
-
+import '../components/CardSpace.css'
 
 export default function CardSpace() {
     const checked = useWindowPosition('header');
@@ -19,11 +18,6 @@ export default function CardSpace() {
                 xs: 'column',
                 md: 'row'
             },
-            // maxWidth: {
-            //     sm: 200,
-            //     md: 450,
-            //     lg: 650,
-            // }
         }}>
             <ImageCard info={cardInfo[0]} checked={checked}/>
             <br/>

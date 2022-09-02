@@ -1,3 +1,4 @@
+
   import React, {useState, useEffect} from 'react'
   import Grid from '@mui/material/Grid';
   import './Layout.css'
@@ -90,9 +91,6 @@
       squareBeingReplaced.src = squareBeingDragged.src;
     }
     
-    
-
-
     const box1 = {
       width:"100px",
       height:"100px",
@@ -133,7 +131,6 @@
 
       setGarden(arr);
     }
-
     
     useEffect(()=>{
       makeGardenLayout();
