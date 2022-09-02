@@ -47,8 +47,9 @@ video{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  left: 300px;
-}
+  margin: 30px;
+  padding: 30px;
+ }
 
 .layout-div{
 height: 80vh;
