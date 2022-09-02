@@ -31,6 +31,17 @@ video{
   margin-top: 30px;
   margin-left: 30px;
 }
+
+
+
+.centerimg{
+  Display: block;
+  height: 70px;
+  Align-Items: center;
+  Justify-Content: centre;
+  text-align: center;
+}
+
 .heading{
   display: flex;
   flex-direction: column;

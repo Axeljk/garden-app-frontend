@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
 
 import About from './pages/About'
+import Layoutak from "./pages/Layoutak";
 import Layout from "./pages/Layout";
 import Gardenlanding from "./pages/Gardenlanding";
 import Calendar from './pages/Calendar'
@@ -103,6 +104,7 @@ useEffect(() => {
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
 
 			      <Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
+            <Route path='/layoutak' element={<Layoutak/>}/>
             <Route path='/layout' element={<Layout/>}/>
 
             <Route path='/calendar' element={<Calendar/>}/>
