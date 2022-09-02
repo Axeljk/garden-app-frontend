@@ -103,6 +103,7 @@ useEffect(() => {
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
 
 			      <Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
+           
             <Route path='/layout' element={<Layout/>}/>
 
             <Route path='/calendar' element={<Calendar/>}/>
