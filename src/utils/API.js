@@ -36,11 +36,18 @@ const API = {
         })
     },
     saveNewLayout:(token,name,garden) => {
-        return fetch(`${URL_PREFIX}/layout/`,{
+        return fetch(`${URL_PREFIX}/api/layouts/`,{
             method: 'POST',
             body:JSON.stringify({
-                // name,
-                garden
+                name,
+                garden,
+                height,
+                width,
+                direction,
+                start,
+                end,
+                current,
+                plants
             }),
             headers: {
                 'Content-Type':'application/json',

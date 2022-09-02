@@ -4,7 +4,6 @@ import './Layout.css'
 import { Grid } from '@mui/material';
 import veggie from '../assets/Plants/Tomato_je.jpg'
 import soil1 from '../assets/Plants/soil1.jpg'
-import Button from '@mui/material/Button'
 import API from '../utils/API'
 
 
@@ -13,6 +12,12 @@ const Layout = (props) => {
   const [dimensionx, setDimensionx] = useState(0);
   const [dimensiony, setDimensiony] = useState(0);
   const [garden, setGarden] = useState([]);
+  const [name, setName] = useState('');
+  const [height, setHeight] = useState('');
+  const [width, setWidth] = useState('');
+  const [current, setCurrent] = useState('');
+
+  const profileId = '63113e608be8de59a83c468d';
 
   const[squareBeingDragged,setSquareBeingDragged] = useState(null);
   const[squareBeingReplaced,setSquareBeingReplaced] = useState(null);
@@ -33,8 +38,9 @@ const Layout = (props) => {
 
   const saveLayout = e => {
     e.preventDefault();
-    API.saveNewLayout(props.token,garden).then(res=>res.json()).then(data=>{
+    API.saveNewLayout(props.token,name,garden,height,width,direction,start,end,current,plants,profileId).then(res=>res.json()).then(data=>{
       console.log(data);
+      console.log('saved to database')
     })
   }
 
@@ -84,10 +90,19 @@ const Layout = (props) => {
   return (
 <Grid container spacing={3}>
 {/* Section of plant images to initiate drag-and-drop */}
-  <form>
-    <input placeholder='name your garden layout'></input>
-    <Button variant="contained">Save Layout</Button>
-  </form>
+  <Grid sx={{gap:2}} className='form'>
+    <form onSubmit={saveLayout} onChange={e=>setName(e.target.value)} >
+      <input placeholder='name your garden layout' value={name}></input>
+      <input placeholder='height' value={height}></input>
+      <input placeholder='width' value={width}></input>
+      <input placeholder='direction' value={direction}></input>
+      <input placeholder='start date' value={start}></input>
+      <input placeholder='end date' value={end}></input>
+      <input placeholder='current' value={current}></input>
+      <input placeholder='plants' value={plants}></input>
+      <button variant="contained">Save Layout</button>
+    </form>
+  </Grid>
 <Grid item xs={6}>
     <>Images section
     <img 

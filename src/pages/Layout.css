@@ -39,6 +39,11 @@ video{
   left: 300px;
 }
 
+.form {
+  background-color: black;
+  display: flex;
+}
+
 .layout-div{
 height: 80vh;
 
