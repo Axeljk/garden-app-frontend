@@ -33,16 +33,18 @@ function LandingPage() {
     });
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundPosition: "center",
-        backgroundSize: "cover",
-        backgroundRepeate: "no-repeat",
-        height: "100vh",
-      }}
-    >
-      <Ticker offset="run-in" speed={10} mode="smooth">
+
+    
+    <div 
+        style={{ 
+            backgroundImage: `url(${background})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeate: 'no-repeat',
+            height: 'auto'
+        }}>
+      <Ticker offset='run-in' speed={10} mode='smooth'>
+
         {({ index }) => (
           <>
             <h3>This is the ticker for element #{index}!</h3>

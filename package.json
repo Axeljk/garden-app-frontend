@@ -17,6 +17,7 @@
     "rc-ruler-slider": "^1.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-gridlines": "^1.1.7",
     "react-router-dom": "^6.3.0",
     "react-ruler": "^0.15.1",
     "react-ruler-draggable": "^1.0.0",

@@ -18,7 +18,7 @@ import Typography from '@mui/material/Typography'
 import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService'
 import './NavBar.css'
 
-const pages = ['Login/Signup', 'About'];
+const pages = ['Login', 'About'];
 
 export default function NavBar(props) {
 
@@ -90,13 +90,14 @@ export default function NavBar(props) {
                     </Box>
                     {/* Login & About buttons */}
                     <Box sx={{ width: '50%', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+						{props.userId == 0 &&
                         <Link to='/login' style={{textDecoration:'none'}}><Button
                                 key='login'
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                        Login/Signup
-                        </Button></Link>
+                        Login
+                        </Button></Link>}
                         <Link to='/about' style={{textDecoration:'none'}}><Button
                         key='about'
                         onClick={handleCloseNavMenu}
@@ -125,6 +126,7 @@ export default function NavBar(props) {
                         Peas By Spring
                     </Typography>
                     {/* Avatar & Account dropdown */}
+					{props.userId != 0 &&
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Tool Shed">
                             {/* <Link to={`/users/$props.userId}`}> */}
@@ -152,17 +154,17 @@ export default function NavBar(props) {
                             onClose={handleCloseUserMenu}
                         >
                             <MenuItem onClick={handleCloseUserMenu}></MenuItem>
-                            <MenuItem component={Link} to='/layouts'>Layouts</MenuItem>
+                            <MenuItem component={Link} to='/layout'>Layouts</MenuItem>
                             <MenuItem component={Link} to='/calendar'>Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
 
                             {/* {settings.map((setting) => (
-                                
+
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))} */}
                         </Menu>
-                    </Box>
+                    </Box>}
 
                 </Toolbar>
             </Container>
