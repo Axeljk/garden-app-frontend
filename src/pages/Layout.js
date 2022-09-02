@@ -6,14 +6,20 @@ import './Layout.css'
 import { Grid } from '@mui/material';
 import veggie from '../assets/Plants/Tomato_je.jpg'
 import soil1 from '../assets/Plants/soil1.jpg'
-
+import API from '../utils/API'
 
 
 //Layout defiing the dimensions ganden landscape with display properties
-const Layout = () => {
+const Layout = (props) => {
   const [dimensionx, setDimensionx] = useState(0);
   const [dimensiony, setDimensiony] = useState(0);
   const [garden, setGarden] = useState([]);
+  const [name, setName] = useState('');
+  // const [height, setHeight] = useState('');
+  // const [width, setWidth] = useState('');
+  // const [current, setCurrent] = useState('');
+
+  const profileId = '63113e608be8de59a83c468d';
 
   const[squareBeingDragged,setSquareBeingDragged] = useState(null);
   const[squareBeingReplaced,setSquareBeingReplaced] = useState(null);
@@ -32,6 +38,15 @@ const Layout = () => {
     boxShadow:`0px 10px 10px rgba(0,0,0,0.1)`
   }
 
+  const saveLayout = e => {
+    e.preventDefault();
+    API.saveNewLayout(props.token,name,garden,
+      // height,width,direction,start,end,current,plants,profileId
+      ).then(res=>res.json()).then(data=>{
+      console.log(data);
+      console.log('saved to database')
+    })
+  }
 
   //Creating the actual layout with the user inputs
   const makeGardenLayout = ()=>{
@@ -79,6 +94,12 @@ const Layout = () => {
   return (
 <Grid container spacing={3}>
 {/* Section of plant images to initiate drag-and-drop */}
+  {/* <Grid sx={{gap:2}} className='form'>
+    <form onSubmit={saveLayout} onChange={e=>setName(e.target.value)} >
+      <input placeholder='name your garden layout' value={name}></input>
+      <button variant="contained">Save Layout</button>
+    </form>
+  </Grid> */}
 <Grid item xs={6}>
     <>Images section
     <img

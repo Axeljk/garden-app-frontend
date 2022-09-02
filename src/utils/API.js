@@ -95,6 +95,26 @@ const API = {
       method: "DELETE",
     });
   },
+  saveNewLayout:(token,name,garden) => {
+    return fetch(`${URL_PREFIX}/api/layouts/`,{
+        method: 'POST',
+        body:JSON.stringify({
+            name,
+            garden,
+            // height,
+            // width,
+            // direction,
+            // start,
+            // end,
+            // current,
+            // plants
+        }),
+        headers: {
+            'Content-Type':'application/json',
+            Authorization:`Bearer ${token}`
+        }
+    })
+},
 
   //Plant routes:
   getPlant: (plantId) => {
