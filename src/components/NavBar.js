@@ -24,10 +24,6 @@ export default function NavBar(props) {
 		pages.push("Login");
 
     const navigate = useNavigate();
-    const logMeOut = () => {
-        props.logout();
-        navigate('/')
-    };
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -183,7 +179,7 @@ export default function NavBar(props) {
                             <MenuItem component={Link} to='/layout'>Your Garden</MenuItem>
                             <MenuItem component={Link} to='/calendar'>Your Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
-							<MenuItem component={Button} onClick={logMeOut} style={{textTransform:'capitalize'}}>Logout</MenuItem>
+							<MenuItem component={Button} onClick={props.logout} style={{textTransform:'capitalize'}}>Logout</MenuItem>
 
                             {/* {settings.map((setting) => (
 

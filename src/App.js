@@ -96,6 +96,7 @@ useEffect(() => {
       email: ''
     })
     setToken('')
+	window.location.replace("/");
   }
   return (
     <Router>
