@@ -2,15 +2,15 @@ const URL_PREFIX = process.env.PORT || "http://localhost:3001";
 
 const API = {
   checkToken: (token) => {
-    return fetch(`${URL_PREFIX}/api/profiles/token`, {
+    return fetch(`${URL_PREFIX}/api/users/token`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   },
-  // Profile routes:
+  // User routes:
   login: (username, email, password) => {
-    return fetch(`${URL_PREFIX}/api/profiles/login`, {
+    return fetch(`${URL_PREFIX}/api/users/login`, {
       method: "POST",
       body: JSON.stringify({
         username: username,
@@ -23,7 +23,7 @@ const API = {
     });
   },
   signup: (username, email, password) => {
-    return fetch(`${URL_PREFIX}/api/profiles`, {
+    return fetch(`${URL_PREFIX}/api/users`, {
       method: "POST",
       body: JSON.stringify({
         username: username,
@@ -35,8 +35,8 @@ const API = {
       },
     });
   },
-  editProfile: (profileId, username, email, password, location) => {
-    return fetch(`${URL_PREFIX}/api/plants/${profileId}`, {
+  editUser: (userId, username, email, password, location) => {
+    return fetch(`${URL_PREFIX}/api/users/${userId}`, {
       method: "POST",
       body: JSON.stringify({
         username,
@@ -49,21 +49,21 @@ const API = {
       },
     });
   },
-  getProfile: (profileId) => {
-    return fetch(`${URL_PREFIX}/api/layouts/${profileId}`);
+  getUser: (userId) => {
+    return fetch(`${URL_PREFIX}/api/users/${userId}`);
   },
-  deleteProfile: (profileId) => {
-    return fetch(`${URL_PREFIX}/api/plants/${profileId}`, {
+  deleteUser: (userId) => {
+    return fetch(`${URL_PREFIX}/api/users/${userId}`, {
       method: "DELETE",
     });
   },
 
-  // Layout routes:
-  getLayout: (layoutId) => {
-    return fetch(`${URL_PREFIX}/api/layouts/${layoutId}`);
+  // Garden routes:
+  getGarden: (gardenId) => {
+    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`);
   },
-  editLayout: (
-    layoutId,
+  editGarden: (
+    gardenId,
     name,
     height,
     width,
@@ -73,7 +73,7 @@ const API = {
     current,
     plants
   ) => {
-    return fetch(`${URL_PREFIX}/api/layouts/${layoutId}`, {
+    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
       method: "POST",
       body: JSON.stringify({
         name,
@@ -90,24 +90,24 @@ const API = {
       },
     });
   },
-  deleteLayout: (layoutId) => {
-    return fetch(`${URL_PREFIX}/api/layouts/${layoutId}`, {
+  deleteGarden: (gardenId) => {
+    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
       method: "DELETE",
     });
   },
-  saveNewLayout:(token,name,garden) => {
-    return fetch(`${URL_PREFIX}/api/layouts/`,{
+  saveNewGarden:(token,name,garden) => {
+    return fetch(`${URL_PREFIX}/api/gardens/`,{
         method: 'POST',
         body:JSON.stringify({
             name,
-            garden,
-            // height,
-            // width,
-            // direction,
-            // start,
-            // end,
-            // current,
-            // plants
+            description,
+            height,
+            width,
+            direction,
+            startDate,
+            endDate,
+            current,
+            specimens
         }),
         headers: {
             'Content-Type':'application/json',
