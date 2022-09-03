@@ -169,7 +169,7 @@ export default function CalendarPage() {
             defaultDate={defaultDate}
             defaultView={Views.MONTH}
             dragFromOutsideItem={dragFromOutsideItem} 
-            draggableAccessor='isDraggable'
+            draggableAccessor={(event) => true}
             // eventPropGetter={eventPropGetter}
             onDropFromOutside={onDropFromOutside}
             onEventDrop={moveEvent}
