@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import { Calendar,Views,dateFnsLocalizer } from 'react-big-calendar'
+import { Calendar,Views } from 'react-big-calendar'
 import format from 'date-fns/format'
 import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
@@ -23,74 +23,85 @@ const localizer = dateFnsLocalizer({
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
-const testEvents = [
+const events = [
     {
         title: 'Farmers Market',
         start: new Date(2022,9,10),
-        end: new Date(2022,9,10),
+        end: new Date(2022,9,10)
     },
     {
         title: 'Harvest tomatoes',
-        start: new Date(2022,9,12),
+        start: new Date(2022,9,1),
         end: new Date(2022,9,12)
+    },
+    {
+        title: 'Harvest peaches',
+        start: new Date(2022,9,2),
+        end: new Date(2022,9,7)
+    },
+    {
+        title: 'Can salsa',
+        start: new Date(2022,9,17),
+        end: new Date(2022,9,17)
     },
 ]
 
-// const adjEvents = events.map((it,ind) => ({
-//     ...it,
-//     isDraggable: ind % 2 === 0,
-// }))
+const adjEvents = events.map((it,ind) => ({
+    ...it,
+    isDraggable: ind % 2 === 0,
+}))
 
-const formatName = (name,count) => `${name}: ${count}`
+const formatName = (name,count) => `${name} ID ${count}`
 
 
-export default function CalendarPage() {
+export default function CalendarPage({localizer}) {
     const [newEvent, setNewEvent] = useState({title:'', start: '', end:''})
     // const [myEvents, setAllEvents] = useState(events)
-    const [allEvents, setAllEvents] = useState(testEvents)
+    const [myEvents, setMyEvents] = useState(adjEvents)
     const [draggedEvent, setDraggedEvent] = useState()
-    // const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true)
-    const [counters, setCounters] = useState({ Water: 0, Weeding: 0, Planting: 0, Compost: 0, Rotate: 0, Insecticide: 0, Pruning: 0})
+    const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true)
+    const [counters, setCounters] = useState({ water: 0, weeding: 0, planting: 0, compost: 0, rotate: 0, insecticide: 0, pruning: 0})
     
-    // const eventPropGetter = useCallback(
-    //     (event) => ({
-    //         ...(event.isDraggable
-    //             ? { className: 'isDraggable'}
-    //             : {className: 'nonDraggable'})
-    //     }),
-    //     []
-    // )
+    const eventPropGetter = useCallback(
+        (event) => ({
+            ...(event.isDraggable
+                ? { className: 'isDragable'}
+                : {className: 'nonDraggable'})
+        }),
+        []
+    )
 
     const handleDragStart = useCallback((event) => setDraggedEvent(event), [])
-    const dragFromOutsideItem = useCallback(() => draggedEvent, [draggedEvent])
+    const dragFromWorkbench = useCallback(() => draggedEvent, [draggedEvent])
 
-    // const handleDisplayDragItemInCell = useCallback(
-    //     () => setDisplayDragItemInCell((prev) => !prev),
-    //     []
-    // )
+    const handleDisplayDragItemInCell = useCallback(
+        () => setDisplayDragItemInCell((prev) => !prev),
+        []
+    )
 
     const moveEvent = useCallback(
-        ({ event, start, end, isallDay: droppedOnAllDaySlot = false }) => {
+        ({ event, start, end, isAllDay: droppedOnAllDaySlot = false }) => {
             const { allDay } = event
             if (!allDay && droppedOnAllDaySlot) {
                 event.allDay = true
             }
-            setAllEvents((prev) => {
+            setMyEvents((prev) => {
                 const existing = prev.find((ev) => ev.id === event.id) ?? {}
                 const filtered = prev.filter((ev) => ev.id !== event.id)
                 return [...filtered, {...existing, start, end, allDay}]
             })
         },
-        [setAllEvents]
+        [setMyEvents]
     )
 
     const onDropFromOutside = useCallback(
-        ({ start, end }) => {
+        ({ start, end, allDay: isAllDay }) => {
         const { name } = draggedEvent
         const event = {
             title: formatName(name, counters[name]),
             start,
-            end
+            end,
+            isAllDay
         }
         setDraggedEvent(null)
         setCounters((prev) => {
@@ -107,24 +118,24 @@ export default function CalendarPage() {
 
     const resizeEvent = useCallback(
         ({ event, start, end }) => {
-            setAllEvents((prev) => {
+            setMyEvents((prev) => {
                 const existing = prev.find((ev) => ev.id === event.id) ?? {}
                 const filtered = prev.filter((ev) => ev.id !== event.id)
                 return [...filtered, { ...existing, start, end }]
             })
         },
-        [setAllEvents]
+        [setMyEvents]
     )
 
     const defaultDate = useMemo(() => new Date(2022, 9, 2), [])
 
     function handleAddEvent() {
-        setAllEvents([...allEvents, newEvent])
+        setMyEvents([...myEvents, newEvent])
     }
 
     return (
         <div>
-            <h1>Garden Calendar with Drag 'n Drop</h1>
+            <h1>Garden Calendar</h1>
             <h2>Add New Event</h2>
             <div>
                 <input type='text' placeholder='Add Title' style={{width: '20%', marginRight: '10px'}}
@@ -136,21 +147,7 @@ export default function CalendarPage() {
                 selected={newEvent.end} onChange={(end)=>setNewEvent({...newEvent, end})} />
                 <button style={{marginTop: '10px'}} onClick={handleAddEvent}>AddEvent</button>
             </div>
-            <div className="inner">
-            <h4>Outside Drag Sources</h4>
-            {Object.entries(counters).map(([name, count]) => (
-              <div
-                draggable="true"
-                key={name}
-                onDragStart={() =>
-                  handleDragStart({ title: formatName(name, count), name })
-                }
-              >
-                {formatName(name, count)}
-              </div>
-            ))}
-          </div>
-            {/* <div>
+            <div>
                 <h4>Workbench</h4>
                 {Object.entries(counters).map(([name,count])=> (
                     <div 
@@ -163,20 +160,20 @@ export default function CalendarPage() {
                         {formatName(name,count)}
                     </div>
                 ))}
-            </div> */}
+            </div>
             <div>
             <DragAndDropCalendar
             defaultDate={defaultDate}
             defaultView={Views.MONTH}
-            dragFromOutsideItem={dragFromOutsideItem} 
-            draggableAccessor={(event) => true}
-            // eventPropGetter={eventPropGetter}
+            dragFromWorkbench={dragFromWorkbench} 
+            draggableAccessor='isDraggable'
+            eventPropGetter={eventPropGetter}
             onDropFromOutside={onDropFromOutside}
             onEventDrop={moveEvent}
             onEventResize={resizeEvent}
             onSelectSlot={newEvent}
             localizer={localizer} 
-            events={allEvents} 
+            events={myEvents} 
             resizable
             selectable
             startAccessor='start' 
