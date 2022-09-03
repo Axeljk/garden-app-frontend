@@ -17,6 +17,7 @@ import API from './utils/API';
 function App() {
   const [user, setUser] = useState({
   id: 0,
+  username: "",
   email: ''
   })
 
@@ -36,6 +37,7 @@ useEffect(() => {
 					setToken(storedToken);
 					setUser({
 						id: data.id,
+						username: data.username,
 						email: data.email
 					});
 				});
@@ -52,11 +54,11 @@ useEffect(() => {
       }
       return res.json()
     }).then(data => {
-      if (data?.profile) {
+      if (data?.user) {
         setUser({
-          id: data.profile._id,
-          username: data.profile.username,
-          email: data.profile.email
+          id: data.user._id,
+          username: data.user.username,
+          email: data.user.email
         })
         setToken(data.token)
         localStorage.setItem('token', data.token)
@@ -73,11 +75,11 @@ useEffect(() => {
       }
       return res.json()
     }).then(data => {
-      if (data?.profile) {
+      if (data?.user) {
         setUser({
-          id: data.profile._id,
-          username: data.profile.username,
-          email: data.profile.email
+          id: data.user._id,
+          username: data.user.username,
+          email: data.user.email
         })
         setToken(data.token)
         localStorage.setItem('token', data.token)
@@ -94,11 +96,11 @@ useEffect(() => {
       email: ''
     })
     setToken('')
+	window.location.replace("/");
   }
   return (
     <Router>
-      {/* userId={userId} is what it should be */}
-      <NavBar userId={user.id} logout={logoutClick} />
+      <NavBar user={user} logout={logoutClick} />
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
