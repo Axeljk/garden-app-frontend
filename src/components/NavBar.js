@@ -19,8 +19,8 @@ import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService'
 import './NavBar.css'
 
 export default function NavBar(props) {
-	const pages = ['About'];
-	if (!props.userId)
+	const pages = ['Home', 'About'];
+	if (!props.user.id)
 		pages.push("Login");
 
     const navigate = useNavigate();
@@ -91,14 +91,13 @@ export default function NavBar(props) {
                     </Box>
                     {/* Login & About buttons */}
                     <Box sx={{ width: '50%', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-						{props.userId == 0 &&
-                        <Link to='/login' style={{textDecoration:'none'}}><Button
-                                key='login'
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+						<Link to='/' style={{textDecoration:'none'}}><Button
+                        key='home'
+                        onClick={handleCloseNavMenu}
+                        sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                        Login
-                        </Button></Link>}
+                        Home
+                        </Button></Link>
                         <Link to='/about' style={{textDecoration:'none'}}><Button
                         key='about'
                         onClick={handleCloseNavMenu}
@@ -106,8 +105,35 @@ export default function NavBar(props) {
                         >
                         About
                         </Button></Link>
+						{!props.user.id &&
+                        <Link to='/login' style={{textDecoration:'none'}}><Button
+                                key='login'
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                        Login
+                        </Button></Link>}
                     </Box>
                     {/* Logo Header */}
+					{props.user.id != 0 &&
+                    <Typography
+                        variant='h1'
+                        noWrap
+                        component='a'
+                        href='/'
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', sm: 'block' },
+                            overflow: 'visible',
+                            fontFamily: 'Satisfy',
+                            fontWeight: 700,
+                            fontSize: { xs: '2rem', md: '3rem'},
+                            color: 'white',
+                            textDecoration: 'none'
+                        }}
+                    >
+                        {props.user.username}'s
+                    </Typography>}
                     <Typography
                         variant='h1'
                         noWrap
@@ -127,7 +153,7 @@ export default function NavBar(props) {
                         Peas By Spring
                     </Typography>
                     {/* Avatar & Account dropdown */}
-					{props.userId != 0 &&
+					{props.user.id != 0 &&
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Tool Shed">
                             {/* <Link to={`/users/$props.userId}`}> */}
@@ -154,9 +180,8 @@ export default function NavBar(props) {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem component={Link} to="/">Home</MenuItem>
-                            <MenuItem component={Link} to='/layout'>Layouts</MenuItem>
-                            <MenuItem component={Link} to='/calendar'>Calendar</MenuItem>
+                            <MenuItem component={Link} to='/layout'>Your Garden</MenuItem>
+                            <MenuItem component={Link} to='/calendar'>Your Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
 							<MenuItem component={Button} onClick={logMeOut}>Logout</MenuItem>
 
