@@ -183,7 +183,7 @@ export default function NavBar(props) {
                             <MenuItem component={Link} to='/layout'>Your Garden</MenuItem>
                             <MenuItem component={Link} to='/calendar'>Your Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
-							<MenuItem component={Button} onClick={logMeOut}>Logout</MenuItem>
+							<MenuItem component={Button} onClick={logMeOut} style={{textTransform:'capitalize'}}>Logout</MenuItem>
 
                             {/* {settings.map((setting) => (
 
