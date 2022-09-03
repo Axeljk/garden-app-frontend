@@ -10,7 +10,7 @@
   import LayoutMenu from "../components/LayoutMenu";
   import LayoutPicker from "../components/LayoutPicker";
 
-  function Layout() {
+  function Layout(props) {
 
     const itemData = [
       {
@@ -186,7 +186,8 @@
       </Grid>
       </Grid>
 	  <LayoutPicker />
-	  <LayoutMenu />
+	  <LayoutMenu user={props.user}/>
+    <div>{props.user.id}</div>
       </div>
 
       );
