@@ -20,6 +20,7 @@ import { MenuItem } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import {Divider} from "@mui/material";
 
+import API from '../utils/API';
 
 const style = {
 	position: 'absolute',
@@ -34,7 +35,7 @@ const style = {
 	p: 4,
   };
 
-export default function LayoutMenu() {
+export default function LayoutMenu(props) {
 	const [removePlantState, setRemovePlant] = React.useState(false);
 	const toggleRemovePlant = () => setRemovePlant(!removePlantState);
 	const [editPlantState, setEditPlant] = React.useState(false);
@@ -53,7 +54,16 @@ export default function LayoutMenu() {
 		{ icon: <HistoryEduIcon />, name: "Edit Layout", color: "#F1FF33", onClick: toggleEditLayout },
 		{ icon: <ReceiptIcon />, name: "New Layout", color: "#69FF33", onClick: toggleCreateLayout }
 	];
-
+	const addNewPlant = (event) => { //pass in event.target
+		event.preventDefault();
+		return API.addPlant(event.target, props.user).then(res => {
+		  if (!res.ok) {
+			console.error(res.message);
+		  }
+		  toggleCreatePlant();
+		  return res.json()
+		})
+	  }
 	return (
 		<>
 			<SpeedDial ariaLabel="layout menu" sx={{ position: "absolute", bottom: 16, right: 16 }} FabProps={{ sx: { backgroundColor: "#8533FF", '&:hover': { bgcolor: "lightsalmon" }}}} icon={ <SpeedDialIcon /> }>
@@ -120,13 +130,15 @@ export default function LayoutMenu() {
 			>
 				<Card sx={style}>
 					<Typography align="center" variant="h4" sx={{mb: 2}}>Add New Plant</Typography>
-					<form onSubmit={toggleCreatePlant} autoComplete="on">
-						<Select label="species" name="species" value="species" fullWidth >
-							<MenuItem value="N">Lots</MenuItem>
-							<MenuItem value="E">of</MenuItem>
-							<MenuItem value="S">Stuff</MenuItem>
-						</Select>
-						<TextField className="outlined-required" label="plant name" fullWidth margin="dense" name="plant" />
+					<form onSubmit={addNewPlant} autoComplete="on">
+					<TextField className="outlined-required" label="Plant Name (e.g. Yukon Gold)" fullWidth margin="dense" name="name" />
+						<TextField className="outlined-required" label="Type (e.g. Potato)" fullWidth margin="dense" name="type" />
+						<TextField className="outlined-required" label="Grown Height" fullWidth margin="dense" name="height" />
+						<TextField className="outlined-required" label="Grown Width" fullWidth margin="dense" name="width" />
+						<TextField className="outlined-required" label="Time to Harvest/Bloom" fullWidth margin="dense" name="harvest" />
+						<TextField className="outlined-required" label="Lifespan" fullWidth margin="dense" name="lifespan" />
+						<TextField className="outlined-required" label="Hardiness Zone" fullWidth margin="dense" name="usda-zone" />
+						<TextField className="outlined-required" label="Water Needed" fullWidth margin="dense" name="water" />
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
 							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
