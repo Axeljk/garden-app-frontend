@@ -61,8 +61,20 @@ const API = {
   },
 
   // Garden routes:
-  getGarden: (gardenId) => {
-    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`);
+  getGarden: (gardenId, user, token) => {
+    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
+		method: "POST",
+		body: JSON.stringify({
+			// username,
+			// email,
+			// password,
+			// location,
+		}),
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${token}`
+		}
+	});
   },
   editGarden: (
     gardenId,
@@ -97,10 +109,13 @@ const API = {
       method: "DELETE",
     });
   },
-  saveNewGarden: (token, name, garden) => {
+  saveNewGarden: (token, user, data={height: 6, width: 6}) => {
     return fetch(`${URL_PREFIX}/api/gardens/`, {
       method: "POST",
       body: JSON.stringify({
+		userId: user._id,
+		height: data.height,
+		width: data.width
         // name,
         // description,
         // height,
@@ -113,7 +128,7 @@ const API = {
       }),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
   },

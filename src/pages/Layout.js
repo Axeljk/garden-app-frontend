@@ -9,6 +9,7 @@
   import Stack from '@mui/material/Stack';
   import LayoutMenu from "../components/LayoutMenu";
   import LayoutPicker from "../components/LayoutPicker";
+import API from "../utils/API";
 
   function Layout(props) {
 
@@ -77,6 +78,46 @@
     const[squareBeingDragged,setSquareBeingDragged] = useState(null);
     const[squareBeingReplaced,setSquareBeingReplaced] = useState(null);
 
+/*
+ *============================================================================*
+ *								  Axel's Garden								  *
+ *============================================================================*
+ */
+	/*
+	 *	gardenData contains all of the info about the Garden.
+	 *	Its structure reflects the Garden model in the backend server.
+	 */
+	const [gardenData, setGardenData] = useState([]);
+	// Start page with the user's last garden or a default one.
+	useEffect(() => {
+		API.getUser(props.user.id)
+		.then(user => user.json())
+		.then(user => {
+			console.log(user);
+			// If they have Garden(s), check for any current and use the last one.
+			if (user.gardens.length) {
+				const gardens = user.gardens.filter(e => e.current == true);
+
+				if (gardens.length)
+					return gardens[gardens.length - 1];
+			}
+			return API.saveNewGarden(localStorage.getItem("token"), user);
+		}).then(garden => setGardenData(garden))
+		.catch(err => console.log(err));
+	}, []);
+	const gardenCalls = {
+		getGarden: async (gardenId) => {
+			console.log(props.user);
+			const user = await (await API.getUser(props.user.id)).json();
+			console.log("USER", user);
+		}
+	}
+/*
+ *============================================================================*
+ *																			  *
+ *============================================================================*
+ */
+
     const dragStart = (e) =>{
       console.log("drag Start ");
       console.log(e.target);
@@ -104,7 +145,7 @@
 
     }
     const gardenLayout = {
-      width:100*dimensionx,
+      width:100*gardenData.width,
       display:'flex',
       flexWrap:'wrap',
       marginTop:"20px",
@@ -116,9 +157,9 @@
     const makeGardenLayout = ()=>{
       let arr = [];
       let id=1;
-      for (let i=0;i<dimensionx;i++){
+      for (let i=0;i<gardenData.width;i++){
         let temp = [];
-        for (let j=0;j<dimensiony;j++){
+        for (let j=0;j<gardenData.height;j++){
             temp.push(<img style={box1} key={i+j} src={soilImg}  data-id={id} draggable={true}
               onDragStart={dragStart}
               onDragOver={(e)=> e.preventDefault()}
@@ -136,7 +177,7 @@
 
     useEffect(()=>{
       makeGardenLayout();
-    },[dimensionx,dimensiony])
+    },[gardenData])
 
 
 
@@ -146,6 +187,7 @@
           <Grid container spacing={2}>
           <Grid item xs={8}>
           <GridLines className="grid-area" cellWidth={60} strokeWidth={2} cellWidth2={12} >
+			<h1>NAEM OF GARDEN</h1>
             <div className='layout-div'> <section style={gardenLayout} >
           {garden}
         </section></div>
