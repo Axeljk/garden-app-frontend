@@ -1,3 +1,5 @@
+import { ZoomInOutlined } from "@mui/icons-material";
+
 const URL_PREFIX = process.env.PORT || "http://localhost:3001";
 
 const API = {
@@ -95,39 +97,48 @@ const API = {
       method: "DELETE",
     });
   },
-  saveNewGarden:(token,name,garden) => {
-    return fetch(`${URL_PREFIX}/api/gardens/`,{
-        method: 'POST',
-        body:JSON.stringify({
-            name,
-            // description,
-            // height,
-            // width,
-            // direction,
-            // startDate,
-            // endDate,
-            // current,
-            // specimens
-        }),
-        headers: {
-            'Content-Type':'application/json',
-            Authorization:`Bearer ${token}`
-        }
-    })
-},
+  saveNewGarden: (token, name, garden) => {
+    return fetch(`${URL_PREFIX}/api/gardens/`, {
+      method: "POST",
+      body: JSON.stringify({
+        // name,
+        // description,
+        // height,
+        // width,
+        // direction,
+        // startDate,
+        // endDate,
+        // current,
+        // specimens,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  },
 
   //Plant routes:
   getPlant: (plantId) => {
     return fetch(`${URL_PREFIX}/api/plants/${plantId}`);
   },
-  addPlant: (name, planted, previousYield, species) => {
+  addPlant: (
+    form, user
+    //TODO: Add Form. Form is the target on the event. Pass in event.target on calling this function
+  ) => {
     return fetch(`${URL_PREFIX}/api/plants/`, {
       method: "POST",
       body: JSON.stringify({
-        name,
-        planted,
-        previousYield,
-        species,
+        userId: user.id,
+        name: form[0].value,
+        type: form[2].value,
+        grownHeight: form[4].value,
+        grownWidth: form[6].value,
+        harvestBloomDate: form[8].value,
+        lifespan: form[10].value,
+        usdaZone: form[12].value,
+        water: form[14].value,
+        //form[0].value...      NOT event.target[0].value, event.target[2].value
       }),
       headers: {
         "Content-Type": "application/json",
