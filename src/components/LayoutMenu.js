@@ -30,8 +30,7 @@ const style = {
 	maxWidth: 400,
 	width: "100%",
 	bgcolor: 'background.paper',
-	border: '2px solid #000',
-	boxShadow: 24,
+	boxShadow: 12,
 	p: 4,
   };
 
@@ -57,11 +56,12 @@ export default function LayoutMenu(props) {
 	const addNewPlant = async (event) => { //pass in event.target
 		event.preventDefault();
 		let image = await API.getPlantImage(event.target[0].value);
+
 		return API.addPlant(event.target, props.user, image)
 		.then(res => res.json())
 		.then(data => {
-		  toggleCreatePlant();
-			// Can't add to PlantData because data from this function doesn't return the plant data.
+			toggleCreatePlant();
+			props.setPlantData(props.plantData.concat([data]));
 		})
 	}
 	return (
