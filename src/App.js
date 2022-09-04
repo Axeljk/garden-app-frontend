@@ -33,7 +33,7 @@ useEffect(() => {
 				console.warn("Expired token.");
 				localStorage.removeItem("token");
 			} else {
-				res.json().then(data => {
+				return res.json().then(data => {
 					setToken(storedToken);
 					setUser({
 						id: data.id,

@@ -87,13 +87,12 @@ import API from "../utils/API";
 	 *	gardenData contains all of the info about the Garden.
 	 *	Its structure reflects the Garden model in the backend server.
 	 */
-	const [gardenData, setGardenData] = useState([]);
+	const [gardenData, setGardenData] = useState({height: 3, width: 3});
 	// Start page with the user's last garden or a default one.
 	useEffect(() => {
 		API.getUser(props.user.id)
 		.then(user => user.json())
 		.then(user => {
-			console.log(user);
 			// If they have Garden(s), check for any current and use the last one.
 			if (user.gardens.length) {
 				const gardens = user.gardens.filter(e => e.current == true);
@@ -107,9 +106,38 @@ import API from "../utils/API";
 	}, []);
 	const gardenCalls = {
 		getGarden: async (gardenId) => {
-			console.log(props.user);
 			const user = await (await API.getUser(props.user.id)).json();
-			console.log("USER", user);
+		}
+	}
+/*
+ *============================================================================*
+ *								  Axel's Plants								  *
+ *============================================================================*
+ */
+	/*
+	 *	plantData contains all of the info on all of the Plants used by the user.
+	 *	Its structure reflects an array of the Plant model in the backend server.
+	 */
+	 const [plantData, setPlantData] = useState([]);
+	 useEffect(() => {
+		API.getUser(props.user.id)
+		.then(res => res.json())
+		.then(user => plantCalls.getUserPlants(user.plants))
+		.then(plants => setPlantData(plants))
+		.catch(err => console.log(err));
+	}, []);
+	const plantCalls = {
+		getUserPlants: async (plants) => {
+			const allPlants = [];
+
+			for (let i = 0; i < plants.length; i++) {
+				await API.getPlant(localStorage.getItem("token"), plants[i])
+					.then(res => res.json())
+					.then(data => {
+						allPlants.push(data);
+					});
+			}
+			return allPlants;
 		}
 	}
 /*
@@ -184,10 +212,10 @@ import API from "../utils/API";
 
       return (
         <div className="layout-container">
+			<h1>NAEM OF GARDEN</h1>
           <Grid container spacing={2}>
           <Grid item xs={8}>
           <GridLines className="grid-area" cellWidth={60} strokeWidth={2} cellWidth2={12} >
-			<h1>NAEM OF GARDEN</h1>
             <div className='layout-div'> <section style={gardenLayout} >
           {garden}
         </section></div>
@@ -205,11 +233,11 @@ import API from "../utils/API";
 
 
   <ImageList sx={{ width: 400, height: "auto" }} cols={4} rowHeight={100}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img} className='imagesList'>
+        {plantData.map((item, index) => (
+          <ImageListItem key={index} className='imagesList'>
             <img
-              src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
+              srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
               alt={item.title}
               loading="lazy"
               key='1'
@@ -228,8 +256,7 @@ import API from "../utils/API";
       </Grid>
       </Grid>
 	  <LayoutPicker />
-	  <LayoutMenu user={props.user}/>
-    <div>{props.user.id}</div>
+	  <LayoutMenu user={props.user} plantData={plantData} setPlantData={setPlantData} />
       </div>
 
       );
