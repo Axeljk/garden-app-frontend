@@ -100,14 +100,14 @@ const API = {
         method: 'POST',
         body:JSON.stringify({
             name,
-            description,
-            height,
-            width,
-            direction,
-            startDate,
-            endDate,
-            current,
-            specimens
+            // description,
+            // height,
+            // width,
+            // direction,
+            // startDate,
+            // endDate,
+            // current,
+            // specimens
         }),
         headers: {
             'Content-Type':'application/json',
