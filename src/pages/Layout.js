@@ -9,6 +9,7 @@
   import Stack from '@mui/material/Stack';
   import LayoutMenu from "../components/LayoutMenu";
   import LayoutPicker from "../components/LayoutPicker";
+import API from "../utils/API";
 
   function Layout(props) {
 
@@ -77,6 +78,74 @@
     const[squareBeingDragged,setSquareBeingDragged] = useState(null);
     const[squareBeingReplaced,setSquareBeingReplaced] = useState(null);
 
+/*
+ *============================================================================*
+ *								  Axel's Garden								  *
+ *============================================================================*
+ */
+	/*
+	 *	gardenData contains all of the info about the Garden.
+	 *	Its structure reflects the Garden model in the backend server.
+	 */
+	const [gardenData, setGardenData] = useState({height: 3, width: 3});
+	// Start page with the user's last garden or a default one.
+	useEffect(() => {
+		API.getUser(props.user.id)
+		.then(user => user.json())
+		.then(user => {
+			// If they have Garden(s), check for any current and use the last one.
+			if (user.gardens.length) {
+				const gardens = user.gardens.filter(e => e.current == true);
+
+				if (gardens.length)
+					return gardens[gardens.length - 1];
+			}
+			return API.saveNewGarden(localStorage.getItem("token"), user);
+		}).then(garden => setGardenData(garden))
+		.catch(err => console.log(err));
+	}, []);
+	const gardenCalls = {
+		getGarden: async (gardenId) => {
+			const user = await (await API.getUser(props.user.id)).json();
+		}
+	}
+/*
+ *============================================================================*
+ *								  Axel's Plants								  *
+ *============================================================================*
+ */
+	/*
+	 *	plantData contains all of the info on all of the Plants used by the user.
+	 *	Its structure reflects an array of the Plant model in the backend server.
+	 */
+	 const [plantData, setPlantData] = useState([]);
+	 useEffect(() => {
+		API.getUser(props.user.id)
+		.then(res => res.json())
+		.then(user => plantCalls.getUserPlants(user.plants))
+		.then(plants => setPlantData(plants))
+		.catch(err => console.log(err));
+	}, []);
+	const plantCalls = {
+		getUserPlants: async (plants) => {
+			const allPlants = [];
+
+			for (let i = 0; i < plants.length; i++) {
+				await API.getPlant(localStorage.getItem("token"), plants[i])
+					.then(res => res.json())
+					.then(data => {
+						allPlants.push(data);
+					});
+			}
+			return allPlants;
+		}
+	}
+/*
+ *============================================================================*
+ *																			  *
+ *============================================================================*
+ */
+
     const dragStart = (e) =>{
       console.log("drag Start ");
       console.log(e.target);
@@ -104,7 +173,7 @@
 
     }
     const gardenLayout = {
-      width:100*dimensionx,
+      width:100*gardenData.width,
       display:'flex',
       flexWrap:'wrap',
       marginTop:"20px",
@@ -116,9 +185,9 @@
     const makeGardenLayout = ()=>{
       let arr = [];
       let id=1;
-      for (let i=0;i<dimensionx;i++){
+      for (let i=0;i<gardenData.width;i++){
         let temp = [];
-        for (let j=0;j<dimensiony;j++){
+        for (let j=0;j<gardenData.height;j++){
             temp.push(<img style={box1} key={i+j} src={soilImg}  data-id={id} draggable={true}
               onDragStart={dragStart}
               onDragOver={(e)=> e.preventDefault()}
@@ -136,13 +205,14 @@
 
     useEffect(()=>{
       makeGardenLayout();
-    },[dimensionx,dimensiony])
+    },[gardenData])
 
 
 
 
       return (
         <div className="layout-container">
+			<h1>NAEM OF GARDEN</h1>
           <Grid container spacing={2}>
           <Grid item xs={8}>
           <GridLines className="grid-area" cellWidth={60} strokeWidth={2} cellWidth2={12} >
@@ -163,11 +233,11 @@
 
 
   <ImageList sx={{ width: 400, height: "auto" }} cols={4} rowHeight={100}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img} className='imagesList'>
+        {plantData.map((item, index) => (
+          <ImageListItem key={index} className='imagesList'>
             <img
-              src={`${item.img}?w=100&h=100&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
+              srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
               alt={item.title}
               loading="lazy"
               key='1'
@@ -186,8 +256,7 @@
       </Grid>
       </Grid>
 	  <LayoutPicker />
-	  <LayoutMenu user={props.user}/>
-    <div>{props.user.id}</div>
+	  <LayoutMenu user={props.user} plantData={plantData} setPlantData={setPlantData} />
       </div>
 
       );

@@ -54,16 +54,16 @@ export default function LayoutMenu(props) {
 		{ icon: <HistoryEduIcon />, name: "Edit Layout", color: "#F1FF33", onClick: toggleEditLayout },
 		{ icon: <ReceiptIcon />, name: "New Layout", color: "#69FF33", onClick: toggleCreateLayout }
 	];
-	const addNewPlant = (event) => { //pass in event.target
+	const addNewPlant = async (event) => { //pass in event.target
 		event.preventDefault();
-		return API.addPlant(event.target, props.user).then(res => {
-		  if (!res.ok) {
-			console.error(res.message);
-		  }
+		let image = await API.getPlantImage(event.target[0].value);
+		return API.addPlant(event.target, props.user, image)
+		.then(res => res.json())
+		.then(data => {
 		  toggleCreatePlant();
-		  return res.json()
+			// Can't add to PlantData because data from this function doesn't return the plant data.
 		})
-	  }
+	}
 	return (
 		<>
 			<SpeedDial ariaLabel="layout menu" sx={{ position: "absolute", bottom: 16, right: 16 }} FabProps={{ sx: { backgroundColor: "#8533FF", '&:hover': { bgcolor: "lightsalmon" }}}} icon={ <SpeedDialIcon /> }>

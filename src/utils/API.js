@@ -61,8 +61,20 @@ const API = {
   },
 
   // Garden routes:
-  getGarden: (gardenId) => {
-    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`);
+  getGarden: (gardenId, user, token) => {
+    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
+		method: "POST",
+		body: JSON.stringify({
+			// username,
+			// email,
+			// password,
+			// location,
+		}),
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": `Bearer ${token}`
+		}
+	});
   },
   editGarden: (
     gardenId,
@@ -97,10 +109,13 @@ const API = {
       method: "DELETE",
     });
   },
-  saveNewGarden: (token, name, garden) => {
+  saveNewGarden: (token, user, data={height: 6, width: 6}) => {
     return fetch(`${URL_PREFIX}/api/gardens/`, {
       method: "POST",
       body: JSON.stringify({
+		userId: user._id,
+		height: data.height,
+		width: data.width
         // name,
         // description,
         // height,
@@ -113,17 +128,22 @@ const API = {
       }),
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     });
   },
 
   //Plant routes:
-  getPlant: (plantId) => {
-    return fetch(`${URL_PREFIX}/api/plants/${plantId}`);
+  getPlant: (token, plantId) => {
+		return fetch(`${URL_PREFIX}/api/plants/${plantId}`, {
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${token}`
+			}
+		});
   },
   addPlant: (
-    form, user
+    form, user, image="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
     //TODO: Add Form. Form is the target on the event. Pass in event.target on calling this function
   ) => {
     return fetch(`${URL_PREFIX}/api/plants/`, {
@@ -138,6 +158,7 @@ const API = {
         lifespan: form[10].value,
         usdaZone: form[12].value,
         water: form[14].value,
+		imgLink: image
         //form[0].value...      NOT event.target[0].value, event.target[2].value
       }),
       headers: {
@@ -164,6 +185,17 @@ const API = {
       method: "DELETE",
     });
   },
+  getPlantImage(plant) {
+	return fetch(`https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${plant}&origin=*`)
+		.then(res => res.json())
+		.then(data => {
+			let pageTitle = data.query.search[0].title;
+			console.log("PAGE TITLE", pageTitle)
+			return fetch(`http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${pageTitle}&origin=*`)
+				.then( res => res.json())
+				.then(data => data.query.pages[Object.getOwnPropertyNames(data.query.pages)[0]].original.source);
+		});
+  }
 };
 
 export default API;
