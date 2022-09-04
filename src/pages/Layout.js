@@ -9,6 +9,7 @@
   import Stack from '@mui/material/Stack';
   import LayoutMenu from "../components/LayoutMenu";
   import LayoutPicker from "../components/LayoutPicker";
+import { Typography } from '@mui/material';
 import API from "../utils/API";
 
   function Layout(props) {
@@ -87,7 +88,7 @@ import API from "../utils/API";
 	 *	gardenData contains all of the info about the Garden.
 	 *	Its structure reflects the Garden model in the backend server.
 	 */
-	const [gardenData, setGardenData] = useState({height: 3, width: 3});
+	const [gardenData, setGardenData] = useState({ name: `${props.user.username}'s Garden`, height: 4, width: 4});
 	// Start page with the user's last garden or a default one.
 	useEffect(() => {
 		API.getUser(props.user.id)
@@ -95,13 +96,12 @@ import API from "../utils/API";
 		.then(user => {
 			// If they have Garden(s), check for any current and use the last one.
 			if (user.gardens.length) {
-				const gardens = user.gardens.filter(e => e.current == true);
-
-				if (gardens.length)
-					return gardens[gardens.length - 1];
+				const gardensCurrent = user.gardens.filter(e => e.current == true);
+				if (gardensCurrent.length > 0)
+					return gardensCurrent[gardensCurrent.length - 1];
 			}
-			return API.saveNewGarden(localStorage.getItem("token"), user);
-		}).then(garden => setGardenData(garden))
+			return API.saveNewGarden(gardenData).then(res => res.json());
+		}).then(gardenNew => setGardenData(gardenNew))
 		.catch(err => console.log(err));
 	}, []);
 	const gardenCalls = {
@@ -173,7 +173,7 @@ import API from "../utils/API";
 
     }
     const gardenLayout = {
-      width:100*gardenData.width,
+      width:100*(gardenData.width ? gardenData.width : 4),
       display:'flex',
       flexWrap:'wrap',
       marginTop:"20px",
@@ -212,7 +212,7 @@ import API from "../utils/API";
 
       return (
         <div className="layout-container">
-			<h1>NAEM OF GARDEN</h1>
+			<Typography align="center" variant="h4">{gardenData.name}</Typography>
           <Grid container spacing={2}>
           <Grid item xs={8}>
           <GridLines className="grid-area" cellWidth={60} strokeWidth={2} cellWidth2={12} >
@@ -255,8 +255,8 @@ import API from "../utils/API";
       </div>
       </Grid>
       </Grid>
-	  <LayoutPicker />
-	  <LayoutMenu user={props.user} plantData={plantData} setPlantData={setPlantData} />
+	  {/* <LayoutPicker /> */}
+	  <LayoutMenu user={props.user} plantData={plantData} setPlantData={setPlantData} gardenData={gardenData} setGardenData={setGardenData} />
       </div>
 
       );
