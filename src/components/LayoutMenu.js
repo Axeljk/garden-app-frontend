@@ -64,6 +64,24 @@ export default function LayoutMenu(props) {
 			props.setPlantData(props.plantData.concat([data]));
 		})
 	}
+	const editGardenClose = (event) => {
+		event.preventDefault();
+
+		const rawData = new FormData(event.target);
+		rawData.set("current", rawData.hasOwnProperty("current") ? "false" : "true")
+		let data = {};
+		for (let [key, value] of rawData.entries()) {
+			console.log(key+":", value)
+			data[key] = value;
+		}
+
+		return API.editGarden(data, props.gardenData._id)
+			.then(res => res.json())
+			.then(results => {
+				toggleEditLayout();
+				props.setGardenData(results);
+			});
+	}
 	return (
 		<>
 			<SpeedDial ariaLabel="layout menu" sx={{ position: "absolute", bottom: 16, right: 16 }} FabProps={{ sx: { backgroundColor: "#8533FF", '&:hover': { bgcolor: "lightsalmon" }}}} icon={ <SpeedDialIcon /> }>
@@ -102,17 +120,17 @@ export default function LayoutMenu(props) {
 			>
 				<Card sx={style}>
 					<Typography align="center" variant="h4" sx={{mb: 2}}>Edit Layout</Typography>
-					<form onSubmit={toggleEditLayout} autoComplete="on">
-						<TextField required className="outlined-required" label="layout name" fullWidth margin="dense" name="name" value="Bob's Garden" />
-						<TextField required className="outlined-required" type="number" label="height" fullWidth margin="dense" name="height" sx={{width: "45%", mr: 2 }} value={4} />
-						<TextField required className="outlined-required" type="number" fullWidth label="width" margin="dense" name="width" sx={{width: "45%", mb:2, ml:2 }} value={8} />
-						<Select label="direction" name="direction" value="N" >
+					<form onSubmit={editGardenClose} autoComplete="on">
+						<TextField required className="outlined-required" label="layout name" fullWidth margin="dense" name="name" defaultValue={props.gardenData.name} />
+						<TextField required className="outlined-required" type="number" label="height" fullWidth margin="dense" name="height" sx={{width: "45%", mr: 2 }} defaultValue={props.gardenData.height} />
+						<TextField required className="outlined-required" type="number" fullWidth label="width" margin="dense" name="width" sx={{width: "45%", mb:2, ml:2 }} defaultValue={props.gardenData.width} />
+						<Select label="direction" name="direction" defaultValue={props.gardenData.direction ? props.gardenData.direction : "N"} >
 							<MenuItem value="N">N</MenuItem>
 							<MenuItem value="E">E</MenuItem>
 							<MenuItem value="S">S</MenuItem>
 							<MenuItem value="W">W</MenuItem>
 						</Select>
-						<Typography display="inline" sx={{ml: 19}}>Current: </Typography><Switch label="current" defaultChecked />
+						<Typography display="inline" sx={{ml: 19}}>Current: </Typography><Switch label="current" name="current" defaultChecked={props.gardenData.current} />
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
 							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>

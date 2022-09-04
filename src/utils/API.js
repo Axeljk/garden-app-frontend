@@ -76,31 +76,13 @@ const API = {
 		}
 	});
   },
-  editGarden: (
-    gardenId,
-    name,
-    height,
-    width,
-    direction,
-    startDate,
-    endDate,
-    current,
-    plants
-  ) => {
-    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
-      method: "POST",
-      body: JSON.stringify({
-        name,
-        height,
-        width,
-        direction,
-        startDate,
-        endDate,
-        current,
-        plants,
-      }),
+  editGarden: (data, id) => {
+    return fetch(`${URL_PREFIX}/api/gardens/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+		"Authorization": `Bearer ${localStorage.getItem("token")}`
       },
     });
   },
@@ -109,26 +91,13 @@ const API = {
       method: "DELETE",
     });
   },
-  saveNewGarden: (token, user, data={height: 6, width: 6}) => {
+  saveNewGarden: (data) => {
     return fetch(`${URL_PREFIX}/api/gardens/`, {
       method: "POST",
-      body: JSON.stringify({
-		userId: user._id,
-		height: data.height,
-		width: data.width
-        // name,
-        // description,
-        // height,
-        // width,
-        // direction,
-        // startDate,
-        // endDate,
-        // current,
-        // specimens,
-      }),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
       },
     });
   },
