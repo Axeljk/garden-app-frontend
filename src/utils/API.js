@@ -61,15 +61,8 @@ const API = {
   },
 
   // Garden routes:
-  getGarden: (gardenId, user, token) => {
+  getGarden: (gardenId, token) => {
     return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
-		method: "POST",
-		body: JSON.stringify({
-			// username,
-			// email,
-			// password,
-			// location,
-		}),
 		headers: {
 			"Content-Type": "application/json",
 			"Authorization": `Bearer ${token}`
@@ -163,7 +156,18 @@ const API = {
 				.then( res => res.json())
 				.then(data => data.query.pages[Object.getOwnPropertyNames(data.query.pages)[0]].original.source);
 		});
-  }
+  },
+  
+  addSpecimen: (data) => {
+    return fetch(`${URL_PREFIX}/api/specimens/`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        // "Authorization": `Bearer ${localStorage.getItem("token")}`, Probably don't need validation to add a specimen
+      },
+    });
+  },
 };
 
 export default API;
