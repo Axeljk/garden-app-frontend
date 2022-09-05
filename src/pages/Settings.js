@@ -102,21 +102,43 @@ export default function DnDOutsideResource() {
     [setMyEvents]
   )
 // logging empty object & this is a mess that won't work. :(
-    const handleAddEvent = useCallback(
-        ({ start, end, allDay: isAllDay }) => {
-        const event = {
-            title: '',
-            start,
-            end,
-            isAllDay,
-            isDraggable: true
+//     const handleAddEvent = useCallback(
+//         ({ start, end, allDay: isAllDay }) => {
+//         const event = {
+//             title: '',
+//             start,
+//             end,
+//             isAllDay,
+//             isDraggable: true
+//         }
+//         setAddEvent(event)
+//         console.log(event)
+//         return event
+//     } ,
+//     [setAddEvent, newEvent]
+// )
+
+    handleDateClick = arg => {
+        alert(arg.dateStr);
+    };
+
+    handleSelectedDates = info => {
+        alert("selected" + info.startStr + " to " + info.endStr);
+        const title = prompt('What event do you want to add to your calendar?');
+        console.log(info);
+        if (title != null) {
+            const newEvent = {
+                title,
+                start: info.startStr,
+                end: info.endStr
+            };
+            const data = [...this.state.events, newEvent];
+            this.setState({ events: data });
+            console.log('here', data);
+        } else {
+            console.log('nothing')
         }
-        setAddEvent(event)
-        console.log(event)
-        return event
-    } ,
-    [setAddEvent]
-)
+    }
 
   const onDropFromOutside = useCallback(
     ({ start, end, allDay: isAllDay }) => {
@@ -170,7 +192,7 @@ export default function DnDOutsideResource() {
                 {formatName(name, count)}
               </div>
             ))}
-            <div>
+            {/* <div>
                 <input type='text' placeholder='Add Title' style={{width: '20%', marginRight: '10px'}}
                     value={addEvent.title} onChange={(e) => setAddEvent({...addEvent,title:e.target.value})}
                 />
@@ -179,7 +201,7 @@ export default function DnDOutsideResource() {
                 <DatePicker placeholderText='End Date' 
                 selected={addEvent.end} onChange={(end)=>setAddEvent({...addEvent, end})} />
                 <button style={{marginTop: '10px'}} onClick={handleAddEvent}>AddEvent</button>
-            </div>
+            </div> */}
           </div>
         </Card>
       <div className="height600">
@@ -190,6 +212,7 @@ export default function DnDOutsideResource() {
             displayDragItemInCell ? dragFromOutsideItem : null
           }
           draggableAccessor="isDraggable"
+          dateClick={this.handleDateClick}
           events={myEvents}
           localizer={localizer}
           onDropFromOutside={onDropFromOutside}
