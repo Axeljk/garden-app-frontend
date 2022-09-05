@@ -60,7 +60,7 @@ const formatName = (name, count) => `${name}: ${count}`
 
 export default function DnDOutsideResource() {
   const [myEvents, setMyEvents] = useState(adjEvents)
-  const [addEvent, setAddEvent] = useState({title:'',start:'',end:''})
+//   const [addEvent, setAddEvent] = useState({title:'',start:'',end:''})
   const [draggedEvent, setDraggedEvent] = useState()
   const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true)
   const [counters, setCounters] = useState({ Water:0, Fertilize:0, Till:0 })
@@ -117,28 +117,28 @@ export default function DnDOutsideResource() {
 //     } ,
 //     [setAddEvent, newEvent]
 // )
+// ++ this is from fullCalendar not react-big-calendar ++
+    // handleDateClick = arg => {
+    //     alert(arg.dateStr);
+    // };
 
-    handleDateClick = arg => {
-        alert(arg.dateStr);
-    };
-
-    handleSelectedDates = info => {
-        alert("selected" + info.startStr + " to " + info.endStr);
-        const title = prompt('What event do you want to add to your calendar?');
-        console.log(info);
-        if (title != null) {
-            const newEvent = {
-                title,
-                start: info.startStr,
-                end: info.endStr
-            };
-            const data = [...this.state.events, newEvent];
-            this.setState({ events: data });
-            console.log('here', data);
-        } else {
-            console.log('nothing')
-        }
-    }
+    // handleSelectedDates = info => {
+    //     alert("selected" + info.startStr + " to " + info.endStr);
+    //     const title = prompt('What event do you want to add to your calendar?');
+    //     console.log(info);
+    //     if (title != null) {
+    //         const newEvent = {
+    //             title,
+    //             start: info.startStr,
+    //             end: info.endStr
+    //         };
+    //         const data = [...this.state.events, newEvent];
+    //         this.setState({ events: data });
+    //         console.log('here', data);
+    //     } else {
+    //         console.log('nothing')
+    //     }
+    // }
 
   const onDropFromOutside = useCallback(
     ({ start, end, allDay: isAllDay }) => {
@@ -212,7 +212,7 @@ export default function DnDOutsideResource() {
             displayDragItemInCell ? dragFromOutsideItem : null
           }
           draggableAccessor="isDraggable"
-          dateClick={this.handleDateClick}
+          dateClick={newEvent}
           events={myEvents}
           localizer={localizer}
           onDropFromOutside={onDropFromOutside}
