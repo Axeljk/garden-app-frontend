@@ -107,6 +107,7 @@ import API from "../utils/API";
 		}).then(gardenNew => setGardenData(gardenNew))
 		.catch(err => console.error(err));
 	}, []);
+	useEffect(() => { console.log(gardenData) }, [gardenData]);
 	const gardenCalls = {
 		getGarden: async (gardenId) => {
 			const user = await (await API.getUser(props.user.id)).json();
