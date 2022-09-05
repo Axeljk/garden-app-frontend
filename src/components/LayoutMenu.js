@@ -19,6 +19,8 @@ import Select from '@mui/material/Select';
 import { MenuItem } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import {Divider} from "@mui/material";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 
 import API from '../utils/API';
 
@@ -35,6 +37,9 @@ const style = {
   };
 
 export default function LayoutMenu(props) {
+	// States used by menus. Beware.
+	const [speedDial, setSpeedDial] = React.useState(false);
+	const toggleSpeedDial = () => setSpeedDial(!speedDial);
 	const [removePlantState, setRemovePlant] = React.useState(false);
 	const toggleRemovePlant = () => setRemovePlant(!removePlantState);
 	const [editPlantState, setEditPlant] = React.useState(false);
@@ -45,6 +50,8 @@ export default function LayoutMenu(props) {
 	const toggleEditLayout = () => setEditLayout(!editLayoutState);
 	const [createLayoutState, setCreateLayout] = React.useState(false);
 	const toggleCreateLayout = () => setCreateLayout(!createLayoutState);
+	const [gardenTab, setGardenTab] = React.useState(0);
+	const handleGardenTab = (event, target) => setGardenTab(target);
 
 	const actions = [
 		{ icon: <HighlightOffIcon />, name: "Remove Plant", color: "#FF3347", onClick: toggleRemovePlant },
@@ -82,46 +89,80 @@ export default function LayoutMenu(props) {
 				props.setGardenData(results);
 			});
 	}
+	const createGardenClose = event => {
+		event.preventDefault();
+
+		const data = {
+			name: event.target.name.value,
+			height: event.target.height.value,
+			width: event.target.width.value,
+			userId: props.user.id
+		}
+		return API.saveNewGarden(data)
+			.then(res => res.json())
+			.then(results => {
+				toggleCreateLayout();
+				props.setGardenData(results);
+			});
+	}
 	return (
 		<>
-			<SpeedDial ariaLabel="layout menu" sx={{ position: "absolute", bottom: 16, right: 16 }} FabProps={{ sx: { backgroundColor: "#8533FF", '&:hover': { bgcolor: "lightsalmon" }}}} icon={ <SpeedDialIcon /> }>
+			<SpeedDial ariaLabel="garden menu" onClick={toggleSpeedDial} open={speedDial} sx={{ position: "absolute", bottom: 16, right: 16 }} FabProps={{ sx: { backgroundColor: "#8533FF", '&:hover': { bgcolor: "lightsalmon" }}}} icon={ <SpeedDialIcon /> }>
 				{ actions.map(actions => (
 					<SpeedDialAction key={actions.name} icon={actions.icon} tooltipTitle={actions.name} onClick={actions.onClick} sx={{backgroundColor: actions.color}} />
 				))}
 			</SpeedDial>
 
-			{/* Create new layout modal. */}
+			{/* Create new garden modal. */}
 			<Modal
 				open={createLayoutState}
 				onClose={toggleCreateLayout}
-				aria-labelledby="create layout"
-				aria-describedby="form to create new layout"
+				aria-labelledby="create garden"
+				aria-describedby="form to create new garden"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Create New Layout</Typography>
-					<form onSubmit={toggleCreateLayout} autoComplete="on">
-						<TextField required className="outlined-required" label="layout name" fullWidth margin="dense" name="name" />
-						<TextField required className="outlined-required" type="number" label="height" fullWidth margin="dense" name="height" sx={{width: "45%", mr: 2 }} />
-						<TextField required className="outlined-required" type="number" fullWidth label="width" margin="dense" name="width" sx={{width: "45%", ml:2 }} />
+					<Typography align="center" variant="h4" sx={{mb: 2}}>New Garden</Typography>
+					<Tabs value={gardenTab} onChange={handleGardenTab} aria-label="create or duplicate garden tabs">
+						<Tab label="Create New" />
+						<Tab label="Duplicate" />
+					</Tabs>
+					<div hidden={gardenTab !== 0} id={0}>
+						<form onSubmit={createGardenClose} autoComplete="on">
+							<TextField required className="outlined-required" label="name of garden" fullWidth margin="dense" name="name" />
+							<TextField required className="outlined-required" type="number" label="height" fullWidth margin="dense" name="height" sx={{width: "45%", mr: 2 }} />
+							<TextField required className="outlined-required" type="number" fullWidth label="width" margin="dense" name="width" sx={{width: "45%", ml:2 }} />
+							<Divider sx={{mt: 2, mb: 1}} />
+							<div className="cardAction">
+								<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+							</div>
+						</form>
+					</div>
+					<div hidden={gardenTab !== 1} id={1}>
+						<Select label="duplicate" name="duplicate" defaultValue="[not done]" sx={{mt: 2}} fullWidth>
+						<MenuItem value="[not done]">[not done]</MenuItem>
+							{/* {props.user.gardens.map(e, index => (
+								<MenuItem key={index} loading="lazy">{index}</MenuItem>
+							))} */}
+						</Select>
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
 							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
 						</div>
-					</form>
+					</div>
 				</Card>
 			</Modal>
 
-			{/* Edit layout modal. */}
+			{/* Edit garden modal. */}
 			<Modal
 				open={editLayoutState}
 				onClose={toggleEditLayout}
-				aria-labelledby="edit layout"
-				aria-describedby="form to edit your layout"
+				aria-labelledby="edit garden"
+				aria-describedby="form to edit your garden"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Edit Layout</Typography>
+					<Typography align="center" variant="h4" sx={{mb: 2}}>Edit Garden</Typography>
 					<form onSubmit={editGardenClose} autoComplete="on">
-						<TextField required className="outlined-required" label="layout name" fullWidth margin="dense" name="name" defaultValue={props.gardenData.name} />
+						<TextField required className="outlined-required" label="name of garden" fullWidth margin="dense" name="name" defaultValue={props.gardenData.name} />
 						<TextField required className="outlined-required" type="number" label="height" fullWidth margin="dense" name="height" sx={{width: "45%", mr: 2 }} defaultValue={props.gardenData.height} />
 						<TextField required className="outlined-required" type="number" fullWidth label="width" margin="dense" name="width" sx={{width: "45%", mb:2, ml:2 }} defaultValue={props.gardenData.width} />
 						<Select label="direction" name="direction" defaultValue={props.gardenData.direction ? props.gardenData.direction : "N"} >
@@ -143,8 +184,8 @@ export default function LayoutMenu(props) {
 			<Modal
 				open={createPlantState}
 				onClose={toggleCreatePlant}
-				aria-labelledby="create layout"
-				aria-describedby="form to create new layout"
+				aria-labelledby="create plant"
+				aria-describedby="form to create new plant"
 			>
 				<Card sx={style}>
 					<Typography align="center" variant="h4" sx={{mb: 2}}>Add New Plant</Typography>
