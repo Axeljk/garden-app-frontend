@@ -8,6 +8,7 @@ import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
 import getDay from 'date-fns/getDay'
 import DatePicker from 'react-datepicker'
+import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
 
@@ -59,13 +60,12 @@ const formatName = (name, count) => `${name}: ${count}`
 
 export default function DnDOutsideResource() {
   const [myEvents, setMyEvents] = useState(adjEvents)
+  const [addEvent, setAddEvent] = useState({title:'',start:'',end:''})
   const [draggedEvent, setDraggedEvent] = useState()
   const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true)
   const [counters, setCounters] = useState({ Water:0, Fertilize:0, Till:0 })
 
-  function handleAddEvent() {
-    setMyEvents([...myEvents, newEvent])
-}  
+  
   const handleDragStart = useCallback((event) => setDraggedEvent(event), [])
 
   const dragFromOutsideItem = useCallback(() => draggedEvent, [draggedEvent])
@@ -101,6 +101,22 @@ export default function DnDOutsideResource() {
     },
     [setMyEvents]
   )
+// logging empty object & this is a mess that won't work. :(
+    const handleAddEvent = useCallback(
+        ({ start, end, allDay: isAllDay }) => {
+        const event = {
+            title: '',
+            start,
+            end,
+            isAllDay,
+            isDraggable: true
+        }
+        setAddEvent(event)
+        console.log(event)
+        return event
+    } ,
+    [setAddEvent]
+)
 
   const onDropFromOutside = useCallback(
     ({ start, end, allDay: isAllDay }) => {
@@ -156,12 +172,12 @@ export default function DnDOutsideResource() {
             ))}
             <div>
                 <input type='text' placeholder='Add Title' style={{width: '20%', marginRight: '10px'}}
-                    value={newEvent.title} onChange={(e) => setMyEvents({...newEvent,title:e.target.value})}
+                    value={addEvent.title} onChange={(e) => setAddEvent({...addEvent,title:e.target.value})}
                 />
                 <DatePicker placeholderText='Start Date' style={{marginRight: '10px'}}
-                selected={newEvent.start} onChange={(start)=>setMyEvents({...newEvent, start})} />
+                selected={addEvent.start} onChange={(start)=>setAddEvent({...addEvent, start})} />
                 <DatePicker placeholderText='End Date' 
-                selected={newEvent.end} onChange={(end)=>setMyEvents({...newEvent, end})} />
+                selected={addEvent.end} onChange={(end)=>setAddEvent({...addEvent, end})} />
                 <button style={{marginTop: '10px'}} onClick={handleAddEvent}>AddEvent</button>
             </div>
           </div>
