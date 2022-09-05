@@ -49,6 +49,7 @@ export default function CalendarPage() {
 
     function handleAddEvent() {
         setAllEvents([...allEvents, newEvent])
+        console.log('event added')
     }
 
     return (
