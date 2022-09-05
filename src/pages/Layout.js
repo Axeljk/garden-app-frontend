@@ -100,9 +100,12 @@ import API from "../utils/API";
 				if (gardensCurrent.length > 0)
 					return gardensCurrent[gardensCurrent.length - 1];
 			}
+			let newGarden = gardenData;
+			newGarden.userId = props.user.id;
+			setGardenData(newGarden);
 			return API.saveNewGarden(gardenData).then(res => res.json());
 		}).then(gardenNew => setGardenData(gardenNew))
-		.catch(err => console.log(err));
+		.catch(err => console.error(err));
 	}, []);
 	const gardenCalls = {
 		getGarden: async (gardenId) => {
@@ -124,7 +127,7 @@ import API from "../utils/API";
 		.then(res => res.json())
 		.then(user => plantCalls.getUserPlants(user.plants))
 		.then(plants => setPlantData(plants))
-		.catch(err => console.log(err));
+		.catch(err => console.error(err));
 	}, []);
 	const plantCalls = {
 		getUserPlants: async (plants) => {
