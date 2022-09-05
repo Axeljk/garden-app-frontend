@@ -68,7 +68,7 @@ export default function LayoutMenu(props) {
 		event.preventDefault();
 
 		const rawData = new FormData(event.target);
-		rawData.set("current", rawData.hasOwnProperty("current") ? "false" : "true")
+		rawData.set("current", true)
 		let data = {};
 		for (let [key, value] of rawData.entries()) {
 			console.log(key+":", value)
