@@ -29,7 +29,6 @@ function LandingPage() {
     const wxData = fetch(openWeatherURL)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
     });
 
   return (

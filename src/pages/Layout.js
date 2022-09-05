@@ -145,13 +145,26 @@ import API from "../utils/API";
 	}
 /*
  *============================================================================*
+ *	*	specimenData contains all of the info on all of the Specimen used by the Garden.
+	 *	Its structure reflects an array of the Garden model in the backend server.
+ *============================================================================*
+ */
+const addNewSpecimen = async (event) => { //pass in event.target
+  event.preventDefault();
+  return API.addSpecimen(event.target, props.garden)
+  .then(res => res.json())
+  .then(data => {
+    props.setGardenData(props.gardenData.concat([data]));
+  })
+}
+/*
+ *============================================================================*
  *																			  *
  *============================================================================*
  */
-
-    const dragStart = (e) =>{
-      console.log("drag Start ");
-      console.log(e.target);
+const dragStart = (e) =>{
+  console.log("drag Start ");
+  console.log(e.target);
       setSquareBeingDragged(e.target)
     }
 
@@ -163,6 +176,7 @@ import API from "../utils/API";
     const dragEnd = (e) =>{
       console.log("drag End ");
       squareBeingReplaced.src = squareBeingDragged.src;
+      addNewSpecimen();
     }
 
     const box1 = {
