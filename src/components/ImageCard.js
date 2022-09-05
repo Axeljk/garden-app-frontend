@@ -3,6 +3,7 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import { CardActionArea } from '@mui/material'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Collapse from '@mui/material/Collapse'
@@ -39,6 +40,8 @@ export default function ImageCard({ info,checked }) {
                 borderColor: '#33b3ff',
                 boxShadow: 2,
             }}>
+                <CardActionArea>
+
                 <CardMedia
                     component="img"
                     height="140"
@@ -59,6 +62,7 @@ export default function ImageCard({ info,checked }) {
                     <Button size="small">{info.link1}</Button>
                     <Button size="small">{info.link2}</Button>
                 </CardActions>
+                </CardActionArea>
             </Card>
         </Collapse>
     )
