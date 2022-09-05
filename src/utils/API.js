@@ -61,15 +61,8 @@ const API = {
   },
 
   // Garden routes:
-  getGarden: (gardenId, user, token) => {
+  getGarden: (gardenId, token) => {
     return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
-		method: "POST",
-		body: JSON.stringify({
-			// username,
-			// email,
-			// password,
-			// location,
-		}),
 		headers: {
 			"Content-Type": "application/json",
 			"Authorization": `Bearer ${token}`
