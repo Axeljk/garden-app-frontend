@@ -23,6 +23,11 @@ import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import YardIcon from '@mui/icons-material/Yard';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+
+import API from "../utils/API";
 
 const PREFIX = 'Demo';
 
@@ -170,6 +175,28 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
   },
 }));
 
+
+const URL_PREFIX = process.env.PORT || "http://localhost:3001";
+const allEvents=[];
+const eventCalls = ()=>{
+    
+
+    
+            fetch(`${URL_PREFIX}/api/events/`)
+                .then(res => res.json())  
+                .then(data => {
+                    for(let i=0;i<data.length;i++)
+                    {
+                        allEvents.push(data);
+                    }
+                   console.log(data)}
+                   )
+                   window.localStorage.setItem("events",JSON.stringify(allEvents))
+                   console.log(allEvents);
+}
+                
+
+
 const appointments = [
   {
     id: 0,
@@ -293,6 +320,34 @@ const FlexibleSpace = (({ ...restProps }) => (
   </StyledToolbarFlexibleSpace>
 ));
 
+
+const AddEventForm =(({ ...restProps }) =>(
+                <div>
+    	            <Typography align="center" variant="h4" sx={{mb: 1}}>Add Event</Typography>
+					<form onSubmit={handleAddEvent} autoComplete="on">
+						<TextField required className="outlined-required" label="Title" fullWidth margin="dense" size="small" name="title" />
+						<TextField required className="outlined-required" label="Start" fullWidth margin="dense" size="small" name="start" />
+						<TextField required className="outlined-required" label="End" fullWidth margin="dense" size="small" name="end" />
+						<div className="cardAction">
+							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+						</div>
+					</form>
+
+                </div>            
+            
+
+));
+
+
+function handleAddEvent(e){
+    e.preventDefault();
+
+
+    console.log();
+    eventCalls();
+  }
+
+
 export default class Demo extends React.PureComponent {
   // #FOLD_BLOCK
   constructor(props) {
@@ -304,6 +359,9 @@ export default class Demo extends React.PureComponent {
 
     this.commitChanges = this.commitChanges.bind(this);
   }
+
+
+ 
 
   // #FOLD_BLOCK
   commitChanges({ added, changed, deleted }) {
@@ -329,6 +387,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
+       <AddEventForm />
         <Scheduler
           data={data}
         >
