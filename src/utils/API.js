@@ -79,9 +79,14 @@ const API = {
       },
     });
   },
-  deleteGarden: (gardenId) => {
-    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
+  deleteGarden: (id, userId) => {
+    return fetch(`${URL_PREFIX}/api/gardens/${id}`, {
       method: "DELETE",
+	  body: JSON.stringify(userId),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
     });
   },
   saveNewGarden: (data) => {
@@ -157,7 +162,7 @@ const API = {
 				.then(data => data.query.pages[Object.getOwnPropertyNames(data.query.pages)[0]].original.source);
 		});
   },
-  
+
   addSpecimen: (data) => {
     return fetch(`${URL_PREFIX}/api/specimens/`, {
       method: "POST",

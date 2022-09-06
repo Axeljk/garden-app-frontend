@@ -49,6 +49,8 @@ export default function LayoutMenu(props) {
 	const toggleEditPlant = () => setEditPlant(!editPlantState);
 	const [createPlantState, setCreatePlant] = React.useState(false);
 	const toggleCreatePlant = () => setCreatePlant(!createPlantState);
+	const [removeGarden, setRemoveGarden] = React.useState(false);
+	const toggleRemoveGarden = () => setRemoveGarden(!removeGarden);
 	const [editLayoutState, setEditLayout] = React.useState(false);
 	const toggleEditLayout = () => setEditLayout(!editLayoutState);
 	const [createLayoutState, setCreateLayout] = React.useState(false);
@@ -69,7 +71,7 @@ export default function LayoutMenu(props) {
 		{ icon: <HighlightOffIcon />, name: "Remove Plant", color: "#FF3347", onClick: toggleRemovePlant },
 		{ icon: <EditIcon />, name: "Edit Plant", color: "#33FFEB", onClick: toggleEditPlant },
 		{ icon: <AddIcon />, name: "Insert Plant", color: "#ADFF33", onClick: toggleCreatePlant },
-		{ icon: <RemoveCircleOutlineIcon />, name: "Remove Garden", color: "#F8A477" },
+		{ icon: <RemoveCircleOutlineIcon />, name: "Remove Garden", color: "#F8A477", onClick: toggleRemoveGarden },
 		{ icon: <HistoryEduIcon />, name: "Edit Garden", color: "#77CBF8", onClick: toggleEditLayout },
 		{ icon: <Filter1Icon />, name: "Select Garden", color: "#E577F8", onClick: toggleSelectGarden },
 		{ icon: <ReceiptIcon />, name: "New Garden", color: "#8BF877", onClick: toggleCreateLayout }
@@ -84,6 +86,27 @@ export default function LayoutMenu(props) {
 			toggleCreatePlant();
 			props.setPlantData(props.plantData.concat([data]));
 		})
+	}
+	const removeGardenClose = (event) => {
+		event.preventDefault();
+		toggleRemoveGarden();
+
+		return API.deleteGarden(currentGarden, { userId: props.user.id})
+			.then(() => {
+				setCurrentGarden("");
+
+				if (currentGarden == props.gardenData._id) {
+					let gardens = allGardens.filter(e => e._id != currentGarden);
+
+					if (gardens.length >= 1)
+						return props.setGardenData(gardens[gardens.length - 1]);
+					else {
+						return API.saveNewGarden({ userId: props.user.id, name: `${props.user.username}'s Garden`, height: 4, width: 4})
+							.then(res => res.json())
+							.then(newGarden => props.setGardenData(newGarden));
+					}
+				}
+			});
 	}
 	const editGardenClose = (event) => {
 		event.preventDefault();
@@ -232,6 +255,29 @@ export default function LayoutMenu(props) {
 							<MenuItem value="W">W</MenuItem>
 						</Select>
 						<Typography display="inline" sx={{ml: 19}}>Current: </Typography><Switch label="current" name="current" defaultChecked={props.gardenData.current} />
+						<Divider sx={{mt: 2, mb: 1}} />
+						<div className="cardAction">
+							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+						</div>
+					</form>
+				</Card>
+			</Modal>
+
+			{/* Remove Garden modal. */}
+			<Modal
+				open={removeGarden}
+				onClose={toggleRemoveGarden}
+				aria-labelledby="remove garden"
+				aria-describedby="form to remove a garden"
+			>
+				<Card sx={style}>
+					<Typography align="center" variant="h4" sx={{mb: 2}}>Remove Garden</Typography>
+					<form onSubmit={removeGardenClose} autoComplete="on">
+						<Select label="remove" name="remove" value={currentGarden} onChange={event => setCurrentGarden(event.target.value)} sx={{mt: 2}} fullWidth>
+							{allGardens?.map((garden, index) =>
+								<MenuItem key={index} value={garden._id}>{garden.name}</MenuItem>
+							)}
+						</Select>
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
 							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
