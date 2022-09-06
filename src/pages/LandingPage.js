@@ -42,14 +42,14 @@ function LandingPage() {
             backgroundRepeate: 'no-repeat',
             height: 'auto'
         }}>
-      <Ticker offset='run-in' speed={10} mode='smooth'>
+      {/* <Ticker offset='run-in' speed={10} mode='smooth'>
 
         {({ index }) => (
           <>
             <h3>This is the ticker for element #{index}!</h3>
           </>
         )}
-      </Ticker>
+      </Ticker> */}
       <Collapse
         in={checked}
         {...(checked ? { timeout: 1000 } : {})}

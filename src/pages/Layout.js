@@ -107,20 +107,26 @@ const addNewSpecimen = async (event) => { //pass in event.target
  *============================================================================*
  */
 const dragStart = (e) =>{
-  console.log("drag Start ");
-  console.log(e.target);
+  console.log("drag Start ", e.target);
       setSquareBeingDragged(e.target)
     }
 
     const dragDrop = (e) =>{
-      console.log("drag Drop");
+      console.log("drag Drop e.target", e.target);
+      //newSquare.setAttribute("data-plantid", garden._id);
       setSquareBeingReplaced(e.target)
     }
 
     const dragEnd = (e) =>{
-      console.log("drag End ");
       squareBeingReplaced.src = squareBeingDragged.src;
-      addNewSpecimen();
+      const plantname=squareBeingDragged.dataset.name;
+      const plantid=squareBeingDragged.dataset.plantid;
+      const gardenid=squareBeingDragged.dataset.gardenid
+      //api call then get specimen id from that
+
+      console.log(plantid, "\n", gardenid,"\n", plantname)
+      // const selectedPlant = plantData.find(e => e._id == selectedId);
+      // addNewSpecimen(selectedPlant);
     }
 
     const box1 = {
@@ -197,9 +203,12 @@ const dragStart = (e) =>{
 								<ImageListItem key={index} sx={{height: 100, width: 100, padding: "2px"}}>
 									<Box sx={{ height: "96px", width: "96px", boxShadow: 4, borderRadius:4, overflow:"hidden"}}>
 										<img
+											data-plantid={item._id}
+											data-name={item.name}
+											data-gardenid={gardenData._id}
 											src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
 											srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
-											alt={item.title}
+											alt={item.name}
 											loading="lazy"
 											key='1'
 											draggable={true}
