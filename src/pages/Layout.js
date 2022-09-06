@@ -133,11 +133,11 @@ const dragStart = (e) =>{
 		width:"100px",
 		height:"100px",
 		backgroundImage: `url(${soilImg})`,
-		padding: "10px 10px",
+		padding: "10px 10 px",
 		boxShadow:`0px 10px 10px rgba(0,0,0,0.1)`,
 		borderStyle: "none",
 		outline: "none",
-		borderWidth: 0
+		borderWidth: 0,
     }
     const box2 = {
       width:"100px",
@@ -179,7 +179,7 @@ const dragStart = (e) =>{
     },[gardenData])
 
 	return (
-		<Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%"}}>
+		<Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%"}} className='background'>
 			<Grid container spacing={2} sx={{mt: 2}}>
 				<Grid item xs={12} md={8}>
 					<Box sx={{mx:12}}>

@@ -1,7 +1,12 @@
 *{
   margin: 0;
   padding:0;
- 
+}
+
+.background{
+  background-image: url('../assets/pexels-pixabay-161512-backwards.jpg');
+  background-position: center;
+  background-size: cover;
 }
 
 .main{
