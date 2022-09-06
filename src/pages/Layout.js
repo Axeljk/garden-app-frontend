@@ -2,7 +2,8 @@
 import React, {useState, useEffect} from 'react'
 import Grid from '@mui/material/Grid';
 import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 import './Layout.css'
 import GridLines from 'react-gridlines';
 import soilImg from '../assets/Plants/soil1.jpg'
@@ -135,7 +136,6 @@ const dragStart = (e) =>{
     const box2 = {
       width:"100px",
       height:"100px",
-
     }
     const gardenLayout = {
       width:100*(gardenData.width ? gardenData.width : 4),
@@ -174,41 +174,48 @@ const dragStart = (e) =>{
 
 	return (
 		<Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%"}}>
-			<Grid container spacing={2}>
-				<Grid item xs={8}>
-					<Typography align="center" variant="h4">{gardenData.name}</Typography>
-					<Typography align="center" variant="subtitle1">{gardenData.desciption}</Typography>
-					<GridLines className="grid-area" cellWidth={100} strokeWidth={2} cellWidth2={25} >
-						<div className='layout-div'>
-							<section style={gardenLayout}>
+			<Grid container spacing={2} sx={{mt: 2}}>
+				<Grid item xs={12} md={8}>
+					<Box sx={{mx:12}}>
+						<Typography align="center" variant="h4" sx={{mt: 2}}>{gardenData.name}</Typography>
+						<Typography align="center" variant="subtitle1">{gardenData.desciption}</Typography>
+					</Box>
+					<GridLines className="grid-area" cellWidth={100} strokeWidth={2} cellWidth2={25}>
+						<Container sx={{minHeight: 600, height: "100%", display: "flex", justifyContent: "center", alignItems: "center", overflow: "scroll"}}>
+							<Box style={gardenLayout}>
 								{garden}
-							</section>
-						</div>
+							</Box>
+						</Container>
 					</GridLines>
 				</Grid>
-				<Grid item xs={4}>
-					<div className='images-div'><h1>Select the Plant</h1>
-						<ImageList sx={{ width: 400, height: "auto" }} cols={4} rowHeight={100}>
+				<Grid item xs={12} md={4}>
+					<Box sx={{display: "flex", flexDirection: "column", alignContent: "end"}}><Box>
+						<Typography align="center" variant="h4">Greenhouse</Typography>
+						<Divider sx={{mb:2}} />
+						<ImageList sx={{ height: "100%" }} cols={4} rowHeight={100}>
 							{plantData.map((item, index) => (
-								<ImageListItem key={index} className='imagesList'>
-									<img
-										src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
-										srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
-										alt={item.title}
-										loading="lazy"
-										key='1'
-										draggable={true}
-										onDragStart={dragStart}
-										onDragOver={(e)=> e.preventDefault()}
-										onDragEnter={(e)=> e.preventDefault()}
-										onDragLeave={(e)=> e.preventDefault()}
-										onDrop={dragDrop}
-										onDragEnd={dragEnd}
-										/>
+								<ImageListItem key={index} sx={{height: 100, width: 100, padding: "2px"}}>
+									<Box sx={{ height: "96px", width: "96px", boxShadow: 4, borderRadius:4, overflow:"hidden"}}>
+										<img
+											src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
+											srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+											alt={item.title}
+											loading="lazy"
+											key='1'
+											draggable={true}
+											onDragStart={dragStart}
+											onDragOver={(e)=> e.preventDefault()}
+											onDragEnter={(e)=> e.preventDefault()}
+											onDragLeave={(e)=> e.preventDefault()}
+											onDrop={dragDrop}
+											onDragEnd={dragEnd}
+											style={{height: "96px", width: "auto", objectFit: "contain"}}
+											/>
+										</Box>
 								</ImageListItem>
 							))}
 						</ImageList>
-					</div>
+					</Box></Box>
 				</Grid>
 			</Grid>
 	  {/* <LayoutPicker /> */}
