@@ -175,8 +175,11 @@ const dragStart = (e) =>{
       setGarden(arr);
     }
 
+
     useEffect(()=>{
       makeGardenLayout();
+	  window.localStorage.setItem("gardenData",JSON.stringify([gardenData]));
+	
     },[gardenData])
 
 	return (
