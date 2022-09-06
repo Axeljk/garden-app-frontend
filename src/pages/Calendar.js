@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import Card from '@mui/material/Card'
+import Container from "@mui/material/Container";
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 
 const DragAndDropCalendar = withDragAndDrop(Calendar)
@@ -65,7 +66,7 @@ export default function DnDOutsideResource() {
   const [displayDragItemInCell, setDisplayDragItemInCell] = useState(true)
   const [counters, setCounters] = useState({ Water:0, Fertilize:0, Till:0 })
 
-  
+
   const handleDragStart = useCallback((event) => setDraggedEvent(event), [])
 
   const dragFromOutsideItem = useCallback(() => draggedEvent, [draggedEvent])
@@ -152,7 +153,7 @@ export default function DnDOutsideResource() {
   const defaultDate = useMemo(() => new Date(2022, 8, 1), [])
 
   return (
-    <Fragment>
+    <Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%"}}>
         <Card className="dndOutsideSourceExample">
           <div className="inner" >
             <h4 style={{
@@ -195,6 +196,6 @@ export default function DnDOutsideResource() {
           style={{ height:'600px' }}
         />
       </div>
-    </Fragment>
+    </Container>
   )
 }
