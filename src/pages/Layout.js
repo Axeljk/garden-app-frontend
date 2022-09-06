@@ -145,8 +145,8 @@ const dragStart = (e) =>{
     }
     const gardenLayout = {
       width:100*(gardenData.width ? gardenData.width : 4),
-      display:'flex',
-      flexWrap:'wrap',
+      display:'grid',
+      gridTemplateColumns: `repeat(${gardenData.width}, auto)`,
       marginTop:"20px",
       boxShadow:`0px 10px 10px rgba(0,0,0,0.1)`
     }
