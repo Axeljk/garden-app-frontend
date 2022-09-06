@@ -110,8 +110,8 @@ export default function NavBar(props) {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem component={Link} to='/layout'>Your Garden</MenuItem>
-                            <MenuItem component={Link} to='/calendar'>Your Calendar</MenuItem>
+                            <MenuItem component={Link} to='/layout'>My Gardens</MenuItem>
+                            <MenuItem component={Link} to='/calendar'>My Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
 							<MenuItem component={Button} onClick={props.logout} style={{textTransform:'capitalize'}}>Logout</MenuItem>
 

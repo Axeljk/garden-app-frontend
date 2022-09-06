@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import background from '../assets/pexels-markus-spiske-6278625.jpg'
 import Collapse from '@mui/material/Collapse'
-import ImageCard from '../components/ImageCard'
-import cardInfo from '../static/cardInfo'
-import Box from '@mui/material/Box'
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import '../components/CardSpace.css'
 import '../pages/LandingPage.css'
@@ -11,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import { Link as Scroll } from "react-scroll";
 import { Card, Typography, CardContent } from '@mui/material'
 import AboutSpace from '../components/AboutSpace'
-import { breakpoints } from '@mui/system'
+
 
 export default function About() {
     const [checked, setChecked] = useState(false);
