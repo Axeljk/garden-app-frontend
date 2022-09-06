@@ -1,70 +1,35 @@
-# Getting Started with Create React App
+# Peas By Spring
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Available Scripts
+## Description
+This application is a tool to plan out your garden using recommended or custom garden layouts, search functionality for plant specimens, and a plant library to import plants into your garden utilizing drag and drop features. 
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+1. [Installation](#installation)
+2. [Usage](#usage)
+3. [Licenses](#licenses)
+4. [Contributing](#contributing)
+5. [Tests](#tests)
+6. [Questions](#questions)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
+A link to the deployed site can be found [here](deployed site). A screenshot of the site is shown below: 
+![screenshot of deployed site for Peas By Spring](screenshot)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Usage
+To use this site, log in or sign up and navigate to the My Garden using the dropdown menu next to your Peas By Spring. Once you select the dimensions of your garden space, you can use the speed dial to add plants to your workbench space. From there, simply drag the plants to the space in the garden. You can also view the plant specimen information by clicking on a plant in your garden. 
 
-### `npm test`
+## Licenses
+This project uses the MIT license. More info about licenses can be found [here](https://choosealicense.com/).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Contributing
+This project is not open for outside contribution at this time. Thank you for your interest in our project and please feel free to reach out to the development team for more information. 
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Questions
+The development application can be found on [Github](https://github.com/Axeljk/garden-app-frontend) or contacted through LinkedIn: 
+* [Kristen Santee](https://www.linkedin.com/in/kristen-santee-aba1a631/)
+* [Axel Kern](https://www.linkedin.com/in/axel-kern/)
+* [Akshata Kumbhar](https://www.linkedin.com/in/akshata-kumbhar/)
+* [Kit Williams](https://www.linkedin.com/in/kit-williams-webdev/)

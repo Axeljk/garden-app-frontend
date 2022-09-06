@@ -3,11 +3,13 @@ import * as React from "react";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
+import Filter1Icon from '@mui/icons-material/Filter1';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 // Modal stuff.
 import Typography from '@mui/material/Typography';
@@ -40,53 +42,117 @@ export default function LayoutMenu(props) {
 	// States used by menus. Beware.
 	const [speedDial, setSpeedDial] = React.useState(false);
 	const toggleSpeedDial = () => setSpeedDial(!speedDial);
+	const [currentGarden, setCurrentGarden] = React.useState("");
 	const [removePlantState, setRemovePlant] = React.useState(false);
 	const toggleRemovePlant = () => setRemovePlant(!removePlantState);
 	const [editPlantState, setEditPlant] = React.useState(false);
 	const toggleEditPlant = () => setEditPlant(!editPlantState);
 	const [createPlantState, setCreatePlant] = React.useState(false);
 	const toggleCreatePlant = () => setCreatePlant(!createPlantState);
+	const [removeGarden, setRemoveGarden] = React.useState(false);
+	const toggleRemoveGarden = () => setRemoveGarden(!removeGarden);
 	const [editLayoutState, setEditLayout] = React.useState(false);
 	const toggleEditLayout = () => setEditLayout(!editLayoutState);
 	const [createLayoutState, setCreateLayout] = React.useState(false);
 	const toggleCreateLayout = () => setCreateLayout(!createLayoutState);
 	const [gardenTab, setGardenTab] = React.useState(0);
 	const handleGardenTab = (event, target) => setGardenTab(target);
+	const [selectGarden, setSelectGarden] = React.useState(false);
+	const toggleSelectGarden = () => setSelectGarden(!selectGarden);
+	const [allGardens, setAllGardens] = React.useState([{name: "[none]"}]);
+
+	React.useEffect(() => {
+		API.getUser(props.user.id)
+		.then(res => res.json())
+		.then(user => {setAllGardens(user.gardens); return allGardens});
+	}, [speedDial]);
 
 	const actions = [
 		{ icon: <HighlightOffIcon />, name: "Remove Plant", color: "#FF3347", onClick: toggleRemovePlant },
 		{ icon: <EditIcon />, name: "Edit Plant", color: "#33FFEB", onClick: toggleEditPlant },
 		{ icon: <AddIcon />, name: "Insert Plant", color: "#ADFF33", onClick: toggleCreatePlant },
-		{ icon: <HistoryEduIcon />, name: "Edit Layout", color: "#F1FF33", onClick: toggleEditLayout },
-		{ icon: <ReceiptIcon />, name: "New Layout", color: "#69FF33", onClick: toggleCreateLayout }
+		{ icon: <RemoveCircleOutlineIcon />, name: "Remove Garden", color: "#F8A477", onClick: toggleRemoveGarden },
+		{ icon: <HistoryEduIcon />, name: "Edit Garden", color: "#77CBF8", onClick: toggleEditLayout },
+		{ icon: <Filter1Icon />, name: "Select Garden", color: "#E577F8", onClick: toggleSelectGarden },
+		{ icon: <ReceiptIcon />, name: "New Garden", color: "#8BF877", onClick: toggleCreateLayout }
 	];
 	const addNewPlant = async (event) => { //pass in event.target
 		event.preventDefault();
-		let image = await API.getPlantImage(event.target[0].value);
 
-		return API.addPlant(event.target, props.user, image)
+		let rawData = new FormData(event.target);
+		let data = {}
+		for (let [key, value] of rawData.entries())
+			data[key] = value;
+		data.userId = props.user.id;
+		data.imgLink = await API.getPlantImage(event.target[0].value);
+
+		return API.addPlant(data, props.user.id)
 		.then(res => res.json())
 		.then(data => {
 			toggleCreatePlant();
 			props.setPlantData(props.plantData.concat([data]));
 		})
 	}
+	const removeGardenClose = (event) => {
+		event.preventDefault();
+		toggleRemoveGarden();
+
+		return API.deleteGarden(currentGarden, { userId: props.user.id})
+			.then(() => {
+				setCurrentGarden("");
+
+				if (currentGarden == props.gardenData._id) {
+					let gardens = allGardens.filter(e => e._id != currentGarden);
+
+					if (gardens.length >= 1)
+						return props.setGardenData(gardens[gardens.length - 1]);
+					else {
+						return API.saveNewGarden({ userId: props.user.id, name: `${props.user.username}'s Garden`, height: 4, width: 4})
+							.then(res => res.json())
+							.then(newGarden => props.setGardenData(newGarden));
+					}
+				}
+			});
+	}
 	const editGardenClose = (event) => {
 		event.preventDefault();
 
 		const rawData = new FormData(event.target);
-		rawData.set("current", true)
+		//rawData.set("current", true);
 		let data = {};
 		for (let [key, value] of rawData.entries()) {
-			console.log(key+":", value)
 			data[key] = value;
 		}
+		delete data.current;
 
 		return API.editGarden(data, props.gardenData._id)
 			.then(res => res.json())
 			.then(results => {
 				toggleEditLayout();
-				props.setGardenData(results);
+				return props.setGardenData(results);
+			});
+	}
+	const selectGardenClose = event => {
+		event.preventDefault();
+		toggleSelectGarden();
+
+		return API.getGarden(currentGarden, localStorage.getItem("token"))
+		.then(res => res.json())
+		.then(garden => props.setGardenData(garden));
+	}
+	const duplicateGardenClose = event => {
+		event.preventDefault();
+		toggleCreateLayout();
+
+		return API.getGarden(currentGarden, localStorage.getItem("token"))
+			.then(res => res.json())
+			.then(garden => {
+				props.setGardenData(garden);
+				let data = garden;
+				delete data["_id"];
+				data.userId = props.user.id;
+				return API.saveNewGarden(data)
+					.then(res => res.json());
 			});
 	}
 	const createGardenClose = event => {
@@ -138,17 +204,41 @@ export default function LayoutMenu(props) {
 						</form>
 					</div>
 					<div hidden={gardenTab !== 1} id={1}>
-						<Select label="duplicate" name="duplicate" defaultValue="[not done]" sx={{mt: 2}} fullWidth>
-						<MenuItem value="[not done]">[not done]</MenuItem>
-							{/* {props.user.gardens.map(e, index => (
-								<MenuItem key={index} loading="lazy">{index}</MenuItem>
-							))} */}
+						<form onSubmit={duplicateGardenClose} autoComplete="on">
+							<Select label="duplicate" name="duplicate" value={currentGarden} onChange={event => setCurrentGarden(event.target.value)} sx={{mt: 1}} fullWidth>
+								{allGardens.map((garden, index) =>
+									<MenuItem key={index} value={garden._id}>{garden.name}</MenuItem>
+								)}
+							</Select>
+							<Divider sx={{mt: 2, mb: 1}} />
+							<div className="cardAction">
+								<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+							</div>
+						</form>
+					</div>
+				</Card>
+			</Modal>
+
+			{/* Select garden modal. */}
+			<Modal
+				open={selectGarden}
+				onClose={toggleSelectGarden}
+				aria-labelledby="edit garden"
+				aria-describedby="form to edit your garden"
+			>
+				<Card sx={style}>
+					<Typography align="center" variant="h4" sx={{mb: 2}}>Select Garden</Typography>
+					<form onSubmit={selectGardenClose} autoComplete="on">
+						<Select label="select" name="select" value={currentGarden} onChange={event => setCurrentGarden(event.target.value)} sx={{mt: 2}} fullWidth>
+							{allGardens?.map((garden, index) =>
+								<MenuItem key={index} value={garden._id}>{garden.name}</MenuItem>
+							)}
 						</Select>
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
 							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
 						</div>
-					</div>
+					</form>
 				</Card>
 			</Modal>
 
@@ -172,6 +262,29 @@ export default function LayoutMenu(props) {
 							<MenuItem value="W">W</MenuItem>
 						</Select>
 						<Typography display="inline" sx={{ml: 19}}>Current: </Typography><Switch label="current" name="current" defaultChecked={props.gardenData.current} />
+						<Divider sx={{mt: 2, mb: 1}} />
+						<div className="cardAction">
+							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+						</div>
+					</form>
+				</Card>
+			</Modal>
+
+			{/* Remove Garden modal. */}
+			<Modal
+				open={removeGarden}
+				onClose={toggleRemoveGarden}
+				aria-labelledby="remove garden"
+				aria-describedby="form to remove a garden"
+			>
+				<Card sx={style}>
+					<Typography align="center" variant="h4" sx={{mb: 2}}>Remove Garden</Typography>
+					<form onSubmit={removeGardenClose} autoComplete="on">
+						<Select label="remove" name="remove" value={currentGarden} onChange={event => setCurrentGarden(event.target.value)} sx={{mt: 2}} fullWidth>
+							{allGardens?.map((garden, index) =>
+								<MenuItem key={index} value={garden._id}>{garden.name}</MenuItem>
+							)}
+						</Select>
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
 							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>

@@ -1,5 +1,3 @@
-import { ZoomInOutlined } from "@mui/icons-material";
-
 const URL_PREFIX = process.env.PORT || "http://localhost:3001";
 
 const API = {
@@ -61,15 +59,8 @@ const API = {
   },
 
   // Garden routes:
-  getGarden: (gardenId, user, token) => {
+  getGarden: (gardenId, token) => {
     return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
-		method: "POST",
-		body: JSON.stringify({
-			// username,
-			// email,
-			// password,
-			// location,
-		}),
 		headers: {
 			"Content-Type": "application/json",
 			"Authorization": `Bearer ${token}`
@@ -86,9 +77,14 @@ const API = {
       },
     });
   },
-  deleteGarden: (gardenId) => {
-    return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
+  deleteGarden: (id, userId) => {
+    return fetch(`${URL_PREFIX}/api/gardens/${id}`, {
       method: "DELETE",
+	  body: JSON.stringify(userId),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("token")}`,
+      },
     });
   },
   saveNewGarden: (data) => {
@@ -111,27 +107,13 @@ const API = {
 			}
 		});
   },
-  addPlant: (
-    form, user, image="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"
-    //TODO: Add Form. Form is the target on the event. Pass in event.target on calling this function
-  ) => {
+  addPlant: (data) => {
     return fetch(`${URL_PREFIX}/api/plants/`, {
       method: "POST",
-      body: JSON.stringify({
-        userId: user.id,
-        name: form[0].value,
-        type: form[2].value,
-        grownHeight: form[4].value,
-        grownWidth: form[6].value,
-        harvestBloomDate: form[8].value,
-        lifespan: form[10].value,
-        usdaZone: form[12].value,
-        water: form[14].value,
-		imgLink: image
-        //form[0].value...      NOT event.target[0].value, event.target[2].value
-      }),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+		"Authorization": `Bearer ${localStorage.getItem("token")}`
       },
     });
   },
@@ -164,7 +146,7 @@ const API = {
 				.then(data => data.query.pages[Object.getOwnPropertyNames(data.query.pages)[0]].original.source);
 		});
   },
-  
+
   addSpecimen: (data) => {
     return fetch(`${URL_PREFIX}/api/specimens/`, {
       method: "POST",
