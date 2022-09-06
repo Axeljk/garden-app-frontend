@@ -35,17 +35,13 @@ const API = {
       },
     });
   },
-  editUser: (userId, username, email, password, location) => {
+  editUser: (userId, data) => {
     return fetch(`${URL_PREFIX}/api/users/${userId}`, {
-      method: "POST",
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        location,
-      }),
+      method: "PUT",
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+		"Authorization": `Bearer ${localStorage.getItem("token")}`
       },
     });
   },
