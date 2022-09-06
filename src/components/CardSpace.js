@@ -20,7 +20,6 @@ export default function CardSpace() {
             },
         }}>
             <ImageCard info={cardInfo[0]} checked={checked}/>
-            <br/>
             <ImageCard info={cardInfo[1]} checked={checked}/>
         </Box>
     )

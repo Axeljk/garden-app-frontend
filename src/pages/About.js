@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import { Link as Scroll } from "react-scroll";
 import { Card, Typography, CardContent } from '@mui/material'
 import AboutSpace from '../components/AboutSpace'
+import { breakpoints } from '@mui/system'
 
 export default function About() {
     const [checked, setChecked] = useState(false);
@@ -33,7 +34,7 @@ export default function About() {
                 {...(checked ? { timeout: 1000 } : {})}
                 collapsedheight={50}
             >
-                <div style={{alignItems:'center'}} className='container'>
+                <div style={{alignItems:'center',fontSize: {xs: '.5rem',md:'2rem'}}} className='container'>
                     <h1 className="pageTitle">About Peas By Spring</h1>                
                     <Card sx={{
                         width: '80%',
@@ -49,7 +50,8 @@ export default function About() {
                             <Typography sx={{
                                 fontFamily:'Montserrat',
                                 maxHeight: '400px',
-                                alignItems: 'center'
+                                alignItems: 'center',
+                                fontSize: {xs:'.9rem',md:'1.2rem'}
                             }}>
                                 The idea for a garden planner concept came from one of our talented webdevs, Kit Williams, though we all have a passion for growing and building things. We wanted to be part of something special and this concept seemed ripe for exploring and stretching our developer skills while allowing us to explore a little more outside too. 
                                 <br/>
