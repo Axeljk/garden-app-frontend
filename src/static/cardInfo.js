@@ -12,7 +12,8 @@ const cardInfo = [
         imageUrl: img1,
         time: 1500,
         link1: '',
-        link2: ''
+        target: '',
+        href: '/login'
     },
     {
         title: 'Watch it Grow',
@@ -20,7 +21,8 @@ const cardInfo = [
         imageUrl: img2,
         time: 1500,
         link1: '',
-        link2: ''
+        target: '',
+        href: '/login'
     },
     {
         title: 'Akshata Kumbhar',
@@ -28,7 +30,7 @@ const cardInfo = [
         imageUrl: akshataprofpic,
         time: 1500,
         link1: '',
-        link2: '',
+        target: '_blank',
         href: 'https://github.com/Akshu3011'
     },
     {
@@ -37,7 +39,7 @@ const cardInfo = [
         imageUrl: axelprofpic,
         time: 1500,
         link1: '',
-        link2: '',
+        target: '_blank',
         href: 'https://github.com/Axeljk'
     },
     {
@@ -46,16 +48,16 @@ const cardInfo = [
         imageUrl: kitprofpic,
         time: 1500,
         link1: '',
-        link2: '',
+        target: '_blank',
         href: 'https://github.com/kitanablade'
     },
     {
         title: 'Kristen Santee',
-        description: `Kristen is a full stack developer and a budding project manager. Kristen worked on front end components to include the initial landing page and much of the calendar component.`,
+        description: `Kristen is a full stack developer and a budding project manager. Kristen worked on front end components to include the initial landing page and much of the calendar component. Kristen also helped with design concepts that were implemented throughout the app.`,
         imageUrl: kristenprofpic,
         time: 1500,
         link1: '',
-        link2: '',
+        target: '_blank',
         href: 'https://github.com/kristensantee'
     },
 ]
