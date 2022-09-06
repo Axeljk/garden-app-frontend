@@ -78,9 +78,15 @@ export default function LayoutMenu(props) {
 	];
 	const addNewPlant = async (event) => { //pass in event.target
 		event.preventDefault();
-		let image = await API.getPlantImage(event.target[0].value);
 
-		return API.addPlant(event.target, props.user, image)
+		let rawData = new FormData(event.target);
+		let data = {}
+		for (let [key, value] of rawData.entries())
+			data[key] = value;
+		data.userId = props.user.id;
+		data.imgLink = await API.getPlantImage(event.target[0].value);
+
+		return API.addPlant(data, props.user.id)
 		.then(res => res.json())
 		.then(data => {
 			toggleCreatePlant();
@@ -112,11 +118,12 @@ export default function LayoutMenu(props) {
 		event.preventDefault();
 
 		const rawData = new FormData(event.target);
-		rawData.set("current", true)
+		//rawData.set("current", true);
 		let data = {};
 		for (let [key, value] of rawData.entries()) {
 			data[key] = value;
 		}
+		delete data.current;
 
 		return API.editGarden(data, props.gardenData._id)
 			.then(res => res.json())
