@@ -133,11 +133,12 @@ const dragStart = (e) =>{
 		width:"100px",
 		height:"100px",
 		backgroundImage: `url(${soilImg})`,
-		padding: "10px 10 px",
+		padding: "10px 10px",
 		boxShadow:`0px 10px 10px rgba(0,0,0,0.1)`,
-		borderStyle: "none",
+		borderStyle: "dashed",
 		outline: "none",
 		borderWidth: 0,
+
     }
     const box2 = {
       width:"100px",
