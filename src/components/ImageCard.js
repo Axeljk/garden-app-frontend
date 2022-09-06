@@ -40,13 +40,13 @@ export default function ImageCard({ info,checked }) {
                 borderColor: '#33b3ff',
                 boxShadow: 2,
             }}>
-                <CardActionArea href={info.href} target='_blank'>
+                <CardActionArea href={info.href} target={info.target}>
 
                 <CardMedia
                     component="img"
                     height="140"
                     image={info.imageUrl}
-                    alt="green iguana"
+                    alt="developer headshot"
                     style={classes.media}
                     elevation={1}
                     />

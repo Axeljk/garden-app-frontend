@@ -19,8 +19,10 @@ export default function CardSpace() {
                 md: 'row'
             },
         }}>
-            <ImageCard info={cardInfo[0]} checked={checked}/>
-            <ImageCard info={cardInfo[1]} checked={checked}/>
+            <ImageCard info={cardInfo[2]} checked={checked}/>
+            <ImageCard info={cardInfo[3]} checked={checked}/>
+            <ImageCard info={cardInfo[4]} checked={checked}/>
+            <ImageCard info={cardInfo[5]} checked={checked}/>
         </Box>
     )
 }
