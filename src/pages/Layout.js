@@ -135,9 +135,10 @@ const dragStart = (e) =>{
 		backgroundImage: `url(${soilImg})`,
 		padding: "10px 10px",
 		boxShadow:`0px 10px 10px rgba(0,0,0,0.1)`,
-		borderStyle: "none",
+		borderStyle: "dashed",
 		outline: "none",
-		borderWidth: 0
+		borderWidth: 0,
+
     }
     const box2 = {
       width:"100px",
@@ -145,8 +146,8 @@ const dragStart = (e) =>{
     }
     const gardenLayout = {
       width:100*(gardenData.width ? gardenData.width : 4),
-      display:'flex',
-      flexWrap:'wrap',
+      display:'grid',
+      gridTemplateColumns: `repeat(${gardenData.width}, auto)`,
       marginTop:"20px",
       boxShadow:`0px 10px 10px rgba(0,0,0,0.1)`
     }
@@ -182,7 +183,7 @@ const dragStart = (e) =>{
     },[gardenData])
 
 	return (
-		<Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%"}}>
+		<Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%"}} className='background'>
 			<Grid container spacing={2} sx={{mt: 2}}>
 				<Grid item xs={12} md={8}>
 					<Box sx={{mx:12}}>

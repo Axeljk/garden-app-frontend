@@ -173,7 +173,7 @@ export default function LayoutMenu(props) {
 	}
 	return (
 		<>
-			<SpeedDial ariaLabel="garden menu" onClick={toggleSpeedDial} open={speedDial} sx={{ position: "absolute", bottom: 16, right: 16 }} FabProps={{ sx: { backgroundColor: "#8533FF", '&:hover': { bgcolor: "lightsalmon" }}}} icon={ <SpeedDialIcon /> }>
+			<SpeedDial ariaLabel="garden menu" onClick={toggleSpeedDial} open={speedDial} sx={{ position: "fixed", bottom: 16, right: 16 }} FabProps={{ sx: { backgroundColor: "#8533FF", '&:hover': { bgcolor: "lightsalmon" }}}} icon={ <SpeedDialIcon /> }>
 				{ actions.map(actions => (
 					<SpeedDialAction key={actions.name} icon={actions.icon} tooltipTitle={actions.name} onClick={actions.onClick} sx={{backgroundColor: actions.color}} />
 				))}
