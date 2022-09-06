@@ -40,7 +40,7 @@ export default function ImageCard({ info,checked }) {
                 borderColor: '#33b3ff',
                 boxShadow: 2,
             }}>
-                <CardActionArea>
+                <CardActionArea href={info.href} target='_blank'>
 
                 <CardMedia
                     component="img"

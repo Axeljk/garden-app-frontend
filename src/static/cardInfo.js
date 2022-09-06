@@ -24,11 +24,12 @@ const cardInfo = [
     },
     {
         title: 'Akshata Kumbhar',
-        description: `Akshata is a full stack developer who led this team in dynamic front end production. Akshata was the lead dev to implement the moving visual component on the garden layout page and volunteered to take on the complicated garden page. Akshata also contributed to bringing the calendar component to life.`,
+        description: `Akshata is a full stack developer who led this team in dynamic front end production. Akshata was the lead dev to implement the moving visual component on the garden layout page and volunteered to take on the complicated garden page. Akshata also contributed to bringing the calendar component to life and added beautiful flair to the site.`,
         imageUrl: akshataprofpic,
         time: 1500,
         link1: '',
-        link2: ''
+        link2: '',
+        href: 'https://github.com/Akshu3011'
     },
     {
         title: 'Axel Kern',
@@ -36,7 +37,8 @@ const cardInfo = [
         imageUrl: axelprofpic,
         time: 1500,
         link1: '',
-        link2: ''
+        link2: '',
+        href: 'https://github.com/Axeljk'
     },
     {
         title: 'Kit Williams',
@@ -44,7 +46,8 @@ const cardInfo = [
         imageUrl: kitprofpic,
         time: 1500,
         link1: '',
-        link2: ''
+        link2: '',
+        href: 'https://github.com/kitanablade'
     },
     {
         title: 'Kristen Santee',
@@ -52,7 +55,8 @@ const cardInfo = [
         imageUrl: kristenprofpic,
         time: 1500,
         link1: '',
-        link2: ''
+        link2: '',
+        href: 'https://github.com/kristensantee'
     },
 ]
 
