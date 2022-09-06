@@ -104,13 +104,10 @@ useEffect(() => {
           <Routes>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login handleLogin={submitLoginHandle} />} />
-
-			      <Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
-
+			<Route path="/signup" element={<Signup handleSignup={submitSignupHandle} /> }/>
             <Route path='/layout/' element={<Layout user={user}/>}/>
-
-            <Route path='/calendar' element={<Calendar/>}/>
-            <Route path='/settings' element={<Settings/>}/>
+            <Route path='/calendar' element={<Calendar user={user}/>}/>
+            <Route path='/settings' element={<Settings user={user} setUser={setUser}/>}/>
             <Route path='/Gardenlanding' element={<Gardenlanding/>}/>
             {/* <Route path='/searchmyplants' element:{<SearchMyPlants/>}/> */}
             {/* <Route path='/search' element={<SearchAll/>}/> */}
