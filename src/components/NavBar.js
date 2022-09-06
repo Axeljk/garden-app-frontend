@@ -4,11 +4,8 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
-import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import Menu from '@mui/material/Menu'
-import InputBase from '@mui/material/InputBase'
 import MenuIcon from '@mui/icons-material/Menu'
-import SearchIcon from '@mui/icons-material/Search'
 import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
@@ -86,70 +83,7 @@ export default function NavBar(props) {
                         </Menu>
                     </Box>
                     {/* Login & About buttons */}
-                    <Box sx={{ width: '50%', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-						<Link to='/' style={{textDecoration:'none'}}><Button
-                        key='home'
-                        onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                        Home
-                        </Button></Link>
-                        <Link to='/about' style={{textDecoration:'none'}}><Button
-                        key='about'
-                        onClick={handleCloseNavMenu}
-                        sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                        About
-                        </Button></Link>
-						{!props.user.id &&
-                        <Link to='/login' style={{textDecoration:'none'}}><Button
-                                key='login'
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                        Login
-                        </Button></Link>}
-                    </Box>
-                    {/* Logo Header */}
-					{props.user.id != 0 &&
-                    <Typography
-                        variant='h1'
-                        noWrap
-                        component='a'
-                        href='/'
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', sm: 'block' },
-                            overflow: 'visible',
-                            fontFamily: 'Satisfy',
-                            fontWeight: 700,
-                            fontSize: { xs: '2rem', md: '3rem'},
-                            color: 'white',
-                            textDecoration: 'none'
-                        }}
-                    >
-                        {props.user.username}'s
-                    </Typography>}
-                    <Typography
-                        variant='h1'
-                        noWrap
-                        component='a'
-                        href='/'
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'flex' },
-                            overflow: 'visible',
-                            fontFamily: 'Satisfy',
-                            fontWeight: 700,
-                            fontSize: { xs: '2rem', md: '3rem'},
-                            color: 'white',
-                            textDecoration: 'none'
-                        }}
-                    >
-                        Peas By Spring
-                    </Typography>
-                    {/* Avatar & Account dropdown */}
-					{props.user.id != 0 &&
+                    {props.user.id != 0 &&
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Tool Shed">
                             {/* <Link to={`/users/$props.userId}`}> */}
@@ -188,6 +122,71 @@ export default function NavBar(props) {
                             ))} */}
                         </Menu>
                     </Box>}
+                    <Box sx={{ width: '50%', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+						<Link to='/' style={{textDecoration:'none'}}><Button
+                        key='home'
+                        onClick={handleCloseNavMenu}
+                        sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                        Home
+                        </Button></Link>
+                        <Link to='/about' style={{textDecoration:'none'}}><Button
+                        key='about'
+                        onClick={handleCloseNavMenu}
+                        sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                        About
+                        </Button></Link>
+						{!props.user.id &&
+                        <Link to='/login' style={{textDecoration:'none'}}><Button
+                                key='login'
+                                onClick={handleCloseNavMenu}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                        Login
+                        </Button></Link>}
+                    </Box>
+                    {/* Logo Header */}
+					
+                    {props.user.id != 0 &&
+                    <Typography
+                        variant='h1'
+                        noWrap
+                        component='a'
+                        href='/'
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'none', sm: 'block' },
+                            overflow: 'visible',
+                            fontFamily: 'Satisfy',
+                            fontWeight: 700,
+                            fontSize: { xs: '2rem', md: '3rem'},
+                            color: 'white',
+                            textDecoration: 'none'
+                        }}
+                    >
+                        {props.user.username}'s
+                    </Typography>}
+                    <Typography
+                        variant='h1'
+                        noWrap
+                        component='a'
+                        href='/'
+                        sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'flex' },
+                            overflow: 'visible',
+                            fontFamily: 'Satisfy',
+                            fontWeight: 700,
+                            fontSize: { xs: '2rem', md: '3rem'},
+                            color: 'white',
+                            textDecoration: 'none'
+                        }}
+                    >
+                        Peas By Spring
+                    </Typography>
+                    {/* Avatar & Account dropdown */}
+					
 
                 </Toolbar>
             </Container>

@@ -1,0 +1,28 @@
+import React from 'react'
+import ImageCard from '../components/ImageCard'
+import cardInfo from '../static/cardInfo'
+import useWindowPosition from '../hook/useWindowPosition'
+import Box from '@mui/material/Box'
+import '../components/CardSpace.css'
+
+export default function CardSpace() {
+    const checked = useWindowPosition('header');
+    return (
+        <Box id='how-to-use' className='cardContainer' sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            flexDirection: {
+                xs: 'column',
+                md: 'row'
+            },
+        }}>
+            <ImageCard info={cardInfo[2]} checked={checked}/>
+            <ImageCard info={cardInfo[3]} checked={checked}/>
+            <ImageCard info={cardInfo[4]} checked={checked}/>
+            <ImageCard info={cardInfo[5]} checked={checked}/>
+        </Box>
+    )
+}
