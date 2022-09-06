@@ -1,6 +1,8 @@
 
 import React, {useState, useEffect} from 'react'
 import Grid from '@mui/material/Grid';
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 import './Layout.css'
 import GridLines from 'react-gridlines';
 import soilImg from '../assets/Plants/soil1.jpg'
@@ -170,51 +172,47 @@ const dragStart = (e) =>{
       makeGardenLayout();
     },[gardenData])
 
-
-
-
-      return (
-        <div className="layout-container">
-			<Typography align="center" variant="h4">{gardenData.name}</Typography>
-          <Grid container spacing={2}>
-          <Grid item xs={8}>
-          <GridLines className="grid-area" cellWidth={60} strokeWidth={2} cellWidth2={12} >
-            <div className='layout-div'> <section style={gardenLayout} >
-          {garden}
-        </section></div>
-          </GridLines>
-          </Grid>
-          <Grid item xs={4}>
-          <div className='images-div'><h1>Select the Plant</h1>
-
-
-  <ImageList sx={{ width: 400, height: "auto" }} cols={4} rowHeight={100}>
-        {plantData.map((item, index) => (
-          <ImageListItem key={index} className='imagesList'>
-            <img
-              src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
-              srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading="lazy"
-              key='1'
-              draggable={true}
-              onDragStart={dragStart}
-              onDragOver={(e)=> e.preventDefault()}
-              onDragEnter={(e)=> e.preventDefault()}
-              onDragLeave={(e)=> e.preventDefault()}
-              onDrop={dragDrop}
-              onDragEnd={dragEnd}
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
-      </div>
-      </Grid>
-      </Grid>
+	return (
+		<Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%"}}>
+			<Grid container spacing={2}>
+				<Grid item xs={8}>
+					<Typography align="center" variant="h4">{gardenData.name}</Typography>
+					<Typography align="center" variant="subtitle1">{gardenData.desciption}</Typography>
+					<GridLines className="grid-area" cellWidth={100} strokeWidth={2} cellWidth2={25} >
+						<div className='layout-div'>
+							<section style={gardenLayout}>
+								{garden}
+							</section>
+						</div>
+					</GridLines>
+				</Grid>
+				<Grid item xs={4}>
+					<div className='images-div'><h1>Select the Plant</h1>
+						<ImageList sx={{ width: 400, height: "auto" }} cols={4} rowHeight={100}>
+							{plantData.map((item, index) => (
+								<ImageListItem key={index} className='imagesList'>
+									<img
+										src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
+										srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
+										alt={item.title}
+										loading="lazy"
+										key='1'
+										draggable={true}
+										onDragStart={dragStart}
+										onDragOver={(e)=> e.preventDefault()}
+										onDragEnter={(e)=> e.preventDefault()}
+										onDragLeave={(e)=> e.preventDefault()}
+										onDrop={dragDrop}
+										onDragEnd={dragEnd}
+										/>
+								</ImageListItem>
+							))}
+						</ImageList>
+					</div>
+				</Grid>
+			</Grid>
 	  {/* <LayoutPicker /> */}
-	  <LayoutMenu user={props.user} plantData={plantData} setPlantData={setPlantData} gardenData={gardenData} setGardenData={setGardenData} />
-      </div>
-
-      );
+			<LayoutMenu user={props.user} plantData={plantData} setPlantData={setPlantData} gardenData={gardenData} setGardenData={setGardenData} />
+		</Container>);
     }
     export default Layout;
