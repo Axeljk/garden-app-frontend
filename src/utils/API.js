@@ -1,4 +1,4 @@
-const URL_PREFIX = process.env.DB_ADDRESS || "http://localhost:3001";
+const URL_PREFIX = "https://peas-by-spring-database.herokuapp.com"; //process.env.DB_ADDRESS || "http://localhost:3001";
 
 const API = {
   checkToken: (token) => {
