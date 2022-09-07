@@ -281,6 +281,9 @@ function Layout(props) {
                   flexDirection: 'row',
                 }} >
                 {plantData.map((item, index) => (
+					<Tooltip title={<Typography align="center">
+						{plantData[index].name}
+					</Typography>}>
                   <ImageListItem
                     key={index}
                     sx={{ height: 100, width: 100, padding: "2px" }}
@@ -318,6 +321,7 @@ function Layout(props) {
                       />
                     </Box>
                   </ImageListItem>
+				  </Tooltip>
                 ))}
               </ImageList>
             </Box>
