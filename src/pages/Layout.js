@@ -139,7 +139,7 @@ function Layout(props) {
     height: "100px",
     backgroundImage: `url(${soilImg})`,
     padding: "10px 10px",
-	boxShadow: `0px 10px 10px rgba(0,0,0,0.1)`,
+	boxShadow: `0px 10px 10px rgba(0,0,0,0.3)`,
     borderStyle: "none",
     outline: "none",
     borderWidth: 0,
@@ -153,7 +153,7 @@ function Layout(props) {
     display: "grid",
     gridTemplateColumns: `repeat(${gardenData.width}, auto)`,
     marginTop: "20px",
-    boxShadow: `0px 10px 10px rgba(0,0,0,0.1)`,
+    boxShadow: `0px 10px 10px rgba(0,0,0,0.1)`, 
   };
 
   //Creating the actual layout with the user inputs
@@ -197,12 +197,12 @@ function Layout(props) {
       className="background"
     >
       <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12}>
           <Box sx={{ mx: 12 }}>
             <Typography align="center" variant="h4" sx={{ 
-				mt: 2,
+				// mt: 2,
 				fontFamily: 'Satisfy',
-				fontSize: { xs: '3rem', md:'4rem' },
+				fontSize: { xs: '2rem', md:'3rem' },
 				color: '#33D6FF',
 				textShadow: '2px 2px black'
 				}}>
@@ -217,34 +217,40 @@ function Layout(props) {
             cellWidth={100}
             strokeWidth={2}
             cellWidth2={25}
-          >
+			sx={{
+				width: '100%',
+			}}
+			>
             <Container
               sx={{
-                minHeight: 600,
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                overflow: "scroll",
+				  height: '550px',
+				  display: "flex",
+				  justifyContent: "center",
+				  alignItems: "center",
+				  overflow: "auto",
+				  backgroundColor: '#ffffff33',
               }}
             >
               <Box style={gardenLayout}>{garden}</Box>
             </Container>
           </GridLines>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12}>
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
+			  justifyContent: 'center',
+              flexDirection: "row",
+			  flexWrap: 'no-wrap',
               alignContent: "end",
+			  overflowX: 'auto',
+			  width: '90%',
             }}
           >
             <Box>
               <Typography align="center" variant="h4" sx={{ 
-				mt: 2,
 				fontFamily: 'Satisfy',
-				fontSize: { xs: '3rem', md:'4rem' },
+				fontSize: { xs: '2rem', md:'3rem' },
 				color: '#33D6FF',
 				textShadow: '2px 2px black'
 				}}>
@@ -285,7 +291,7 @@ function Layout(props) {
                         style={{
                           height: "96px",
                           width: "auto",
-                          objectFit: "contain",
+                          objectFit: "cover",
                         }}
                       />
                     </Box>
