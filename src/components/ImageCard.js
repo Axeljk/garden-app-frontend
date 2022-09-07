@@ -39,7 +39,8 @@ export default function ImageCard({ info,checked }) {
                 color: 'white',
                 border: 2,
                 borderColor: '#33b3ff',
-                boxShadow: 2,
+                boxShadow: 3,
+                borderRadius: 4,
             }}>
                 <CardActionArea href={info.href} target={info.target}>
 

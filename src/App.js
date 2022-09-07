@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css';
 import LandingPage from './pages/LandingPage'
 import NavBar from './components/NavBar'
-
+import Footer from './components/Footer'
 import About from './pages/About'
 import Layout from "./pages/Layout";
 import Gardenlanding from "./pages/Gardenlanding";
@@ -113,6 +113,7 @@ useEffect(() => {
             <Route path='/about' element={<About/>}/>
             <Route path='*' element={<h1>404 page not found</h1>} />
           </Routes>
+      <Footer />
   </Router>
   );
 }
