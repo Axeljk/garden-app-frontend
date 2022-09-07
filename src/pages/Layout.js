@@ -153,10 +153,7 @@ function Layout(props) {
     outline: "none",
     borderWidth: 0,
   };
-  // const box2 = {
-  //   width: "100px",
-  //   height: "100px",
-  // };
+
   const gardenLayout = {
     width: 100 * (gardenData.width ? gardenData.width : 4),
     display: "grid",
@@ -245,7 +242,7 @@ function Layout(props) {
                 justifyContent: "center",
                 alignItems: "center",
                 overflow: "auto",
-                backgroundColor: '#ffffff33',
+                backgroundColor: '#ffffff44',
               }}
             >
               <Box style={gardenLayout}>{garden}</Box>

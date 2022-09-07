@@ -73,13 +73,19 @@ export default function Settings(props) {
 
 	return (
 		<Container maxWidth="xl" sx={{ boxShadow: 4, height: "100%", backgroundColor: "#fff" }}>
-			<Container maxWidth="md" sx={{ height: "100%" }}>
+			<Container maxWidth="md" sx={{ height: "100%",backgroundColor: '#ffffff77' }}>
 			<form onSubmit={handleProfileSubmit} autoComplete="on">
 				<Box sx={{mx:12, mt:4}}>
-					<Typography align="center" variant="h4" sx={{mt: 2}}>Your Account</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mt: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black' 
+						}}>Your Account</Typography>
 					<Divider sx={{mb: 2}} />
 				</Box>
-				<TextField className="filled-basic" label="username" fullWidth margin="dense" name="name" value={settingsUsername} onChange={e => setSettingsUsername(e.target.value)}/>
+				<TextField className="filled-basic" label="username" fullWidth margin="dense" name="name" value={settingsUsername} onChange={e => setSettingsUsername(e.target.value)} />
 				<TextField className="filled-basic" type="password" label="password" fullWidth margin="dense" name="password" value={settingsPassword} onChange={e => setSettingsPassword(e.target.value)} />
 				<TextField className="filled-basic" label="city" fullWidth margin="dense" name="city" value={settingsCity} onChange={e => setSettingsCity(e.target.value)} />
 				<TextField className="filled-basic" label="state" fullWidth margin="dense" name="state" value={settingsState} onChange={e => setSettingsState(e.target.value)} />
@@ -89,7 +95,13 @@ export default function Settings(props) {
 				</div>
 			</form>
 			<Box sx={{mx:12, mt:4}}>
-				<Typography align="center" variant="h4" sx={{mt: 2}}>Your Gardens</Typography>
+				<Typography align="center" variant="h4" sx={{
+					mt: 2,
+					fontFamily: 'Satisfy',
+					fontSize: { xs: '2rem', md: '3rem' },
+              		color: '#33D6FF',
+              		textShadow: '2px 2px black'
+					}}>Your Gardens</Typography>
 				<Divider sx={{mb: 2}} />
 			</Box>
 			<List sx={{maxHeight: "100px", overflow: "auto"}}>
@@ -99,7 +111,13 @@ export default function Settings(props) {
 				))}
 			</List>
 			<Box sx={{mx:12, mt:4}}>
-				<Typography align="center" variant="h4" sx={{mt: 2}}>Your Plants</Typography>
+				<Typography align="center" variant="h4" sx={{
+					mt: 2,
+					fontFamily: 'Satisfy',
+					fontSize: { xs: '2rem', md: '3rem' },
+              		color: '#33D6FF',
+              		textShadow: '2px 2px black'
+					}}>Your Plants</Typography>
 				<Divider sx={{mb: 2}} />
 			</Box>
 			<List sx={{maxHeight: "100px", overflow: "auto"}}>

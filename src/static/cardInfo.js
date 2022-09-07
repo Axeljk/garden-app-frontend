@@ -53,7 +53,7 @@ const cardInfo = [
     },
     {
         title: 'Kristen Santee',
-        description: `Kristen is a full stack developer and a budding project manager. Kristen worked on front end components to include the initial landing page and much of the calendar component. Kristen also helped with design concepts that were implemented throughout the app.`,
+        description: `Kristen is a full stack developer and a budding (topical pun there) project manager. Kristen worked on front end components to include the initial landing page and much of the calendar component. Kristen also helped with design concepts that were implemented throughout the app, including the scroll animation and reusable card components.`,
         imageUrl: kristenprofpic,
         time: 1500,
         link1: '',

@@ -23,7 +23,7 @@ import Switch from "@mui/material/Switch";
 import {Divider} from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-
+import '../components/LayoutMenu.css';
 import API from '../utils/API';
 
 const style = {
@@ -185,12 +185,19 @@ export default function LayoutMenu(props) {
 				onClose={toggleCreateLayout}
 				aria-labelledby="create garden"
 				aria-describedby="form to create new garden"
+				className='modalStyle'
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>New Garden</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mb: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black'
+						}}>New Garden</Typography>
 					<Tabs value={gardenTab} onChange={handleGardenTab} aria-label="create or duplicate garden tabs">
-						<Tab label="Create New" />
-						<Tab label="Duplicate" />
+						<Tab label="Create New" sx={{fontFamily:'Halant'}} />
+						<Tab label="Duplicate" sx={{fontFamily:'Halant'}}/>
 					</Tabs>
 					<div hidden={gardenTab !== 0} id={0}>
 						<form onSubmit={createGardenClose} autoComplete="on">
@@ -199,7 +206,7 @@ export default function LayoutMenu(props) {
 							<TextField required className="outlined-required" type="number" fullWidth label="width" margin="dense" name="width" sx={{width: "45%", ml:2 }} />
 							<Divider sx={{mt: 2, mb: 1}} />
 							<div className="cardAction">
-								<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+								<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Submit</Button>
 							</div>
 						</form>
 					</div>
@@ -212,7 +219,7 @@ export default function LayoutMenu(props) {
 							</Select>
 							<Divider sx={{mt: 2, mb: 1}} />
 							<div className="cardAction">
-								<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+								<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Submit</Button>
 							</div>
 						</form>
 					</div>
@@ -227,7 +234,13 @@ export default function LayoutMenu(props) {
 				aria-describedby="form to edit your garden"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Select Garden</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mb: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black'
+						}}>Select Garden</Typography>
 					<form onSubmit={selectGardenClose} autoComplete="on">
 						<Select label="select" name="select" value={currentGarden} onChange={event => setCurrentGarden(event.target.value)} sx={{mt: 2}} fullWidth>
 							{allGardens?.map((garden, index) =>
@@ -236,7 +249,7 @@ export default function LayoutMenu(props) {
 						</Select>
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
-							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+							<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Submit</Button>
 						</div>
 					</form>
 				</Card>
@@ -250,7 +263,13 @@ export default function LayoutMenu(props) {
 				aria-describedby="form to edit your garden"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Edit Garden</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mb: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black'
+						}}>Edit Garden</Typography>
 					<form onSubmit={editGardenClose} autoComplete="on">
 						<TextField required className="outlined-required" label="name of garden" fullWidth margin="dense" name="name" defaultValue={props.gardenData.name} />
 						<TextField required className="outlined-required" type="number" label="height" fullWidth margin="dense" name="height" sx={{width: "45%", mr: 2 }} defaultValue={props.gardenData.height} />
@@ -264,7 +283,7 @@ export default function LayoutMenu(props) {
 						<Typography display="inline" sx={{ml: 19}}>Current: </Typography><Switch label="current" name="current" defaultChecked={props.gardenData.current} />
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
-							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+							<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Submit</Button>
 						</div>
 					</form>
 				</Card>
@@ -278,7 +297,13 @@ export default function LayoutMenu(props) {
 				aria-describedby="form to remove a garden"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Remove Garden</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mb: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black'
+						}}>Remove Garden</Typography>
 					<form onSubmit={removeGardenClose} autoComplete="on">
 						<Select label="remove" name="remove" value={currentGarden} onChange={event => setCurrentGarden(event.target.value)} sx={{mt: 2}} fullWidth>
 							{allGardens?.map((garden, index) =>
@@ -287,7 +312,7 @@ export default function LayoutMenu(props) {
 						</Select>
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
-							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+							<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Submit</Button>
 						</div>
 					</form>
 				</Card>
@@ -301,7 +326,13 @@ export default function LayoutMenu(props) {
 				aria-describedby="form to create new plant"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Add New Plant</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mb: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black'
+						}}>Add New Plant</Typography>
 					<form onSubmit={addNewPlant} autoComplete="on">
 					<TextField className="outlined-required" label="Plant Name (e.g. Yukon Gold)" fullWidth margin="dense" name="name" />
 						<TextField className="outlined-required" label="Type (e.g. Potato)" fullWidth margin="dense" name="type" />
@@ -313,7 +344,7 @@ export default function LayoutMenu(props) {
 						<TextField className="outlined-required" label="Water Needed" fullWidth margin="dense" name="water" />
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
-							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+							<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Submit</Button>
 						</div>
 					</form>
 				</Card>
@@ -327,7 +358,13 @@ export default function LayoutMenu(props) {
 				aria-describedby="form to create new layout"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Edit Plant</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mb: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black'
+						}}>Edit Plant</Typography>
 					<form onSubmit={toggleEditPlant} autoComplete="on">
 						<Select label="plant" name="plant" value="plant" fullWidth >
 							<MenuItem value="N">All</MenuItem>
@@ -339,7 +376,7 @@ export default function LayoutMenu(props) {
 						<TextField className="outlined-required" label="previous yield" fullWidth margin="dense" name="yield" />
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
-							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+							<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Submit</Button>
 						</div>
 					</form>
 				</Card>
@@ -353,7 +390,13 @@ export default function LayoutMenu(props) {
 				aria-describedby="form to remove plant"
 			>
 				<Card sx={style}>
-					<Typography align="center" variant="h4" sx={{mb: 2}}>Remove Plant</Typography>
+					<Typography align="center" variant="h4" sx={{
+						mb: 2,
+						fontFamily: 'Satisfy',
+						fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black'
+						}}>Remove Plant</Typography>
 					<form onSubmit={toggleRemovePlant} autoComplete="on">
 						<Select label="plant" name="plant" value="plant" fullWidth >
 							<MenuItem value="N">All</MenuItem>
@@ -363,7 +406,7 @@ export default function LayoutMenu(props) {
 						</Select>
 						<Divider sx={{mt: 2, mb: 1}} />
 						<div className="cardAction">
-							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Remove</Button>
+							<Button type="submit" size="small" sx={{fontWeight: "bold",fontFamily:'montserrat'}}>Remove</Button>
 						</div>
 					</form>
 				</Card>
