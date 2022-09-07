@@ -9,13 +9,18 @@ html,
 body,
 #root {
 	min-height: 100vh;
-	height: 100%;
 }
 #root {
 	display: flex;
 	flex-direction: column;
-	background-color: aqua;
+	background-image: url('../src/assets/pexels-pixabay-161512.jpg');
+	min-height: 100vh;
 }
 #root > div {
-	background-color: #f9f9f9;
+	/* background-color: #f9f9f9; */
+	background-image: url('../src/assets/pexels-pixabay-161512.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	min-height: 100vh;
 }
