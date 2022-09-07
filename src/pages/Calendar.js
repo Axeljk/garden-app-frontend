@@ -25,8 +25,7 @@ import Opacity from '@mui/icons-material/Opacity';
 import YardIcon from '@mui/icons-material/Yard';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
-
+import videobg from '../assets/Plants/videoplayback.mp4'
 import API from "../utils/API";
 
 const PREFIX = 'Demo';
@@ -321,8 +320,8 @@ const AppointmentContent = (({ ...restProps }) => (
 const FlexibleSpace = (({ ...restProps }) => (
   <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
     <div className={classes.flexContainer}>
-      <YardIcon fontSize="large" htmlColor="#FF7043" />
-      <Typography variant="h5" style={{ marginLeft: '10px' }}>Peas By Spring</Typography>
+      {/* <YardIcon fontSize="large" htmlColor="#FF7043" /> */}
+      {/* <Typography variant="h5" style={{ marginLeft: '10px' }}>Peas By Spring</Typography> */}
     </div>
   </StyledToolbarFlexibleSpace>
 ));
@@ -330,15 +329,22 @@ const FlexibleSpace = (({ ...restProps }) => (
 
 const AddEventForm =(({ ...restProps }) =>(
                 <div>
-    	            <Typography align="center" variant="h4" sx={{mb: 1}}>Add Event</Typography>
-					<form onSubmit={handleAddEvent} autoComplete="on">
-						<TextField required className="outlined-required" label="Title" fullWidth margin="dense" size="small" name="title" />
-						<TextField required className="outlined-required" label="Start" fullWidth margin="dense" size="small" name="start" />
-						<TextField required className="outlined-required" label="End" fullWidth margin="dense" size="small" name="end" />
-						<div className="cardAction">
-							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
-						</div>
-					</form>
+    	            <Typography align="left" variant="h4" sx={{
+						        mt: 2,
+                    ml: 3,
+						        fontFamily: 'Satisfy',
+						        fontSize: { xs: '1rem', md: '2rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black' 
+						      }}>Add Event</Typography>
+                    <form onSubmit={handleAddEvent} autoComplete="on" style={{width: '50%',backgroundColor: '#ffffff77', display:'flex', flexDirection:'column', justifyContent:'center',marginLeft: 15}}>
+                      <TextField required className="outlined-required" label="Title" fullWidth margin="dense" size="small" name="title" />
+                      <TextField required className="outlined-required" label="Start" fullWidth margin="dense" size="small" name="start" />
+                      <TextField required className="outlined-required" label="End" fullWidth margin="dense" size="small" name="end" />
+                      <div className="cardAction">
+                        <Button type="submit" size="small" sx={{fontWeight: "bold", fontFamily:'montserrat'}}>Submit</Button>
+                      </div>
+                    </form>
 
                 </div>            
             
@@ -407,6 +413,13 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
+        <Typography align="center" variant="h4" sx={{
+						        mt: 2,
+						        fontFamily: 'Satisfy',
+						        fontSize: { xs: '2rem', md: '3rem' },
+              			color: '#33D6FF',
+              			textShadow: '2px 2px black' 
+						      }}>My Calendar</Typography>
        <AddEventForm />
         <Scheduler
           data={data}
@@ -421,6 +434,9 @@ export default class Demo extends React.PureComponent {
           <MonthView
             timeTableCellComponent={TimeTableCell}
             dayScaleCellComponent={DayScaleCell}
+            sx={{
+              m: 2,
+            }}
           />
           <Appointments
             appointmentComponent={Appointment}

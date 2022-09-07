@@ -23,7 +23,6 @@ import Switch from "@mui/material/Switch";
 import {Divider} from "@mui/material";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import '../components/LayoutMenu.css';
 import API from '../utils/API';
 
 const style = {

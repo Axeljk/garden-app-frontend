@@ -4,12 +4,9 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import Alert from '@mui/material/Alert';
 import Modal from '@mui/material/Modal';
-
 import Button from '@mui/material/Button';
 import small from '../assets/Plants/small.png'
 import large from '../assets/Plants/large.png'
