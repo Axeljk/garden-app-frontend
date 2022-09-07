@@ -53,7 +53,7 @@ export default function About() {
                                 The idea for a garden planner concept came from one of our talented webdevs, Kit Williams, though we all have a passion for growing and building things. We wanted to be part of something special and this concept seemed ripe for exploring and stretching our developer skills while allowing us to explore a little more outside too. 
                                 <br/>
                                 <br/>
-                                This app is free to use and we have plans for where it's headed in the future with ideas like journals, recommendations, and developing garden-adjacent skills like preserving.
+                                This app is free to use and we have plans for where it's headed in the future with ideas like journals, recommendations, and developing garden-adjacent skills like preserving. Scroll down to see our team of developers below and click their cards to see their Github profiles.
                             </Typography>
                         </CardContent>
                     </Card>

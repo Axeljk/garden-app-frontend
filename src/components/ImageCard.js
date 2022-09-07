@@ -15,7 +15,7 @@ const classes = {
         color: 'white',
     },
     media: {
-        height: 450
+        height: 550
     },
     title: {
         fontFamily: 'Satisfy',
@@ -25,7 +25,8 @@ const classes = {
     desc: {
         fontFamily: 'Halant',
         fontSize: '1rem',
-        color: 'white'
+        color: 'white',
+        height: 100
     }
 }
 
