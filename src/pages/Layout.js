@@ -112,7 +112,6 @@ function Layout(props) {
   };
 
   const dragEnd = (e) => {
-    squareBeingReplaced.src = squareBeingDragged.src;
     addNewSpecimen();
 	console.log("Dropped");
   };
@@ -124,11 +123,10 @@ function Layout(props) {
    *============================================================================*
    */
   const addNewSpecimen = () => {
-
     let plantCopied = plantData.find(plant => plant._id == squareBeingDragged.dataset.id);
     const specimenData = {
       name: plantCopied.name,
-      plantId: plantCopied._id,
+      plant: plantCopied._id,
       gardenId: gardenData._id,
 	  index: squareBeingReplaced.dataset.i
     };
@@ -162,47 +160,70 @@ function Layout(props) {
     boxShadow: `0px 10px 10px rgba(0,0,0,0.1)`,
   };
 
-  //Creating the actual layout with the user inputs
-  const makeGardenLayout = () => {
-    let arr = [];
-    let id = 1;
-    for (let i = 0; i < gardenData.width; i++) {
-      let row = [];
-      for (let j = 0; j < gardenData.height; j++) {
-        row.push(
-			// <Tooltip title={
-			// 	<Box>
-			// 		<Typography>Specimen</Typography>
-			// 		<Typography>I am a tooltip</Typography>
-			// 	</Box>
-			// }>
-          <img
-            style={box1}
-            sx={{ border: 0 }}
-            key={id}
-            data-id={id}
-			data-i={id - 1}
-            draggable={true}
-            onDragStart={dragStart}
-            onDragOver={(e) => e.preventDefault()}
-            onDragEnter={(e) => e.preventDefault()}
-            onDragLeave={(e) => e.preventDefault()}
-            onDrop={dragDrop}
-            onDragEnd={dragEnd}
-          ></img>
-		//   </Tooltip>
-        );
-        id++;
-        }
-      arr.push(row);
-    }
+	//Creating the actual layout with the user inputs
+	const makeGardenLayout = () => {
+		let arr = [];
 
-    setGarden(arr);
-  };
+		if (gardenData.specimens) {
+			for (let i = 0; i < gardenData.width * gardenData.height; i++) {
+				if (gardenData.specimens[i] != null) {
+					console.log("PlantData:", plantData)
+					console.log("PlantID:", gardenData.specimens[i].plant);
+					let plant = plantData.find(plant => plant._id == gardenData.specimens[i].plant);
+					let plantImg = (plant) ? plant.imgLink : soilImg;
+					let plantName = (plant) ? plant.name : "plant";
+
+					arr.push(
+						<Tooltip key={i} title={
+							<Box>
+								<Typography>Nickname: {gardenData.specimens[i].name}</Typography>
+								<Typography>I am a {plantName}.</Typography>
+							</Box>
+						}>
+							<img
+								src={plantImg}
+								style={box1}
+								sx={{ border: 0 }}
+								key={i}
+								data-id={gardenData.specimens[i]._id}
+								data-i={i}
+								draggable={true}
+								onDragStart={dragStart}
+								onDragOver={(e) => e.preventDefault()}
+								onDragEnter={(e) => e.preventDefault()}
+								onDragLeave={(e) => e.preventDefault()}
+								onDrop={dragDrop}
+								onDragEnd={dragEnd}
+							/>
+						</Tooltip>
+					);
+				} else {
+					arr.push(
+						<img
+							style={box1}
+							sx={{ border: 0 }}
+							key={i}
+							data-id={i}
+							data-i={i}
+							draggable={true}
+							onDragStart={dragStart}
+							onDragOver={(e) => e.preventDefault()}
+							onDragEnter={(e) => e.preventDefault()}
+							onDragLeave={(e) => e.preventDefault()}
+							onDrop={dragDrop}
+							onDragEnd={dragEnd}
+						/>
+					);
+				}
+			}
+
+			setGarden(arr);
+		}
+	};
 
   useEffect(() => {
     makeGardenLayout();
-  }, [gardenData]);
+  }, [gardenData, plantData]);
 
   return (
     <Container
@@ -295,9 +316,7 @@ function Layout(props) {
                       }}
                     >
                       <img
-                        data-plantid={item._id}
-                        data-name={item.name}
-                        data-gardenid={gardenData._id}
+                        data-id={item._id}
                         src={`${item.imgLink}?w=100&h=100&fit=crop&auto=format`}
                         srcSet={`${item.imgLink}?w=100&h=100&fit=crop&auto=format&dpr=2 2x`}
                         alt={item.name}
