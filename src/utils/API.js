@@ -55,11 +55,11 @@ const API = {
   },
 
   // Garden routes:
-  getGarden: (gardenId, token) => {
+  getGarden: (gardenId) => {
     return fetch(`${URL_PREFIX}/api/gardens/${gardenId}`, {
 		headers: {
 			"Content-Type": "application/json",
-			"Authorization": `Bearer ${token}`
+			"Authorization": `Bearer ${localStorage.getItem("token")}`
 		}
 	});
   },
