@@ -317,7 +317,7 @@ const CellBase = React.memo(({
         [classes.rainBack]: iconId === 0,
         [classes.sunBack]: iconId === 1,
         [classes.cloudBack]: iconId === 2,
-        [classes.opacity]: otherMonth,
+        // [classes.opacity]: otherMonth,
       })}
     >
       <StyledDivContent className={classes.content}>
