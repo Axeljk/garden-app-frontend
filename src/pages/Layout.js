@@ -113,7 +113,7 @@ function Layout(props) {
   const dragEnd = (e) => {
     squareBeingReplaced.src = squareBeingDragged.src;
     addNewSpecimen(squareBeingDragged);
-	console.log("Dropped");
+    console.log("Dropped");
   };
 
   /*
@@ -139,15 +139,15 @@ function Layout(props) {
     height: "100px",
     backgroundImage: `url(${soilImg})`,
     padding: "10px 10px",
-	boxShadow: `0px 10px 10px rgba(0,0,0,0.1)`,
+    boxShadow: `0px 10px 10px rgba(0,0,0,0.3)`,
     borderStyle: "none",
     outline: "none",
     borderWidth: 0,
   };
-  const box2 = {
-    width: "100px",
-    height: "100px",
-  };
+  // const box2 = {
+  //   width: "100px",
+  //   height: "100px",
+  // };
   const gardenLayout = {
     width: 100 * (gardenData.width ? gardenData.width : 4),
     display: "grid",
@@ -197,15 +197,15 @@ function Layout(props) {
       className="background"
     >
       <Grid container spacing={2} sx={{ mt: 2 }}>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12}>
           <Box sx={{ mx: 12 }}>
-            <Typography align="center" variant="h4" sx={{ 
-				mt: 2,
-				fontFamily: 'Satisfy',
-				fontSize: { xs: '3rem', md:'4rem' },
-				color: '#33D6FF',
-				textShadow: '2px 2px black'
-				}}>
+            <Typography align="center" variant="h4" sx={{
+              // mt: 2,
+              fontFamily: 'Satisfy',
+              fontSize: { xs: '2rem', md: '3rem' },
+              color: '#33D6FF',
+              textShadow: '2px 2px black'
+            }}>
               {gardenData.name}
             </Typography>
             <Typography align="center" variant="subtitle1">
@@ -217,41 +217,52 @@ function Layout(props) {
             cellWidth={100}
             strokeWidth={2}
             cellWidth2={25}
+            sx={{
+              width: '100%',
+            }}
           >
             <Container
               sx={{
-                minHeight: 600,
-                height: "100%",
+                height: '550px',
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                overflow: "scroll",
+                overflow: "auto",
+                backgroundColor: '#ffffff33',
               }}
             >
               <Box style={gardenLayout}>{garden}</Box>
             </Container>
           </GridLines>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12}>
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
+              justifyContent: 'center',
+              flexDirection: "row",
+              flexWrap: 'no-wrap',
               alignContent: "end",
+              overflow: 'visible',
             }}
           >
             <Box>
-              <Typography align="center" variant="h4" sx={{ 
-				mt: 2,
-				fontFamily: 'Satisfy',
-				fontSize: { xs: '3rem', md:'4rem' },
-				color: '#33D6FF',
-				textShadow: '2px 2px black'
-				}}>
+              <Typography align="center" variant="h4" sx={{
+                fontFamily: 'Satisfy',
+                fontSize: { xs: '2rem', md: '3rem' },
+                color: '#33D6FF',
+                textShadow: '2px 2px black'
+              }}>
                 Greenhouse
               </Typography>
-              <Divider sx={{ mb: 2 }} />
-              <ImageList sx={{ height: "100%" }} cols={4} rowHeight={100}>
+              <Divider sx={{ mb: 1 }} />
+              <ImageList cols={12} rowHeight={100} sx={{ 
+                  height: "100%",
+                  display: 'flex',
+                  justifyContent: 'center',
+                  flexWrap: 'nowrap',
+                  flexDirection: 'row',
+                }} >
                 {plantData.map((item, index) => (
                   <ImageListItem
                     key={index}
@@ -284,8 +295,8 @@ function Layout(props) {
                         onDragEnd={dragEnd}
                         style={{
                           height: "96px",
-                          width: "auto",
-                          objectFit: "contain",
+                          width: "96px",
+                          objectFit: "cover",
                         }}
                       />
                     </Box>

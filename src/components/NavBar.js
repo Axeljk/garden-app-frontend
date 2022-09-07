@@ -75,11 +75,11 @@ export default function NavBar(props) {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem component={Link} to='/layout'>My Gardens</MenuItem>
+                            <MenuItem component={Link} to='/calendar'>My Calendar</MenuItem>
+                            <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
+                            <MenuItem component={Link} to='/'>Home</MenuItem>
+                            <MenuItem component={Link} to='/about'>About</MenuItem>
                         </Menu>
                     </Box>
                     {/* Login & About buttons */}
@@ -87,7 +87,7 @@ export default function NavBar(props) {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Tool Shed">
                             {/* <Link to={`/users/$props.userId}`}> */}
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, display: { xs: 'none', md: 'block' } }}>
                                     <Avatar alt="user" src="/static/images/avatar/2.jpg">
                                         <HomeRepairServiceIcon/>
                                     </Avatar>
@@ -95,31 +95,29 @@ export default function NavBar(props) {
                             {/* </Link> */}
                         </Tooltip>
                         <Menu
-                            sx={{ mt: '45px' }}
+                            // sx={{ mt: '45px'}}
+                            sx={{
+                                mt: '45px',
+                                display: { xs: 'none', md: 'block' },
+                            }}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
                                 vertical: 'top',
-                                horizontal: 'right',
+                                horizontal: 'left',
                             }}
                             keepMounted
                             transformOrigin={{
                                 vertical: 'top',
-                                horizontal: 'right',
+                                horizontal: 'left',
                             }}
                             open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
+                            onClick={handleCloseUserMenu}
                         >
                             <MenuItem component={Link} to='/layout'>My Gardens</MenuItem>
                             <MenuItem component={Link} to='/calendar'>My Calendar</MenuItem>
                             <MenuItem component={Link} to='/settings'>Account Settings</MenuItem>
 							<MenuItem component={Button} onClick={props.logout} style={{textTransform:'capitalize'}}>Logout</MenuItem>
-
-                            {/* {settings.map((setting) => (
-
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))} */}
                         </Menu>
                     </Box>}
                     <Box sx={{ width: '50%', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
