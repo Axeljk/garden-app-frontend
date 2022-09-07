@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import { Link as Scroll } from "react-scroll";
 import Collapse from "@mui/material/Collapse";
 import CardSpace from "../components/CardSpace";
-import Ticker from "react-ticker";
+// import Ticker from "react-ticker";
 
 function LandingPage() {
   const [checked, setChecked] = useState(false);
