@@ -148,8 +148,8 @@ function Layout(props) {
     height: "100px",
     backgroundImage: `url(${soilImg})`,
     padding: "10px 10px",
-    boxShadow: `0px 10px 10px rgba(0,0,0,0.1)`,
-    borderStyle: "dashed",
+	boxShadow: `0px 10px 10px rgba(0,0,0,0.1)`,
+    borderStyle: "none",
     outline: "none",
     borderWidth: 0,
   };
@@ -216,7 +216,13 @@ function Layout(props) {
       <Grid container spacing={2} sx={{ mt: 2 }}>
         <Grid item xs={12} md={8}>
           <Box sx={{ mx: 12 }}>
-            <Typography align="center" variant="h4" sx={{ mt: 2 }}>
+            <Typography align="center" variant="h4" sx={{ 
+				mt: 2,
+				fontFamily: 'Satisfy',
+				fontSize: { xs: '3rem', md:'4rem' },
+				color: '#33D6FF',
+				textShadow: '2px 2px black'
+				}}>
               {gardenData.name}
             </Typography>
             <Typography align="center" variant="subtitle1">
@@ -252,7 +258,13 @@ function Layout(props) {
             }}
           >
             <Box>
-              <Typography align="center" variant="h4">
+              <Typography align="center" variant="h4" sx={{ 
+				mt: 2,
+				fontFamily: 'Satisfy',
+				fontSize: { xs: '3rem', md:'4rem' },
+				color: '#33D6FF',
+				textShadow: '2px 2px black'
+				}}>
                 Greenhouse
               </Typography>
               <Divider sx={{ mb: 2 }} />

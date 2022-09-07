@@ -23,6 +23,11 @@ import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import YardIcon from '@mui/icons-material/Yard';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+
+import API from "../utils/API";
 
 const PREFIX = 'Demo';
 
@@ -170,6 +175,35 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
   },
 }));
 
+
+const URL_PREFIX = process.env.PORT || "http://localhost:3001";
+const allEvents=[];
+
+
+
+//             fetch(`${URL_PREFIX}/api/events/`)
+//                 .then(res => res.json())  
+//                 .then(data => {
+  //                     for(let i=0;i<data.length;i++)
+  //                     {
+    //                         alleventss.push(data);
+    //                     }
+    //                    console.log(data)}
+    //                    )
+    //                    window.localStorage.setItem("es",JSON.stringify(allevents))
+    //                    console.log(allevents);
+    // }
+    const eCalls = (data)=>{
+    fetch(`${URL_PREFIX}/api/events/`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })}
+
+
+
 const appointments = [
   {
     id: 0,
@@ -293,6 +327,47 @@ const FlexibleSpace = (({ ...restProps }) => (
   </StyledToolbarFlexibleSpace>
 ));
 
+
+const AddEventForm =(({ ...restProps }) =>(
+                <div>
+    	            <Typography align="center" variant="h4" sx={{mb: 1}}>Add Event</Typography>
+					<form onSubmit={handleAddEvent} autoComplete="on">
+						<TextField required className="outlined-required" label="Title" fullWidth margin="dense" size="small" name="title" />
+						<TextField required className="outlined-required" label="Start" fullWidth margin="dense" size="small" name="start" />
+						<TextField required className="outlined-required" label="End" fullWidth margin="dense" size="small" name="end" />
+						<div className="cardAction">
+							<Button type="submit" size="small" sx={{fontWeight: "bold"}}>Submit</Button>
+						</div>
+					</form>
+
+                </div>            
+            
+
+));
+
+
+// function handleAddEvent(e){
+//   e.preventDefault();
+
+//   let rawData = new FormData(e.target);
+//   let data = {}
+//   for (let [key, value] of rawData.entries())
+//     data[key] = value;
+
+//     return API.eCalls(data)
+// 		.then(res => res.json())
+// }
+
+function handleAddEvent(e){
+  e.preventDefault();
+
+  let rawData = new FormData(e.target);
+  let data = {}
+  for (let [key, value] of rawData.entries())
+    data[key] = value;
+eCalls(data)
+}
+
 export default class Demo extends React.PureComponent {
   // #FOLD_BLOCK
   constructor(props) {
@@ -304,6 +379,9 @@ export default class Demo extends React.PureComponent {
 
     this.commitChanges = this.commitChanges.bind(this);
   }
+
+
+ 
 
   // #FOLD_BLOCK
   commitChanges({ added, changed, deleted }) {
@@ -329,6 +407,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
+       <AddEventForm />
         <Scheduler
           data={data}
         >
