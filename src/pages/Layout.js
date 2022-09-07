@@ -12,6 +12,7 @@ import Stack from "@mui/material/Stack";
 import LayoutMenu from "../components/LayoutMenu";
 import LayoutPicker from "../components/LayoutPicker";
 import { Typography } from "@mui/material";
+import Tooltip from "@mui/material/tooltip";
 import API from "../utils/API";
 
 function Layout(props) {
@@ -55,7 +56,7 @@ function Layout(props) {
       .catch((err) => console.error(err));
   }, []);
   useEffect(() => {
-    console.log(gardenData);
+    console.log("Hey kid", gardenData);
   }, [gardenData]);
   const gardenCalls = {
     getGarden: async (gardenId) => {
@@ -112,8 +113,8 @@ function Layout(props) {
 
   const dragEnd = (e) => {
     squareBeingReplaced.src = squareBeingDragged.src;
-    addNewSpecimen(squareBeingDragged);
-    console.log("Dropped");
+    addNewSpecimen();
+	console.log("Dropped");
   };
 
   /*
@@ -122,16 +123,24 @@ function Layout(props) {
    *	Its structure reflects an array of the Garden model in the backend server.
    *============================================================================*
    */
-  const addNewSpecimen = async (squareBeingDragged) => {
+  const addNewSpecimen = () => {
 
+    let plantCopied = plantData.find(plant => plant._id == squareBeingDragged.dataset.id);
     const specimenData = {
-      name: `${squareBeingDragged.dataset.name}`,
-      plantId: `${squareBeingDragged.dataset.plantid}`,
-      gardenId: `${squareBeingDragged.dataset.gardenid}`,
+      name: plantCopied.name,
+      plantId: plantCopied._id,
+      gardenId: gardenData._id,
+	  index: squareBeingReplaced.dataset.i
     };
-    console.log(specimenData);
 
-    return API.addSpecimen(specimenData).then((res) => res.json());
+    return API.addSpecimen(specimenData)
+      .then((res) => res.json())
+      .then(specimen => {
+		squareBeingReplaced.dataset.id = specimen._id;
+		API.getGarden(gardenData._id)
+			.then(res => res.json())
+			.then(garden => setGardenData(garden));
+	  });
   };
 
   const box1 = {
@@ -161,11 +170,18 @@ function Layout(props) {
       let row = [];
       for (let j = 0; j < gardenData.height; j++) {
         row.push(
+			// <Tooltip title={
+			// 	<Box>
+			// 		<Typography>Specimen</Typography>
+			// 		<Typography>I am a tooltip</Typography>
+			// 	</Box>
+			// }>
           <img
             style={box1}
             sx={{ border: 0 }}
-            key={i + j}
+            key={id}
             data-id={id}
+			data-i={id - 1}
             draggable={true}
             onDragStart={dragStart}
             onDragOver={(e) => e.preventDefault()}
@@ -174,9 +190,10 @@ function Layout(props) {
             onDrop={dragDrop}
             onDragEnd={dragEnd}
           ></img>
+		//   </Tooltip>
         );
         id++;
-      }
+        }
       arr.push(row);
     }
 
@@ -253,7 +270,7 @@ function Layout(props) {
                 Greenhouse
               </Typography>
               <Divider sx={{ mb: 1 }} />
-              <ImageList cols={12} rowHeight={100} sx={{ 
+              <ImageList cols={12} rowHeight={100} sx={{
                   height: "100%",
                   display: 'flex',
                   justifyContent: 'center',
@@ -261,6 +278,9 @@ function Layout(props) {
                   flexDirection: 'row',
                 }} >
                 {plantData.map((item, index) => (
+					<Tooltip title={<Typography align="center">
+						{plantData[index].name}
+					</Typography>}>
                   <ImageListItem
                     key={index}
                     sx={{ height: 100, width: 100, padding: "2px" }}
@@ -298,6 +318,7 @@ function Layout(props) {
                       />
                     </Box>
                   </ImageListItem>
+				  </Tooltip>
                 ))}
               </ImageList>
             </Box>
