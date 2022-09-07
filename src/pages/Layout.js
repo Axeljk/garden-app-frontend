@@ -10,7 +10,7 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import LayoutMenu from "../components/LayoutMenu";
 import { Typography } from "@mui/material";
-import Tooltip from "@mui/material/tooltip";
+import Tooltip from "@mui/material/Tooltip";
 import API from "../utils/API";
 
 function Layout(props) {
