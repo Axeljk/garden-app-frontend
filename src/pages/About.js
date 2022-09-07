@@ -23,7 +23,7 @@ export default function About() {
             backgroundPosition: 'center',
             backgroundSize: '100%',
             backgroundRepeat: 'no-repeat',
-            height: 'auto%',
+            height: 'auto',
             backgroundAttachment: 'fixed'
         }}>
             <Collapse
@@ -48,7 +48,7 @@ export default function About() {
                                 fontFamily:'Montserrat',
                                 maxHeight: '400px',
                                 alignItems: 'center',
-                                fontSize: {xs:'.9rem',md:'1.2rem'}
+                                fontSize: {xs:'.7rem',md:'1rem'}
                             }}>
                                 The idea for a garden planner concept came from one of our talented webdevs, Kit Williams, though we all have a passion for growing and building things. We wanted to be part of something special and this concept seemed ripe for exploring and stretching our developer skills while allowing us to explore a little more outside too. 
                                 <br/>

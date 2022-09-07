@@ -206,7 +206,7 @@ const allEvents=[];
 const appointments = [
   {
     id: 0,
-    title: 'Watering',
+    title: 'Water',
     startDate: new Date(2022, 8, 23, 9, 30),
     endDate: new Date(2022, 8, 23, 11, 30),
    
@@ -218,31 +218,57 @@ const appointments = [
   
   }, {
     id: 2,
-    title: 'Watering',
-    startDate: new Date(2022, 9, 19, 12, 0),
-    endDate: new Date(2022, 9, 19, 13, 0),
+    title: 'Harvest Pumpkins',
+    startDate: new Date(2022, 8, 19, 12, 0),
+    endDate: new Date(2022, 8, 19, 13, 0),
 
   }, {
     id: 3,
-    title: 'Cleaning',
-    startDate: new Date(2022, 9, 18, 14, 30),
-    endDate: new Date(2022, 9, 18, 15, 30),
+    title: 'Compost',
+    startDate: new Date(2022, 8, 18, 14, 30),
+    endDate: new Date(2022, 8, 18, 15, 30),
    
   }, {
     id: 4,
-    title: 'Cutting',
-    startDate: new Date(2022, 9, 7, 12, 0),
-    endDate: new Date(2022, 9, 7, 13, 35),
-   
-  }, {
-    id: 5,
-    title: 'Cleaning',
-    startDate: new Date(2018, 6, 9, 13, 0),
-    endDate: new Date(2018, 6, 9, 14, 0),
-    rRule: 'FREQ=WEEKLY;BYDAY=FR;UNTIL=20180816',
-    exDate: '20180713T100000Z,20180727T100000Z',
-   
+    title: 'Pruning',
+    startDate: new Date(2022, 8, 7, 12, 0),
+    endDate: new Date(2022, 8, 7, 13, 35),
+    rRule: 'FREQ=MONTHLY;BYDAY=TU;UNTIL=20220801',
+    exDate: '20240710T080000Z,20180724T080000Z',
   }, 
+  {
+    id: 5,
+    title: 'Weeding Flowerbeds',
+    startDate: new Date(2022, 8, 7, 12, 0),
+    endDate: new Date(2022, 8, 7, 13, 35),
+    rRule: 'FREQ=MONTHLY;BYDAY=TH;UNTIL=20240727',
+    exDate: '20240705T090000Z,20180719T090000Z',
+    ownerId: 5,
+  },
+  {
+    id: 6,
+    title: 'Fungicide',
+    startDate: new Date(2022, 8, 9, 13, 0),
+    endDate: new Date(2022, 8, 9, 14, 0),
+    rRule: 'FREQ=YEARLY;BYDAY=FR;UNTIL=20220816',
+    exDate: '20240713T100000Z,20180727T100000Z',
+  }, 
+  {
+    id: 2,
+    title: 'Harvest Sweetcorn',
+    startDate: new Date(2022, 8, 21, 12, 0),
+    endDate: new Date(2022, 8, 23, 13, 0),
+
+  },
+  {
+    id: 5,
+    title: 'Weeding Vegetables',
+    startDate: new Date(2022, 8, 10, 12, 0),
+    endDate: new Date(2022, 8, 10, 13, 35),
+    rRule: 'FREQ=MONTHLY;BYDAY=10TH;UNTIL=20240727',
+    exDate: '20240705T090000Z,20180719T090000Z',
+    ownerId: 5,
+  },
 ];
 
 
@@ -420,7 +446,7 @@ export default class Demo extends React.PureComponent {
               			color: '#33D6FF',
               			textShadow: '2px 2px black' 
 						      }}>My Calendar</Typography>
-       <AddEventForm />
+       {/* <AddEventForm /> */}
         <Scheduler
           data={data}
         >

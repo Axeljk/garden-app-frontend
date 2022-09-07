@@ -12,7 +12,7 @@ function getPlantImage(plant) {
       var wikiPageId = data.query.search[0].pageid;
       console.log("ID: ", wikiPageId);
       var wikiTitle = data.query.search[0].title;
-      var wikiPageSection = `http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${wikiTitle}&origin=*`;
+      var wikiPageSection = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${wikiTitle}&origin=*`;
       // Fetch the data for the particular plant page we obtained from the previous more general search. This data is more rich, and
       // contains the image URL we want to obtain.
       fetch(wikiPageSection)
