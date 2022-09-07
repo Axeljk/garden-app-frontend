@@ -153,6 +153,17 @@ const API = {
       },
     });
   },
+// Event routes:
+getEvents: () => {
+  return fetch(`${URL_PREFIX}/api/events/`, {
+  headers: {
+    "Content-Type": "application/json",
+    }
+});
+},
+
+
+
 };
 
 export default API;
