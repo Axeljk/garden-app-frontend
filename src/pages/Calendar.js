@@ -178,23 +178,30 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
 
 const URL_PREFIX = process.env.PORT || "http://localhost:3001";
 const allEvents=[];
-const eventCalls = ()=>{
-    
 
-    
-            fetch(`${URL_PREFIX}/api/events/`)
-                .then(res => res.json())  
-                .then(data => {
-                    for(let i=0;i<data.length;i++)
-                    {
-                        allEvents.push(data);
-                    }
-                   console.log(data)}
-                   )
-                   window.localStorage.setItem("events",JSON.stringify(allEvents))
-                   console.log(allEvents);
-}
-                
+
+
+//             fetch(`${URL_PREFIX}/api/events/`)
+//                 .then(res => res.json())  
+//                 .then(data => {
+  //                     for(let i=0;i<data.length;i++)
+  //                     {
+    //                         alleventss.push(data);
+    //                     }
+    //                    console.log(data)}
+    //                    )
+    //                    window.localStorage.setItem("es",JSON.stringify(allevents))
+    //                    console.log(allevents);
+    // }
+    const eCalls = (data)=>{
+    fetch(`${URL_PREFIX}/api/events/`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })}
+
 
 
 const appointments = [
@@ -339,14 +346,27 @@ const AddEventForm =(({ ...restProps }) =>(
 ));
 
 
+// function handleAddEvent(e){
+//   e.preventDefault();
+
+//   let rawData = new FormData(e.target);
+//   let data = {}
+//   for (let [key, value] of rawData.entries())
+//     data[key] = value;
+
+//     return API.eCalls(data)
+// 		.then(res => res.json())
+// }
+
 function handleAddEvent(e){
-    e.preventDefault();
+  e.preventDefault();
 
-
-    console.log();
-    eventCalls();
-  }
-
+  let rawData = new FormData(e.target);
+  let data = {}
+  for (let [key, value] of rawData.entries())
+    data[key] = value;
+eCalls(data)
+}
 
 export default class Demo extends React.PureComponent {
   // #FOLD_BLOCK
