@@ -137,7 +137,7 @@ const API = {
 		.then(res => res.json())
 		.then(data => {
 			let pageTitle = data.query.search[0].title;
-			return fetch(`http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${pageTitle}&origin=*`)
+			return fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${pageTitle}&origin=*`)
 				.then( res => res.json())
 				.then(data => data.query.pages[Object.getOwnPropertyNames(data.query.pages)[0]].original.source);
 		});
