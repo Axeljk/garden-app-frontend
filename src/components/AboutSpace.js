@@ -1,3 +1,4 @@
+
 import React from 'react'
 import ImageCard from '../components/ImageCard'
 import cardInfo from '../static/cardInfo'

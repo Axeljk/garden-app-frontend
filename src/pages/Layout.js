@@ -12,6 +12,7 @@ import LayoutMenu from "../components/LayoutMenu";
 import { Typography } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import API from "../utils/API";
+import { Stack } from "@mui/system";
 
 function Layout(props) {
   // States used for the page.
@@ -148,6 +149,7 @@ function Layout(props) {
     borderStyle: "none",
     outline: "none",
     borderWidth: 0,
+    objectFit: 'cover'
   };
 
   const gardenLayout = {
@@ -178,21 +180,23 @@ function Layout(props) {
 								<Typography>I am a {plantName}.</Typography>
 							</Box>
 						}>
-							<img
-								src={plantImg}
-								style={box1}
-								sx={{ border: 0 }}
-								key={i}
-								data-id={gardenData.specimens[i]._id}
-								data-i={i}
-								draggable={true}
-								onDragStart={dragStart}
-								onDragOver={(e) => e.preventDefault()}
-								onDragEnter={(e) => e.preventDefault()}
-								onDragLeave={(e) => e.preventDefault()}
-								onDrop={dragDrop}
-								onDragEnd={dragEnd}
-							/>
+              <Box style={box1}>
+                <img
+                  src={plantImg}
+                  style={{borderRadius:'12px',width:'100%',height:'100%', objectFit:'cover'}}
+                  sx={{ borderRadius: '16px' }}
+                  key={i}
+                  data-id={gardenData.specimens[i]._id}
+                  data-i={i}
+                  draggable={true}
+                  onDragStart={dragStart}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDragEnter={(e) => e.preventDefault()}
+                  onDragLeave={(e) => e.preventDefault()}
+                  onDrop={dragDrop}
+                  onDragEnd={dragEnd}
+                  />
+              </Box>
 						</Tooltip>
 					);
 				} else {
@@ -269,41 +273,54 @@ function Layout(props) {
           </GridLines>
         </Grid>
         <Grid item xs={12}>
-          <Box
+            <Box>
+                <Typography align="center" variant="h4" sx={{
+                  fontFamily: 'Satisfy',
+                  fontSize: { xs: '2rem', md: '3rem' },
+                  color: '#33D6FF',
+                  textShadow: '2px 2px black',
+                  position: 'relative',
+                  }}>
+                  Greenhouse
+                </Typography>
+            </Box>
+            <Box
             sx={{
               display: "flex",
               justifyContent: 'center',
               flexDirection: "row",
               flexWrap: 'no-wrap',
               alignContent: "end",
-              overflow: 'visible',
+              overflowX: 'auto',
+              overflowY: 'hidden'
             }}
           >
-            <Box>
-              <Typography align="center" variant="h4" sx={{
-                fontFamily: 'Satisfy',
-                fontSize: { xs: '2rem', md: '3rem' },
-                color: '#33D6FF',
-                textShadow: '2px 2px black'
-              }}>
-                Greenhouse
-              </Typography>
+            <Box sx={{
+              display: "flex",
+              justifyContent: 'center',
+              flexDirection: "row",
+              flexWrap: 'no-wrap',
+              alignContent: "end",
+              overflowX: 'auto',
+              overflowY: 'hidden'
+            }}>
               <Divider sx={{ mb: 1 }} />
               <ImageList cols={12} rowHeight={100} sx={{
-                  height: "100%",
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexWrap: 'nowrap',
-                  flexDirection: 'row',
-                }} >
+                height: "100%",
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'nowrap',
+                flexDirection: 'row',
+                overflow: 'auto'
+              }} >
                 {plantData.map((item, index) => (
-					<Tooltip title={<Typography align="center">
+                  <Tooltip title={<Typography align="center">
 						{plantData[index].name}
 					</Typography>}>
                   <ImageListItem
                     key={index}
                     sx={{ height: 100, width: 100, padding: "2px" }}
-                  >
+                    >
                     <Box
                       sx={{
                         height: "96px",
@@ -332,7 +349,7 @@ function Layout(props) {
                           width: "96px",
                           objectFit: "cover",
                         }}
-                      />
+                        />
                     </Box>
                   </ImageListItem>
 				  </Tooltip>
