@@ -180,21 +180,23 @@ function Layout(props) {
 								<Typography>I am a {plantName}.</Typography>
 							</Box>
 						}>
-							<img
-								src={plantImg}
-								style={box1}
-								sx={{ borderRadius: '16px' }}
-								key={i}
-								data-id={gardenData.specimens[i]._id}
-								data-i={i}
-								draggable={true}
-								onDragStart={dragStart}
-								onDragOver={(e) => e.preventDefault()}
-								onDragEnter={(e) => e.preventDefault()}
-								onDragLeave={(e) => e.preventDefault()}
-								onDrop={dragDrop}
-								onDragEnd={dragEnd}
-							/>
+              <Box style={box1}>
+                <img
+                  src={plantImg}
+                  style={{borderRadius:'12px',width:'100%',height:'100%', objectFit:'cover'}}
+                  sx={{ borderRadius: '16px' }}
+                  key={i}
+                  data-id={gardenData.specimens[i]._id}
+                  data-i={i}
+                  draggable={true}
+                  onDragStart={dragStart}
+                  onDragOver={(e) => e.preventDefault()}
+                  onDragEnter={(e) => e.preventDefault()}
+                  onDragLeave={(e) => e.preventDefault()}
+                  onDrop={dragDrop}
+                  onDragEnd={dragEnd}
+                  />
+              </Box>
 						</Tooltip>
 					);
 				} else {
