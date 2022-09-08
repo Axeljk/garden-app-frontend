@@ -50,8 +50,14 @@ function Layout(props) {
         setGardenData(newGarden);
         return API.saveNewGarden(gardenData).then((res) => res.json());
       })
-      .then((gardenNew) => setGardenData(gardenNew))
-	  .then(() => setTimeout(makeGardenLayout, 1000))
+      .then(gardenNew => {
+		API.getGarden(gardenNew._id)
+			.then(res => res.json())
+			.then(garden => {
+				setGardenData(garden);
+				makeGardenLayout();
+			});
+	  })
       .catch((err) => console.error(err));
   }, []);
   const gardenCalls = {
@@ -131,7 +137,8 @@ function Layout(props) {
 		squareBeingReplaced.dataset.id = specimen._id;
 		API.getGarden(gardenData._id)
 			.then(res => res.json())
-			.then(garden => setGardenData(garden));
+			.then(garden => setGardenData(garden))
+			.then(() => makeGardenLayout());
 	  });
   };
 
@@ -163,8 +170,8 @@ function Layout(props) {
 			for (let i = 0; i < gardenData.width * gardenData.height; i++) {
 				if (gardenData.specimens[i]._id != "63194a3e202ee4e0dcda5af7") {
 					let plant = plantData.find(plant => plant._id == gardenData.specimens[i].plant);
-					let plantImg = (plant) ? plant.imgLink : soilImg;
-					let plantName = (plant) ? plant.name : "plant";
+					let plantImg = (plant) ? plant?.imgLink : soilImg;
+					let plantName = (plant) ? plant?.name : "plant";
 
 					arr.push(
 						<Tooltip key={i} title={
