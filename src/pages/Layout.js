@@ -51,6 +51,7 @@ function Layout(props) {
         return API.saveNewGarden(gardenData).then((res) => res.json());
       })
       .then((gardenNew) => setGardenData(gardenNew))
+	  .then(() => setTimeout(makeGardenLayout, 1000))
       .catch((err) => console.error(err));
   }, []);
   const gardenCalls = {
