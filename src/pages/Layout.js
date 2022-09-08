@@ -12,7 +12,6 @@ import LayoutMenu from "../components/LayoutMenu";
 import { Typography } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import API from "../utils/API";
-import { Stack } from "@mui/system";
 
 function Layout(props) {
   // States used for the page.
@@ -54,9 +53,6 @@ function Layout(props) {
       .then((gardenNew) => setGardenData(gardenNew))
       .catch((err) => console.error(err));
   }, []);
-  useEffect(() => {
-    console.log("Hey kid", gardenData);
-  }, [gardenData]);
   const gardenCalls = {
     getGarden: async (gardenId) => {
       const user = await (await API.getUser(props.user.id)).json();
@@ -100,19 +96,15 @@ function Layout(props) {
    *============================================================================*
    */
   const dragStart = (e) => {
-    console.log("drag Start ", e.target);
     setSquareBeingDragged(e.target);
   };
 
   const dragDrop = (e) => {
-    console.log("drag Drop e.target", e.target);
-    //newSquare.setAttribute("data-plantid", garden._id);
     setSquareBeingReplaced(e.target);
   };
 
   const dragEnd = (e) => {
     addNewSpecimen();
-	console.log("Dropped");
   };
 
   /*
@@ -122,7 +114,9 @@ function Layout(props) {
    *============================================================================*
    */
   const addNewSpecimen = () => {
-    let plantCopied = plantData.find(plant => plant._id == squareBeingDragged.dataset.id);
+    let plantCopied = plantData.find(plant => plant._id == squareBeingDragged?.dataset?.id);
+	if (!plantCopied)
+		return
     const specimenData = {
       name: plantCopied.name,
       plant: plantCopied._id,
@@ -166,9 +160,7 @@ function Layout(props) {
 
 		if (gardenData.specimens) {
 			for (let i = 0; i < gardenData.width * gardenData.height; i++) {
-				if (gardenData.specimens[i] != null) {
-					console.log("PlantData:", plantData)
-					console.log("PlantID:", gardenData.specimens[i].plant);
+				if (gardenData.specimens[i]._id != "63194a3e202ee4e0dcda5af7") {
 					let plant = plantData.find(plant => plant._id == gardenData.specimens[i].plant);
 					let plantImg = (plant) ? plant.imgLink : soilImg;
 					let plantName = (plant) ? plant.name : "plant";
@@ -225,7 +217,10 @@ function Layout(props) {
 
   useEffect(() => {
     makeGardenLayout();
-  }, [gardenData, plantData]);
+  }, [gardenData]);
+  useEffect(() => {
+    makeGardenLayout();
+  }, [plantData]);
 
   return (
     <Container
