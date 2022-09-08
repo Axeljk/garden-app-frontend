@@ -15,7 +15,7 @@ export default function Signup(props) {
 		event.preventDefault();
 		const results = await props.handleSignup(event.target[0].value, event.target[2].value, event.target[4].value);
 
-		if (results.profile)
+		if (results.token)
 			window.location.replace("/");
 		else
 			setError(results.message);
