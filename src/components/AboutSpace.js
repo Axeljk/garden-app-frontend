@@ -1,28 +1,33 @@
+
 import React from 'react'
 import ImageCard from '../components/ImageCard'
 import cardInfo from '../static/cardInfo'
 import useWindowPosition from '../hook/useWindowPosition'
-import Box from '@mui/material/Box'
+import Grid from "@mui/material/Grid";
+import Container from "@mui/material/Container";
 import '../components/CardSpace.css'
 
 export default function CardSpace() {
     const checked = useWindowPosition('header');
     return (
-        <Box id='how-to-use' className='cardContainer' sx={{
-            minHeight: '100vh',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            flexDirection: {
-                xs: 'column',
-                md: 'row'
-            },
+        <Container id='how-to-use' className='cardContainer' maxWidth="xl" sx={{
+            minHeight: '100%',
+
         }}>
-            <ImageCard info={cardInfo[2]} checked={checked}/>
-            <ImageCard info={cardInfo[3]} checked={checked}/>
-            <ImageCard info={cardInfo[4]} checked={checked}/>
-            <ImageCard info={cardInfo[5]} checked={checked}/>
-        </Box>
+            <Grid container spacing={2} rowSpacing={{xs:4, md:12}} justifyContent="space-around" sx={{ mt: 2 }}>
+                <Grid item xs={10} md={5}>
+                    <ImageCard info={cardInfo[2]} checked={checked}/>
+                </Grid>
+                <Grid item xs={10} md={5}>
+                    <ImageCard info={cardInfo[3]} checked={checked}/>
+                </Grid>
+                <Grid item xs={10} md={5}>
+                    <ImageCard info={cardInfo[4]} checked={checked}/>
+                </Grid>
+                <Grid item xs={10} md={5}>
+                    <ImageCard info={cardInfo[5]} checked={checked}/>
+                </Grid>
+            </Grid>
+        </Container>
     )
 }
